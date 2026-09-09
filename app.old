@@ -1,0 +1,932 @@
+const DATA={
+subjects:[{
+id:"cncc",
+name:"Computer Networks & Cloud Computing",
+short:"CNCC",
+icon:"🌐",
+prof:"Professor Kiran Chaudhari",
+units:6
+}],
+units:[
+{
+title:"Unit I",
+subtitle:"Computer Network Fundamentals",
+topics:[
+{
+name:"Introduction to Computer Networks",
+theory:`A computer network is a collection of interconnected computing devices that communicate with each other and share data, hardware, software and services.
+
+The main purpose of networking is to allow devices to exchange information efficiently. A network may contain computers, mobile devices, servers, printers, routers, switches and wireless access points.
+
+Communication takes place according to predefined rules called protocols. Examples include TCP/IP, HTTP, DNS and DHCP.`,
+points:[
+"Communication between devices",
+"Resource sharing",
+"Data and information sharing",
+"Centralized management",
+"Internet connectivity",
+"Improved reliability and availability"
+],
+example:"A college computer laboratory connected through a switch is an example of a computer network.",
+diagram:"Computer A  →  Switch  →  Computer B",
+youtube:"computer network introduction"
+},
+{
+name:"Components of a Computer Network",
+theory:`A computer network requires hardware and software components to communicate successfully.
+
+Network devices provide connectivity, transmission and control. End devices generate or receive data, while networking media carry the signals.
+
+Common components include hosts, servers, network interface cards, switches, routers, access points, transmission media and protocols.`,
+points:[
+"End devices / hosts",
+"Servers",
+"Network Interface Card (NIC)",
+"Switch",
+"Router",
+"Wireless Access Point",
+"Transmission Media",
+"Networking Protocols"
+],
+example:"When a laptop connects to Wi-Fi, its wireless network adapter communicates with an access point.",
+diagram:"Laptop → Wi-Fi AP → Router → Internet",
+youtube:"computer network components"
+},
+{
+name:"Types of Computer Networks",
+theory:`Networks can be classified according to their geographical coverage, ownership and purpose.
+
+PAN covers a very small personal area. LAN normally covers a room, building or campus. MAN can cover a city or metropolitan area. WAN covers large geographical areas and can connect networks across countries and continents.`,
+points:[
+"PAN – Personal Area Network",
+"LAN – Local Area Network",
+"MAN – Metropolitan Area Network",
+"WAN – Wide Area Network"
+],
+example:"Bluetooth between a phone and earbuds is PAN, while a college laboratory network is LAN.",
+diagram:"PAN → LAN → MAN → WAN",
+youtube:"PAN LAN MAN WAN explained"
+},
+{
+name:"Network Topologies",
+theory:`Network topology describes the physical or logical arrangement of devices and communication links in a network.
+
+In bus topology, devices share a common backbone. In star topology, devices connect to a central device. Ring topology forms a closed loop. Mesh topology provides multiple connections between devices. Tree topology uses a hierarchical structure.`,
+points:[
+"Bus topology",
+"Star topology",
+"Ring topology",
+"Mesh topology",
+"Tree topology",
+"Hybrid topology"
+],
+example:"Modern Ethernet LANs commonly use a star-like arrangement with a central switch.",
+diagram:"Star: PC ↘\nPC → SWITCH ← PC\n      ↗ PC",
+youtube:"network topologies diagram"
+},
+{
+name:"Network Protocols",
+theory:`A protocol is a set of rules that controls how devices communicate.
+
+Protocols define data format, addressing, transmission behaviour, error handling and communication procedures. Without common protocols, different devices would not be able to communicate reliably.`,
+points:[
+"TCP – reliable transport",
+"UDP – connectionless transport",
+"IP – logical addressing",
+"HTTP – web communication",
+"DNS – name resolution",
+"DHCP – automatic network configuration"
+],
+example:"When a browser opens a website, multiple protocols work together to complete the communication.",
+diagram:"Application → Transport → Internet → Network Access",
+youtube:"network protocols explained"
+},
+{
+name:"Advantages of Computer Networks",
+theory:`Computer networks provide several advantages for organizations, educational institutions and individual users.
+
+Networks make it possible to share resources, communicate quickly, access centralized services and collaborate on common information.`,
+points:[
+"Resource sharing",
+"Fast communication",
+"File sharing",
+"Hardware sharing",
+"Centralized data",
+"Remote access",
+"Better collaboration",
+"Cost reduction"
+],
+example:"Several students can use the same network printer instead of requiring one printer for every computer.",
+diagram:"Users → Network → Shared Resources",
+youtube:"advantages of computer networking"
+}
+],
+questions:[
+{m:2,q:"Define a computer network."},
+{m:2,q:"What is a network protocol?"},
+{m:2,q:"Write any two advantages of computer networks."},
+{m:5,q:"Explain the components of a computer network."},
+{m:5,q:"Explain PAN, LAN, MAN and WAN."},
+{m:5,q:"Explain different network topologies."},
+{m:10,q:"Explain computer networks, their components, types and advantages in detail."},
+{m:10,q:"Explain different network topologies with suitable diagrams."}
+]
+},
+{
+title:"Unit II",
+subtitle:"Network Models",
+topics:[],
+questions:[]
+},
+{
+title:"Unit III",
+subtitle:"Transport Layer and Protocols",
+topics:[],
+questions:[]
+},
+{
+title:"Unit IV",
+subtitle:"IP Addressing",
+topics:[],
+questions:[]
+},
+{
+title:"Unit V",
+subtitle:"Network Services",
+topics:[],
+questions:[]
+},
+{
+title:"Unit VI",
+subtitle:"Cloud Computing",
+topics:[],
+questions:[]
+}
+]};
+
+let rating=0;
+
+function $(id){return document.getElementById(id)}
+
+function init(){
+renderUnits();
+renderSubjects();
+renderImportant();
+renderProgress();
+updateStats();
+setTimeout(()=>{let s=$("splash");if(s)s.remove()},2600);
+if(localStorage.getItem("theme")==="light")document.body.classList.add("light");
+}
+
+document.addEventListener("DOMContentLoaded",init);
+
+function updateStats(){
+$("statSubjects").textContent=DATA.subjects.length;
+$("statUnits").textContent=DATA.units.length;
+$("statQuestions").textContent=DATA.units.reduce((n,u)=>n+u.questions.length,0);
+$("statProgress").textContent=overallProgress()+"%";
+}
+
+function overallProgress(){
+return Math.round(DATA.units.reduce((a,u,i)=>a+Number(localStorage.getItem("unitProgress"+i)||0),0)/DATA.units.length);
+}
+
+function renderUnits(){
+$("unitCards").innerHTML=DATA.units.map((u,i)=>{
+let p=Number(localStorage.getItem("unitProgress"+i)||0);
+return `<div class="unit" onclick="openUnit(${i})">
+<small>UNIT ${String(i+1).padStart(2,"0")}</small>
+<h3>${u.title}</h3>
+<p>${u.subtitle}</p>
+<div class="bar" style="width:${Math.max(3,p)}%"></div>
+</div>`;
+}).join("");
+}
+
+function renderSubjects(){
+$("subjects").innerHTML=DATA.subjects.map(s=>`
+<div class="subject" onclick="openSubject('${s.id}')">
+<div class="subject-icon">${s.icon}</div>
+<h3>${s.name}</h3>
+<p>${s.short} • ${s.units} Units</p>
+<div class="prof">👨‍🏫 ${s.prof}</div>
+</div>`).join("");
+}
+
+function renderImportant(){
+let q=DATA.units.flatMap((u,ui)=>u.questions.map(x=>({...x,unit:ui+1})))
+.filter(x=>x.m===10||x.m===5);
+
+$("importantQuestions").innerHTML=q.slice(0,9).map(x=>`
+<div class="question">
+<div class="mark">⭐ ${x.m} MARKS • UNIT ${x.unit}</div>
+<p>${x.q}</p>
+</div>`).join("");
+}
+
+function renderProgress(){
+$("progress").innerHTML=DATA.units.map((u,i)=>{
+let p=Number(localStorage.getItem("unitProgress"+i)||0);
+return `<div class="question" style="margin-bottom:10px">
+<b>${u.title}</b>
+<div style="height:6px;background:var(--panel2);margin-top:12px;border-radius:20px;overflow:hidden">
+<span style="display:block;height:100%;width:${p}%;background:var(--white)"></span>
+</div>
+<p>${p}% completed</p>
+</div>`;
+}).join("");
+}
+
+function openUnit(i){
+let u=DATA.units[i];
+
+if(!u.topics.length){
+$("modalContent").innerHTML=`
+<small>${u.title.toUpperCase()}</small>
+<h2>${u.title}</h2>
+<div class="resource-box">
+<h3>🚧 Coming Soon</h3>
+<p>${u.subtitle} content will be added from the official college syllabus.</p>
+</div>`;
+showModal();
+return;
+}
+
+let p=Math.min(100,Number(localStorage.getItem("unitProgress"+i)||0)+5);
+localStorage.setItem("unitProgress"+i,p);
+
+$("modalContent").innerHTML=`
+<small>${u.title.toUpperCase()}</small>
+<h2>📚 ${u.title} — Complete Notes</h2>
+<p>${u.subtitle}</p>
+
+<div class="resource-box">
+<b>📖 UNIT OVERVIEW</b>
+<p>This unit is organised topic-by-topic. Read each topic, understand the diagram, revise the key points and then practise the question bank.</p>
+</div>
+
+<div class="topic-index">
+<b>📌 Topics in this Unit</b>
+<p>${u.topics.map((x,n)=>`${n+1}. ${x.name}`).join("<br>")}</p>
+</div>
+
+${u.topics.map((t,n)=>`
+<article class="resource-box study-topic">
+<div class="mark">TOPIC ${n+1}</div>
+<h2>${t.name}</h2>
+
+<h3>📖 Detailed Explanation</h3>
+<p>${t.theory}</p>
+
+<h3>⭐ Key Points</h3>
+<ul>
+${t.points.map(x=>`<li>${x}</li>`).join("")}
+</ul>
+
+<h3>🧩 Example</h3>
+<p>${t.example}</p>
+
+<h3>🖼️ Diagram</h3>
+<div class="diagram">${t.diagram.replaceAll("\\n","<br>")}</div>
+
+<div class="modal-actions">
+<button class="secondary" onclick="googleDiagram('${encodeURIComponent(t.name)}')">🔎 Google Diagram</button>
+<button class="secondary" onclick="googleSearch('${encodeURIComponent(t.name+" detailed explanation")}')">📖 More Explanation</button>
+<button class="secondary" onclick="youtubeSearch('${encodeURIComponent(t.youtube)}')">▶ YouTube</button>
+</div>
+
+<h3>🎯 Exam Focus</h3>
+<p>Remember the definition, important terms, working concept, advantages and diagram wherever applicable.</p>
+</article>
+`).join("")}
+
+<div class="resource-box">
+<h2>📝 Unit ${i+1} Question Bank</h2>
+${u.questions.map((q,n)=>`
+<div class="modal-question">
+<div class="mark">Q${n+1} • ${q.m} MARKS</div>
+<p><b>${q.q}</b></p>
+<div class="modal-actions">
+<button class="secondary" onclick="saveBookmark('${encodeURIComponent(q.q)}')">☆ Save</button>
+<button class="secondary" onclick="googleSearch('${encodeURIComponent(q.q)}')">🔎 Explain</button>
+</div>
+</div>`).join("")}
+</div>
+
+<div class="resource-box">
+<h2>🎲 Practice this Unit</h2>
+<p>Generate a fresh combination of Unit ${i+1} questions for revision.</p>
+<button class="primary" onclick="unitPaper(${i})">Generate Unit Paper</button>
+</div>
+`;
+
+renderUnits();
+renderProgress();
+updateStats();
+showModal();
+}
+
+function unitPaper(i){
+let q=[...DATA.units[i].questions].sort(()=>Math.random()-.5);
+$("modalContent").innerHTML=`
+<small>UNIT ${i+1} EXAM</small>
+<h2>🎲 Random Unit Paper</h2>
+<p>Fresh question combination generated from this unit.</p>
+${q.map((x,n)=>`
+<div class="modal-question">
+<div class="mark">Q${n+1} • ${x.m} MARKS</div>
+<p>${x.q}</p>
+</div>`).join("")}
+<br>
+<button class="primary" onclick="unitPaper(${i})">⟳ Generate Again</button>`;
+}
+
+function showNotes(){
+$("modalContent").innerHTML=`
+<small>NOTES LIBRARY</small>
+<h2>📚 Complete Notes</h2>
+<p>Select one Unit to open all its topics together.</p>
+${DATA.units.map((u,i)=>`
+<div class="modal-question">
+<b>${u.title}</b>
+<p>${u.subtitle}</p>
+<button class="secondary" onclick="openUnit(${i})">Open Complete Notes →</button>
+</div>`).join("")}`;
+showModal();
+}
+
+function showQuestions(mark){
+let all=DATA.units.flatMap((u,ui)=>u.questions.map(q=>({...q,unit:ui+1})));
+if(mark)all=all.filter(q=>q.m===mark);
+
+$("modalContent").innerHTML=`
+<small>QUESTION BANK</small>
+<h2>📝 ${mark?mark+" Marks ":""}Questions</h2>
+<div class="modal-actions">
+<button class="secondary" onclick="showQuestions(2)">2 Marks</button>
+<button class="secondary" onclick="showQuestions(5)">5 Marks</button>
+<button class="secondary" onclick="showQuestions(10)">10 Marks</button>
+<button class="secondary" onclick="showQuestions()">All</button>
+</div>
+${all.map((q,i)=>`
+<div class="modal-question">
+<div class="mark">Q${i+1} • ${q.m} MARKS • UNIT ${q.unit}</div>
+<p><b>${q.q}</b></p>
+<button class="secondary" onclick="saveBookmark('${encodeURIComponent(q.q)}')">☆ Save</button>
+<button class="secondary" onclick="googleSearch('${encodeURIComponent(q.q)}')">🔎 Explain</button>
+</div>`).join("")}`;
+showModal();
+}
+
+function showMCQ(){
+let u=DATA.units.find(x=>x.questions.length);
+if(!u)return;
+let q=u.questions[Math.floor(Math.random()*u.questions.length)];
+$("modalContent").innerHTML=`
+<small>MCQ ARENA</small>
+<h2>🧪 Quick Practice</h2>
+<div class="resource-box">
+<p><b>${q.q}</b></p>
+<br>
+<label><input type="radio" name="mcq"> Networking</label><br><br>
+<label><input type="radio" name="mcq"> Programming</label><br><br>
+<label><input type="radio" name="mcq"> Database</label><br><br>
+<label><input type="radio" name="mcq"> None</label><br><br>
+<button class="primary" onclick="mcqResult()">Submit</button>
+</div>`;
+showModal();
+}
+
+function mcqResult(){
+$("modalContent").innerHTML=`
+<h2>✓ Answer Submitted</h2>
+<p>Revise the related topic from Notes and practise again.</p>
+<button class="primary" onclick="showMCQ()">Next Question →</button>`;
+}
+
+function generatePaper(){
+let all=DATA.units.flatMap((u,ui)=>u.questions.map(q=>({...q,unit:ui+1})))
+.sort(()=>Math.random()-.5);
+let selected=all.slice(0,8);
+
+$("modalContent").innerHTML=`
+<small>EXAM SIMULATOR</small>
+<h2>🎲 Random Question Paper</h2>
+${selected.map((q,i)=>`
+<div class="modal-question">
+<div class="mark">Q${i+1} • ${q.m} MARKS • UNIT ${q.unit}</div>
+<p>${q.q}</p>
+</div>`).join("")}
+<button class="primary" onclick="generatePaper()">⟳ Generate Again</button>`;
+showModal();
+}
+
+function openSubject(id){
+let s=DATA.subjects.find(x=>x.id===id);
+$("modalContent").innerHTML=`
+<small>SUBJECT</small>
+<h2>${s.icon} ${s.name}</h2>
+<p>👨‍🏫 ${s.prof}</p>
+${DATA.units.map((u,i)=>`
+<div class="modal-question">
+<b>${u.title}</b>
+<p>${u.subtitle}</p>
+<button class="secondary" onclick="openUnit(${i})">Open →</button>
+</div>`).join("")}`;
+showModal();
+}
+
+function openOtherSubjects(){
+let subjects=["Software Engineering","Database Management System","Computer Graphics","Internet of Things","Artificial Intelligence","Web Technology","Operating System"];
+
+$("modalContent").innerHTML=`
+<small>SUBJECT LIBRARY</small>
+<h2>＋ Other Subjects</h2>
+<p>Add subjects now and their syllabus can be filled later.</p>
+${subjects.map((s,i)=>`
+<div class="modal-question">
+<b>📘 ${s}</b>
+<button class="secondary" onclick="alert('Subject added to your future list ✓')">＋ Add</button>
+</div>`).join("")}`;
+showModal();
+}
+
+function openResources(){
+$("modalContent").innerHTML=`
+<small>LEARNING RESOURCES</small>
+<h2>🖼️ Diagrams & Videos</h2>
+${DATA.units[0].topics.map(t=>`
+<div class="resource-box">
+<b>${t.name}</b>
+<div class="modal-actions">
+<button class="secondary" onclick="googleDiagram('${encodeURIComponent(t.name)}')">🖼️ Diagram</button>
+<button class="secondary" onclick="youtubeSearch('${encodeURIComponent(t.youtube)}')">▶ YouTube</button>
+</div>
+</div>`).join("")}`;
+showModal();
+}
+
+function googleSearch(q){
+window.open("https://www.google.com/search?q="+q,"_blank");
+}
+
+function googleDiagram(q){
+window.open("https://www.google.com/search?tbm=isch&q="+q+"+diagram","_blank");
+}
+
+function youtubeSearch(q){
+window.open("https://www.youtube.com/results?search_query="+q,"_blank");
+}
+
+function saveBookmark(q){
+let arr=JSON.parse(localStorage.getItem("bookmarks")||"[]");
+q=decodeURIComponent(q);
+if(!arr.includes(q))arr.push(q);
+localStorage.setItem("bookmarks",JSON.stringify(arr));
+alert("✓ Saved");
+}
+
+function showBookmarks(){
+let arr=JSON.parse(localStorage.getItem("bookmarks")||"[]");
+$("modalContent").innerHTML=`
+<small>SAVED QUESTIONS</small>
+<h2>☆ Bookmarks</h2>
+${arr.length?arr.map(q=>`<div class="modal-question"><p>${q}</p></div>`).join(""):"<p>No bookmarks yet.</p>"}`;
+showModal();
+}
+
+function showProgress(){
+renderProgress();
+$("modalContent").innerHTML=`<small>PROGRESS</small><h2>📊 My Progress</h2>${$("progress").innerHTML}`;
+showModal();
+}
+
+function openProfile(){
+let p=JSON.parse(localStorage.getItem("profile")||'{"name":"Mayur Rathod","course":"CSD","bio":"CSD StudyHub Creator"}');
+$("modalContent").innerHTML=`
+<small>PROFILE</small>
+<h2>👤 Edit Profile</h2>
+<div class="profile-form">
+<input id="profileName" value="${p.name}">
+<input id="profileCourse" value="${p.course}">
+<input id="profileBio" value="${p.bio}">
+<button class="primary" onclick="saveProfile()">Save Profile</button>
+</div>`;
+showModal();
+}
+
+function editProfile(e){e.preventDefault();openProfile()}
+
+function saveProfile(){
+let p={
+name:$("profileName").value||"Student",
+course:$("profileCourse").value||"CSD",
+bio:$("profileBio").value||"Student"
+};
+localStorage.setItem("profile",JSON.stringify(p));
+alert("✓ Profile updated");
+closeModal();
+}
+
+function showFeedback(){
+document.querySelector(".feedback").scrollIntoView({behavior:"smooth"});
+}
+
+function rate(n){
+rating=n;
+document.querySelectorAll("#stars button").forEach((b,i)=>b.classList.toggle("active",i<n));
+}
+
+function saveFeedback(){
+if(!rating){alert("Please select rating ⭐");return}
+localStorage.setItem("feedback",JSON.stringify({
+rating,
+text:$("feedbackText").value,
+date:new Date().toISOString()
+}));
+$("feedbackMsg").textContent="✓ Feedback saved on this device.";
+}
+
+function toggleTheme(){
+document.body.classList.toggle("light");
+localStorage.setItem("theme",document.body.classList.contains("light")?"light":"dark");
+}
+
+function toggleEco(){
+document.body.classList.toggle("eco");
+localStorage.setItem("eco",document.body.classList.contains("eco")?"1":"0");
+}
+
+function showSubjects(){
+document.querySelector(".subject-grid").scrollIntoView({behavior:"smooth"});
+}
+
+function goHome(){
+window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function continueLearning(){openUnit(0)}
+
+function showModal(){ $("modal").classList.add("show") }
+function closeModal(){ $("modal").classList.remove("show") }
+
+$("modal").addEventListener("click",e=>{
+if(e.target===$("modal"))closeModal();
+});
+
+$("search").addEventListener("input",e=>{
+let q=e.target.value.toLowerCase().trim();
+if(!q){renderSubjects();return}
+
+let results=DATA.units.flatMap((u,ui)=>[
+...u.topics.map(t=>({unit:ui,text:t.name,type:"topic"})),
+...u.questions.map(x=>({unit:ui,text:x.q,mark:x.m,type:"question"}))
+]).filter(x=>x.text.toLowerCase().includes(q));
+
+$("subjects").innerHTML=results.length?
+results.map(x=>`
+<div class="subject" onclick="${x.type==="topic"?`openUnit(${x.unit})`:`showQuestions(${x.mark})`}">
+<div class="subject-icon">🔎</div>
+<h3>${x.text}</h3>
+<p>Unit ${x.unit+1} ${x.mark?`• ${x.mark} Marks`:"• Topic"}</p>
+</div>`).join("")
+:`<div class="question"><h3>No results</h3><p>Try another keyword.</p></div>`;
+});
+
+/* =========================================================
+   PREMIUM ROLE SYSTEM — TEACHER / STUDENT
+========================================================= */
+
+const CSD_ROLE_DATA = {
+ subject:"Computer Networks & Cloud Computing",
+ code:"CNCC",
+ teacher:"Professor Kiran Chaudhari",
+ creator:"Mayur Rathod",
+ course:"CSD",
+ year:"Final Year",
+ units:6
+};
+
+function createRoleSystem(){
+
+if(document.getElementById("rolePanel")) return;
+
+const savedRole=localStorage.getItem("csdRole");
+
+const role=document.createElement("div");
+role.id="rolePanel";
+role.className="role-panel";
+
+role.innerHTML=`
+<div class="role-card">
+<div class="role-logo">🎓</div>
+<h1>CSD StudyHub</h1>
+<p>Premium Academic Learning Portal • ${CSD_ROLE_DATA.course}</p>
+
+<div class="role-grid">
+
+<div class="role-choice" onclick="enterRole('student')">
+<div class="big">🎓</div>
+<h3>Student Panel</h3>
+<p>Read notes, study unit-wise topics, practise questions, attempt papers and track your learning progress.</p>
+</div>
+
+<div class="role-choice" onclick="enterRole('teacher')">
+<div class="big">👨‍🏫</div>
+<h3>Teacher Panel</h3>
+<p>Subject-wise teaching dashboard for notes, syllabus, question bank, student progress and academic resources.</p>
+</div>
+
+</div>
+
+<p style="margin-top:25px;font-size:11px">
+Subject: ${CSD_ROLE_DATA.subject}<br>
+Faculty: ${CSD_ROLE_DATA.teacher}
+</p>
+</div>`;
+
+document.body.appendChild(role);
+
+if(savedRole){
+setTimeout(()=>enterRole(savedRole),400);
+}
+}
+
+function enterRole(role){
+
+localStorage.setItem("csdRole",role);
+
+const panel=document.getElementById("rolePanel");
+if(panel)panel.remove();
+
+openDashboard(role);
+}
+
+function openDashboard(role){
+
+let old=document.getElementById("dashboardPanel");
+if(old)old.remove();
+
+const dash=document.createElement("div");
+dash.id="dashboardPanel";
+dash.className="dashboard-panel show";
+
+const isTeacher=role==="teacher";
+
+dash.innerHTML=`
+<div class="dashboard-top">
+
+<div class="dashboard-brand">
+<div class="dashboard-brand-icon">🎓</div>
+<div>
+<div>CSD StudyHub</div>
+<small style="color:#777;font-size:9px">${isTeacher?"TEACHER PANEL":"STUDENT PANEL"}</small>
+</div>
+</div>
+
+<button class="close-dashboard" onclick="closeDashboard()">✕ Close</button>
+
+</div>
+
+<div class="dashboard-wrap">
+
+<div class="dashboard-hero">
+
+<small>${isTeacher?"FACULTY DASHBOARD":"STUDENT DASHBOARD"}</small>
+
+<h1>
+${isTeacher?"Welcome, Professor Kiran Chaudhari 👨‍🏫":"Welcome to your StudyHub 🎓"}
+</h1>
+
+<p>
+${CSD_ROLE_DATA.subject} • ${CSD_ROLE_DATA.code} • ${CSD_ROLE_DATA.course}
+</p>
+
+</div>
+
+<div class="dashboard-stats">
+
+<div class="d-stat">
+<b>${CSD_ROLE_DATA.units}</b>
+<span>UNITS</span>
+</div>
+
+<div class="d-stat">
+<b>${CSD_ROLE_DATA.subject==="Computer Networks & Cloud Computing"?"CNCC":"—"}</b>
+<span>SUBJECT</span>
+</div>
+
+<div class="d-stat">
+<b>${isTeacher?"FACULTY":"STUDENT"}</b>
+<span>ROLE</span>
+</div>
+
+<div class="d-stat">
+<b>${overallProgress()}%</b>
+<span>PROGRESS</span>
+</div>
+
+</div>
+
+<div class="dashboard-grid">
+
+${isTeacher ? teacherCards() : studentCards()}
+
+</div>
+
+<div class="teacher-subject">
+
+<div class="teacher-subject-head">
+<div>
+<h2>📘 ${CSD_ROLE_DATA.subject}</h2>
+<p style="color:#777;font-size:11px">${CSD_ROLE_DATA.teacher}</p>
+</div>
+<span>${CSD_ROLE_DATA.code}</span>
+</div>
+
+${isTeacher ? teacherSubjectArea() : studentSubjectArea()}
+
+</div>
+
+<div style="margin-top:30px;text-align:center;color:#555;font-size:10px">
+CSD StudyHub • Created by ${CSD_ROLE_DATA.creator} • Paperless / Eco-Friendly Learning
+</div>
+
+</div>`;
+
+document.body.appendChild(dash);
+}
+
+function teacherCards(){
+return `
+<div class="d-card">
+<div class="d-icon">📚</div>
+<h3>Manage Notes</h3>
+<p>Unit-wise teaching notes and detailed syllabus content.</p>
+<button class="d-action" onclick="closeDashboard();showNotes()">Open Notes</button>
+</div>
+
+<div class="d-card">
+<div class="d-icon">📝</div>
+<h3>Question Bank</h3>
+<p>2, 5 and 10 marks examination questions.</p>
+<button class="d-action" onclick="closeDashboard();showQuestions()">Question Bank</button>
+</div>
+
+<div class="d-card">
+<div class="d-icon">📊</div>
+<h3>Student Progress</h3>
+<p>Monitor unit completion and revision progress.</p>
+<button class="d-action" onclick="showProgress()">View Progress</button>
+</div>
+
+<div class="d-card">
+<div class="d-icon">📋</div>
+<h3>Random Paper</h3>
+<p>Generate a fresh paper from the available question bank.</p>
+<button class="d-action" onclick="closeDashboard();generatePaper()">Generate</button>
+</div>
+
+<div class="d-card">
+<div class="d-icon">🖼️</div>
+<h3>Learning Resources</h3>
+<p>Diagrams and external learning resources for students.</p>
+<button class="d-action" onclick="closeDashboard();openResources()">Resources</button>
+</div>
+
+<div class="d-card">
+<div class="d-icon">👨‍🏫</div>
+<h3>Faculty Profile</h3>
+<p>Subject faculty information and academic identity.</p>
+<button class="d-action" onclick="alert('Professor Kiran Chaudhari\\n'+CSD_ROLE_DATA.subject)">View Profile</button>
+</div>
+`;
+}
+
+function studentCards(){
+return `
+<div class="d-card">
+<div class="d-icon">📚</div>
+<h3>Complete Notes</h3>
+<p>Open unit-wise notes and study every syllabus topic.</p>
+<button class="d-action" onclick="closeDashboard();showNotes()">Study Now</button>
+</div>
+
+<div class="d-card">
+<div class="d-icon">📝</div>
+<h3>Practice Questions</h3>
+<p>Prepare using marks-wise examination questions.</p>
+<button class="d-action" onclick="closeDashboard();showQuestions()">Practice</button>
+</div>
+
+<div class="d-card">
+<div class="d-icon">🧪</div>
+<h3>MCQ Arena</h3>
+<p>Quick revision and objective practice.</p>
+<button class="d-action" onclick="closeDashboard();showMCQ()">Start MCQ</button>
+</div>
+
+<div class="d-card">
+<div class="d-icon">🎲</div>
+<h3>Exam Simulator</h3>
+<p>Generate a new question paper every time.</p>
+<button class="d-action" onclick="closeDashboard();generatePaper()">Start Test</button>
+</div>
+
+<div class="d-card">
+<div class="d-icon">📊</div>
+<h3>My Progress</h3>
+<p>Track your unit-wise learning progress.</p>
+<button class="d-action" onclick="showProgress()">View</button>
+</div>
+
+<div class="d-card">
+<div class="d-icon">☆</div>
+<h3>Saved Questions</h3>
+<p>Open your bookmarked questions for revision.</p>
+<button class="d-action" onclick="closeDashboard();showBookmarks()">Open</button>
+</div>
+`;
+}
+
+function teacherSubjectArea(){
+
+return `
+<div class="student-list">
+
+<div class="student-row">
+<div>
+<b>📚 Syllabus</b><br>
+<small>Unit I – VI • Subject mapped</small>
+</div>
+<div class="progress-mini"><span style="width:100%"></span></div>
+</div>
+
+<div class="student-row">
+<div>
+<b>📝 Question Bank</b><br>
+<small>Marks-wise examination preparation</small>
+</div>
+<span>READY</span>
+</div>
+
+<div class="student-row">
+<div>
+<b>🎓 Assigned Subject</b><br>
+<small>${CSD_ROLE_DATA.code} • ${CSD_ROLE_DATA.course}</small>
+</div>
+<span>ACTIVE</span>
+</div>
+
+<div class="student-row">
+<div>
+<b>👨‍🏫 Faculty</b><br>
+<small>${CSD_ROLE_DATA.teacher}</small>
+</div>
+<span>VERIFIED</span>
+</div>
+
+</div>`;
+}
+
+function studentSubjectArea(){
+
+return `
+<div class="student-list">
+
+${DATA.units.map((u,i)=>{
+
+const p=Number(localStorage.getItem("unitProgress"+i)||0);
+
+return `
+<div class="student-row">
+<div>
+<b>📘 ${u.title}</b><br>
+<small>${u.subtitle}</small>
+</div>
+<div style="text-align:right">
+<div class="progress-mini"><span style="width:${p}%"></span></div>
+<small>${p}%</small>
+</div>
+</div>`;
+
+}).join("")}
+
+</div>`;
+}
+
+function closeDashboard(){
+
+const d=document.getElementById("dashboardPanel");
+
+if(d)d.remove();
+
+if(!document.getElementById("rolePanel")){
+createRoleSystem();
+}
+}
+
+window.addEventListener("load",()=>{
+setTimeout(createRoleSystem,1200);
+});
+
