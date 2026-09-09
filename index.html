@@ -4,177 +4,188 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#07070b">
-<title>CSD StudyHub | Final Year Portal</title>
+<meta name="description" content="CSD StudyHub - Notes, Theory, Questions, MCQs and Exam Practice">
+<title>CSD StudyHub</title>
 <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
 <div id="splash">
-  <div class="s-logo">CSD</div>
+  <div class="splash-logo">CSD</div>
   <h2>CSD STUDYHUB</h2>
   <p>Learn • Practice • Progress</p>
-  <div class="loading"><span></span></div>
+  <div class="loader"><span></span></div>
 </div>
 
 <header class="topbar">
   <div class="brand">
     <div class="logo">CSD</div>
-    <div>
-      <strong>CSD StudyHub</strong>
-      <small>Final Year Portal</small>
-    </div>
+    <div><b>CSD StudyHub</b><small>Final Year Learning Portal</small></div>
   </div>
 
   <div class="search">
-    <span>⌕</span>
-    <input id="search" placeholder="Search subjects, topics, questions...">
+    🔎 <input id="search" placeholder="Search notes, topics, questions...">
   </div>
 
-  <div class="top-actions">
-    <button id="theme">☼</button>
-    <button id="eco">🌱</button>
-    <button onclick="profile()">◯</button>
+  <div class="actions">
+    <button onclick="toggleTheme()">☼</button>
+    <button onclick="toggleEco()">🌱</button>
+    <button onclick="openProfile()">👤</button>
   </div>
 </header>
 
 <div class="layout">
 
 <aside class="sidebar">
-  <div class="side-title">MENU</div>
-  <button class="nav active" onclick="home()">⌂ <span>Home</span></button>
-  <button class="nav" onclick="subjects()">▣ <span>Subjects</span></button>
-  <button class="nav" onclick="questions()">☷ <span>Question Bank</span></button>
-  <button class="nav" onclick="mcq()">◉ <span>MCQ Arena</span></button>
-  <button class="nav" onclick="paper()">⟳ <span>Random Paper</span></button>
-  <button class="nav" onclick="progress()">◒ <span>My Progress</span></button>
-  <button class="nav" onclick="bookmarks()">☆ <span>Bookmarks</span></button>
+  <small class="menu-title">STUDY MENU</small>
+  <button class="nav active" onclick="goHome()">⌂ <span>Home</span></button>
+  <button class="nav" onclick="showSubjects()">▣ <span>Subjects</span></button>
+  <button class="nav" onclick="showNotes()">📚 <span>Notes</span></button>
+  <button class="nav" onclick="showQuestions()">☷ <span>Question Bank</span></button>
+  <button class="nav" onclick="showMCQ()">◉ <span>MCQ Arena</span></button>
+  <button class="nav" onclick="generatePaper()">⟳ <span>Random Paper</span></button>
+  <button class="nav" onclick="showProgress()">◒ <span>Progress</span></button>
+  <button class="nav" onclick="showBookmarks()">☆ <span>Bookmarks</span></button>
 
   <div class="side-bottom">
-    <div class="eco-mini">🌱 <b>Eco Study</b><small>Digital-first learning</small></div>
-    <button class="nav" onclick="feedback()">★ <span>Feedback</span></button>
+    <div class="eco-card">🌱 <b>Eco Study</b><small>Save paper • Learn digitally</small></div>
+    <button class="nav" onclick="showFeedback()">★ <span>Feedback</span></button>
   </div>
 </aside>
 
-<main id="app">
+<main>
 
 <section class="hero">
-  <div class="hero-bg"></div>
   <div class="hero-copy">
-    <span class="tag">✦ PREMIUM STUDY EXPERIENCE</span>
-    <h1>Study smarter.<br><em>Score better.</em></h1>
+    <small>✦ PREMIUM CSD LEARNING EXPERIENCE</small>
+    <h1>Everything you need<br>to <em>study smarter.</em></h1>
     <p>
-      Your complete CSD final-year study companion for syllabus,
-      theory, diagrams, questions, MCQs and exam practice.
+      Complete notes, deep theory, diagrams, important questions,
+      MCQs, random papers and learning resources — in one place.
     </p>
 
-    <div class="buttons">
-      <button class="btn-main" onclick="continueStudy()">▶ Continue Learning</button>
-      <button class="btn-glass" onclick="paper()">⟳ Generate Paper</button>
+    <div class="hero-buttons">
+      <button class="primary" onclick="continueLearning()">▶ Continue Learning</button>
+      <button class="secondary" onclick="showNotes()">📚 Open Notes</button>
     </div>
 
     <div class="stats">
-      <div><b id="subjectsN">1</b><span>Subjects</span></div>
-      <div><b id="unitsN">6</b><span>Units</span></div>
-      <div><b id="questionsN">0</b><span>Questions</span></div>
-      <div><b id="progressN">0%</b><span>Progress</span></div>
+      <div><b id="statSubjects">1</b><span>Subjects</span></div>
+      <div><b id="statUnits">6</b><span>Units</span></div>
+      <div><b id="statQuestions">0</b><span>Questions</span></div>
+      <div><b id="statProgress">0%</b><span>Progress</span></div>
     </div>
   </div>
 
-  <div class="hero-art">
-    <div class="glow"></div>
-    <div class="floating-card card1">📖<b>Notes</b></div>
-    <div class="floating-card card2">🧪<b>MCQ</b></div>
-    <div class="floating-card card3">🎯<b>Exam</b></div>
-    <div class="core">CSD</div>
+  <div class="hero-visual">
+    <div class="orb"></div>
+    <div class="floating f1">📚 <b>Notes</b></div>
+    <div class="floating f2">🧠 <b>Theory</b></div>
+    <div class="floating f3">🎯 <b>Exam</b></div>
+    <div class="hero-logo">CSD</div>
   </div>
 </section>
 
 <section class="section">
-  <div class="heading">
-    <div><small>CONTINUE</small><h2>Keep Learning</h2></div>
-    <button onclick="subjects()">View all →</button>
+  <div class="section-head">
+    <div><small>CONTINUE LEARNING</small><h2>Units</h2></div>
   </div>
-  <div id="unitRow" class="unit-row"></div>
+  <div id="unitCards" class="unit-scroll"></div>
 </section>
 
 <section class="section">
-  <div class="heading">
-    <div><small>EXPLORE</small><h2>My Subjects</h2></div>
+  <div class="section-head">
+    <div><small>YOUR STUDY MATERIAL</small><h2>Choose what you need</h2></div>
   </div>
-  <div id="subjectGrid" class="subjects"></div>
+
+  <div class="feature-grid">
+    <button onclick="showNotes()">
+      <strong>📚 Notes</strong>
+      <span>Complete topic-wise notes & theory</span>
+    </button>
+    <button onclick="showQuestions()">
+      <strong>📝 Questions</strong>
+      <span>2 / 5 / 10 marks question bank</span>
+    </button>
+    <button onclick="showMCQ()">
+      <strong>🧪 MCQ</strong>
+      <span>Practice and check your answer</span>
+    </button>
+    <button onclick="generatePaper()">
+      <strong>🎲 Paper Generator</strong>
+      <span>Fresh paper every time</span>
+    </button>
+  </div>
 </section>
 
 <section class="section">
-  <div class="heading">
-    <div><small>EXAM READY</small><h2>Practice Zone</h2></div>
+  <div class="section-head">
+    <div><small>SUBJECT LIBRARY</small><h2>My Subjects</h2></div>
+    <button class="text-btn" onclick="openOtherSubjects()">＋ Other Subjects</button>
   </div>
-
-  <div class="tools">
-    <button onclick="questions(2)"><i>02</i><b>2 Marks</b><span>Short answers</span></button>
-    <button onclick="questions(5)"><i>05</i><b>5 Marks</b><span>Medium answers</span></button>
-    <button onclick="questions(10)"><i>10</i><b>10 Marks</b><span>Detailed answers</span></button>
-    <button onclick="mcq()"><i>✓</i><b>MCQ Arena</b><span>Practice quiz</span></button>
-  </div>
+  <div id="subjects" class="subject-grid"></div>
 </section>
 
 <section class="section">
-  <div class="heading">
-    <div><small>IMPORTANT</small><h2>Exam Focus</h2></div>
+  <div class="section-head">
+    <div><small>EXAM FOCUS</small><h2>Important Questions</h2></div>
+    <button class="text-btn" onclick="showQuestions()">View all →</button>
   </div>
-  <div id="important" class="question-grid"></div>
+  <div id="importantQuestions" class="question-grid"></div>
 </section>
 
 <section class="section">
-  <div class="paper-banner">
+  <div class="resource-banner">
     <div>
-      <small>FRESH EVERY TIME</small>
-      <h2>Random Question Paper</h2>
-      <p>Generate a new combination whenever you practice.</p>
+      <small>LEARNING RESOURCES</small>
+      <h2>Understand with diagrams & videos</h2>
+      <p>Find topic-related diagrams and YouTube learning resources.</p>
     </div>
-    <button class="btn-main" onclick="paper()">Generate →</button>
+    <button class="primary" onclick="openResources()">Explore →</button>
   </div>
 </section>
 
 <section class="section">
-  <div class="heading">
+  <div class="section-head">
     <div><small>YOUR JOURNEY</small><h2>Progress</h2></div>
   </div>
-  <div id="progressGrid" class="progress-grid"></div>
+  <div id="progress"></div>
 </section>
 
-<section class="people section">
-  <div class="teacher">
-    <div class="avatar">👨‍🏫</div>
+<section class="section people">
+  <div class="teacher-card">
+    <div class="teacher-avatar">👨‍🏫</div>
     <div>
       <small>SUBJECT TEACHER</small>
-      <h2 id="professor">Professor Kiran Chaudhari</h2>
+      <h2>Professor Kiran Chaudhari</h2>
       <p>Academic guidance • Exam preparation</p>
     </div>
   </div>
 
-  <div class="creator">
+  <div class="creator-card">
     <small>CREATED BY</small>
     <h2>Mayur Rathod</h2>
-    <p>CSD StudyHub • Premium student portal</p>
-    <div>
+    <p>CSD StudyHub — Student learning portal</p>
+    <div class="links">
       <a href="mailto:mayuuuuuuur@gmail.com">📧 Email</a>
       <a href="https://github.com/mayurathodmr" target="_blank">GitHub</a>
-      <a href="#" onclick="linkedin(event)">LinkedIn</a>
+      <a href="#" onclick="editProfile(event)">Edit Profile</a>
     </div>
   </div>
 </section>
 
-<section class="feedback section">
-  <small>YOUR VOICE MATTERS</small>
-  <h2>Rate StudyHub</h2>
+<section class="section feedback">
+  <small>COMMUNITY FEEDBACK</small>
+  <h2>How is your experience?</h2>
   <div id="stars">
-    <button onclick="rate(1)">★</button><button onclick="rate(2)">★</button>
-    <button onclick="rate(3)">★</button><button onclick="rate(4)">★</button>
+    <button onclick="rate(1)">★</button>
+    <button onclick="rate(2)">★</button>
+    <button onclick="rate(3)">★</button>
+    <button onclick="rate(4)">★</button>
     <button onclick="rate(5)">★</button>
   </div>
-  <textarea id="feedbackText" placeholder="Tell us what can be improved..."></textarea>
-  <button class="btn-main" onclick="saveFeedback()">Submit Feedback</button>
+  <textarea id="feedbackText" placeholder="Write your feedback..."></textarea>
+  <button class="primary" onclick="saveFeedback()">Submit Feedback</button>
   <p id="feedbackMsg"></p>
 </section>
 
@@ -182,24 +193,24 @@
 </div>
 
 <nav class="mobile-nav">
-  <button onclick="home()">⌂<small>Home</small></button>
-  <button onclick="subjects()">▣<small>Subjects</small></button>
-  <button onclick="questions()">☷<small>Questions</small></button>
-  <button onclick="mcq()">◉<small>MCQ</small></button>
-  <button onclick="progress()">◒<small>Progress</small></button>
+<button onclick="goHome()">⌂<small>Home</small></button>
+<button onclick="showNotes()">📚<small>Notes</small></button>
+<button onclick="showQuestions()">☷<small>Questions</small></button>
+<button onclick="showMCQ()">◉<small>MCQ</small></button>
+<button onclick="openProfile()">👤<small>Profile</small></button>
 </nav>
 
 <div id="modal" class="modal">
-  <div class="modal-box">
-    <button class="close" onclick="closeModal()">×</button>
-    <div id="modalBody"></div>
-  </div>
+ <div class="modal-box">
+   <button class="close" onclick="closeModal()">×</button>
+   <div id="modalContent"></div>
+ </div>
 </div>
 
 <footer>
-  <b>CSD StudyHub</b>
-  <p>Learn • Practice • Progress 🌱</p>
-  <small>Developed by Mayur Rathod</small>
+<b>CSD StudyHub</b>
+<p>Learn • Practice • Progress 🌱</p>
+<small>Created by Mayur Rathod</small>
 </footer>
 
 <script src="app.js"></script>

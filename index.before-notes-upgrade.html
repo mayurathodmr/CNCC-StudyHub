@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#07070b">
+<title>CSD StudyHub | Final Year Portal</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div id="splash">
+  <div class="s-logo">CSD</div>
+  <h2>CSD STUDYHUB</h2>
+  <p>Learn • Practice • Progress</p>
+  <div class="loading"><span></span></div>
+</div>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">CSD</div>
+    <div>
+      <strong>CSD StudyHub</strong>
+      <small>Final Year Portal</small>
+    </div>
+  </div>
+
+  <div class="search">
+    <span>⌕</span>
+    <input id="search" placeholder="Search subjects, topics, questions...">
+  </div>
+
+  <div class="top-actions">
+    <button id="theme">☼</button>
+    <button id="eco">🌱</button>
+    <button onclick="profile()">◯</button>
+  </div>
+</header>
+
+<div class="layout">
+
+<aside class="sidebar">
+  <div class="side-title">MENU</div>
+  <button class="nav active" onclick="home()">⌂ <span>Home</span></button>
+  <button class="nav" onclick="subjects()">▣ <span>Subjects</span></button>
+  <button class="nav" onclick="questions()">☷ <span>Question Bank</span></button>
+  <button class="nav" onclick="mcq()">◉ <span>MCQ Arena</span></button>
+  <button class="nav" onclick="paper()">⟳ <span>Random Paper</span></button>
+  <button class="nav" onclick="progress()">◒ <span>My Progress</span></button>
+  <button class="nav" onclick="bookmarks()">☆ <span>Bookmarks</span></button>
+
+  <div class="side-bottom">
+    <div class="eco-mini">🌱 <b>Eco Study</b><small>Digital-first learning</small></div>
+    <button class="nav" onclick="feedback()">★ <span>Feedback</span></button>
+  </div>
+</aside>
+
+<main id="app">
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-copy">
+    <span class="tag">✦ PREMIUM STUDY EXPERIENCE</span>
+    <h1>Study smarter.<br><em>Score better.</em></h1>
+    <p>
+      Your complete CSD final-year study companion for syllabus,
+      theory, diagrams, questions, MCQs and exam practice.
+    </p>
+
+    <div class="buttons">
+      <button class="btn-main" onclick="continueStudy()">▶ Continue Learning</button>
+      <button class="btn-glass" onclick="paper()">⟳ Generate Paper</button>
+    </div>
+
+    <div class="stats">
+      <div><b id="subjectsN">1</b><span>Subjects</span></div>
+      <div><b id="unitsN">6</b><span>Units</span></div>
+      <div><b id="questionsN">0</b><span>Questions</span></div>
+      <div><b id="progressN">0%</b><span>Progress</span></div>
+    </div>
+  </div>
+
+  <div class="hero-art">
+    <div class="glow"></div>
+    <div class="floating-card card1">📖<b>Notes</b></div>
+    <div class="floating-card card2">🧪<b>MCQ</b></div>
+    <div class="floating-card card3">🎯<b>Exam</b></div>
+    <div class="core">CSD</div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="heading">
+    <div><small>CONTINUE</small><h2>Keep Learning</h2></div>
+    <button onclick="subjects()">View all →</button>
+  </div>
+  <div id="unitRow" class="unit-row"></div>
+</section>
+
+<section class="section">
+  <div class="heading">
+    <div><small>EXPLORE</small><h2>My Subjects</h2></div>
+  </div>
+  <div id="subjectGrid" class="subjects"></div>
+</section>
+
+<section class="section">
+  <div class="heading">
+    <div><small>EXAM READY</small><h2>Practice Zone</h2></div>
+  </div>
+
+  <div class="tools">
+    <button onclick="questions(2)"><i>02</i><b>2 Marks</b><span>Short answers</span></button>
+    <button onclick="questions(5)"><i>05</i><b>5 Marks</b><span>Medium answers</span></button>
+    <button onclick="questions(10)"><i>10</i><b>10 Marks</b><span>Detailed answers</span></button>
+    <button onclick="mcq()"><i>✓</i><b>MCQ Arena</b><span>Practice quiz</span></button>
+  </div>
+</section>
+
+<section class="section">
+  <div class="heading">
+    <div><small>IMPORTANT</small><h2>Exam Focus</h2></div>
+  </div>
+  <div id="important" class="question-grid"></div>
+</section>
+
+<section class="section">
+  <div class="paper-banner">
+    <div>
+      <small>FRESH EVERY TIME</small>
+      <h2>Random Question Paper</h2>
+      <p>Generate a new combination whenever you practice.</p>
+    </div>
+    <button class="btn-main" onclick="paper()">Generate →</button>
+  </div>
+</section>
+
+<section class="section">
+  <div class="heading">
+    <div><small>YOUR JOURNEY</small><h2>Progress</h2></div>
+  </div>
+  <div id="progressGrid" class="progress-grid"></div>
+</section>
+
+<section class="people section">
+  <div class="teacher">
+    <div class="avatar">👨‍🏫</div>
+    <div>
+      <small>SUBJECT TEACHER</small>
+      <h2 id="professor">Professor Kiran Chaudhari</h2>
+      <p>Academic guidance • Exam preparation</p>
+    </div>
+  </div>
+
+  <div class="creator">
+    <small>CREATED BY</small>
+    <h2>Mayur Rathod</h2>
+    <p>CSD StudyHub • Premium student portal</p>
+    <div>
+      <a href="mailto:mayuuuuuuur@gmail.com">📧 Email</a>
+      <a href="https://github.com/mayurathodmr" target="_blank">GitHub</a>
+      <a href="#" onclick="linkedin(event)">LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<section class="feedback section">
+  <small>YOUR VOICE MATTERS</small>
+  <h2>Rate StudyHub</h2>
+  <div id="stars">
+    <button onclick="rate(1)">★</button><button onclick="rate(2)">★</button>
+    <button onclick="rate(3)">★</button><button onclick="rate(4)">★</button>
+    <button onclick="rate(5)">★</button>
+  </div>
+  <textarea id="feedbackText" placeholder="Tell us what can be improved..."></textarea>
+  <button class="btn-main" onclick="saveFeedback()">Submit Feedback</button>
+  <p id="feedbackMsg"></p>
+</section>
+
+</main>
+</div>
+
+<nav class="mobile-nav">
+  <button onclick="home()">⌂<small>Home</small></button>
+  <button onclick="subjects()">▣<small>Subjects</small></button>
+  <button onclick="questions()">☷<small>Questions</small></button>
+  <button onclick="mcq()">◉<small>MCQ</small></button>
+  <button onclick="progress()">◒<small>Progress</small></button>
+</nav>
+
+<div id="modal" class="modal">
+  <div class="modal-box">
+    <button class="close" onclick="closeModal()">×</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<footer>
+  <b>CSD StudyHub</b>
+  <p>Learn • Practice • Progress 🌱</p>
+  <small>Developed by Mayur Rathod</small>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

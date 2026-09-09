@@ -1,50 +1,153 @@
 const DATA={
 subjects:[
-{id:"cncc",name:"Computer Networks & Cloud Computing",short:"CNCC",icon:"🌐",prof:"Professor Kiran Chaudhari",units:6}
+{
+id:"cncc",
+name:"Computer Networks & Cloud Computing",
+short:"CNCC",
+icon:"🌐",
+prof:"Professor Kiran Chaudhari",
+units:6,
+topics:[
+"Computer Networks",
+"Network Models",
+"OSI Reference Model",
+"TCP/IP Model",
+"Network Topologies",
+"Protocols",
+"Cloud Computing Basics"
+]
+}
 ],
-units:["Unit I","Unit II","Unit III","Unit IV","Unit V","Unit VI"],
+otherSubjects:[
+"Software Engineering",
+"Database Management System",
+"Computer Graphics",
+"Internet of Things",
+"Artificial Intelligence",
+"Web Technology",
+"Data Communication",
+"Operating System"
+],
+units:[
+{
+title:"Unit I",
+topics:["Introduction to Computer Networks","Network Types","Topologies","Protocols"],
+theory:"A computer network is a collection of interconnected devices that communicate and share resources. Networks allow computers, phones, servers and other devices to exchange data using defined communication rules called protocols.",
+diagram:"🖥️  ⇄  🌐  ⇄  💻",
+youtube:"computer network basics",
 questions:[
 {m:2,q:"Define Computer Network."},
 {m:2,q:"What is a protocol?"},
-{m:2,q:"Define network topology."},
-{m:5,q:"Explain the basic components of a computer network."},
-{m:5,q:"Explain different types of network topologies."},
-{m:5,q:"Explain the functions of network protocols."},
-{m:10,q:"Explain the OSI reference model with a suitable diagram."},
-{m:10,q:"Explain TCP/IP architecture and its layers."},
-{m:10,q:"Explain different network topologies with diagrams."}
+{m:5,q:"Explain different types of computer networks."},
+{m:5,q:"Explain different network topologies."},
+{m:10,q:"Explain computer networks and their components in detail."}
 ]
-};
+},
+{
+title:"Unit II",
+topics:["OSI Model","TCP/IP Model","Layers","Network Services"],
+theory:"Network reference models divide communication into layers. The OSI model contains seven layers and helps students understand how data moves from one device to another. The TCP/IP model is widely used in real-world Internet communication.",
+diagram:"Application\nPresentation\nSession\nTransport\nNetwork\nData Link\nPhysical",
+youtube:"OSI model explained",
+questions:[
+{m:2,q:"What is the OSI model?"},
+{m:2,q:"Name the seven OSI layers."},
+{m:5,q:"Explain the functions of OSI layers."},
+{m:5,q:"Compare OSI and TCP/IP models."},
+{m:10,q:"Explain the OSI reference model with a suitable diagram."}
+]
+},
+{
+title:"Unit III",
+topics:["Transport Layer","TCP","UDP","Ports"],
+theory:"The transport layer provides communication between applications running on different hosts. TCP provides reliable, connection-oriented delivery while UDP provides faster connectionless communication.",
+diagram:"Application → Transport → Network → Link",
+youtube:"TCP UDP explained",
+questions:[
+{m:2,q:"Define TCP."},
+{m:2,q:"Define UDP."},
+{m:5,q:"Differentiate TCP and UDP."},
+{m:10,q:"Explain TCP connection establishment."}
+]
+},
+{
+title:"Unit IV",
+topics:["IPv4","IPv6","Addressing","Subnetting"],
+theory:"IP addressing identifies devices on a network. IPv4 uses 32-bit addresses while IPv6 uses 128-bit addresses and provides a much larger address space.",
+diagram:"Network → Router → Subnet → Host",
+youtube:"IPv4 IPv6 explained",
+questions:[
+{m:2,q:"What is an IP address?"},
+{m:5,q:"Compare IPv4 and IPv6."},
+{m:10,q:"Explain IPv4 addressing and subnetting."}
+]
+},
+{
+title:"Unit V",
+topics:["DNS","DHCP","HTTP","Network Services"],
+theory:"Network services make communication easier for users and applications. DNS translates domain names into IP addresses, DHCP provides network configuration automatically and HTTP is used for web communication.",
+diagram:"User → DNS → IP → Web Server",
+youtube:"DNS DHCP HTTP explained",
+questions:[
+{m:2,q:"What is DNS?"},
+{m:2,q:"What is DHCP?"},
+{m:5,q:"Explain DNS working."},
+{m:10,q:"Explain important Internet application protocols."}
+]
+},
+{
+title:"Unit VI",
+topics:["Cloud Computing","Cloud Models","Services","Virtualization"],
+theory:"Cloud computing provides computing resources such as storage, processing and applications over a network. Common service models include IaaS, PaaS and SaaS.",
+diagram:"☁️ Cloud\n↙ ↓ ↘\nStorage • Apps • Compute",
+youtube:"cloud computing basics",
+questions:[
+{m:2,q:"Define cloud computing."},
+{m:5,q:"Explain IaaS, PaaS and SaaS."},
+{m:10,q:"Explain cloud computing architecture and service models."}
+]
+}
+]};
 
 let rating=0;
 
+function $(id){return document.getElementById(id)}
+
 function init(){
-renderUnits();renderSubjects();renderImportant();renderProgress();stats();
-setTimeout(()=>document.getElementById("splash")?.remove(),2300);
+renderUnits();renderSubjects();renderImportant();renderProgress();updateStats();
+setTimeout(()=>{let s=$("splash");if(s)s.remove()},2600);
+if(localStorage.getItem("theme")==="light")document.body.classList.add("light");
 }
+
 document.addEventListener("DOMContentLoaded",init);
 
-function stats(){
-subjectsN.textContent=DATA.subjects.length;
-unitsN.textContent=DATA.units.length;
-questionsN.textContent=DATA.questions.length;
-progressN.textContent=localStorage.getItem("overallProgress")||"0%";
+function updateStats(){
+$("statSubjects").textContent=DATA.subjects.length;
+$("statUnits").textContent=DATA.units.length;
+$("statQuestions").textContent=DATA.units.reduce((n,u)=>n+u.questions.length,0);
+$("statProgress").textContent=overallProgress()+"%";
+}
+
+function overallProgress(){
+return Math.round(DATA.units.reduce((a,u,i)=>a+Number(localStorage.getItem("unitProgress"+i)||0),0)/DATA.units.length);
 }
 
 function renderUnits(){
-unitRow.innerHTML=DATA.units.map((u,i)=>{
-let p=Number(localStorage.getItem("unit"+i)||0);
+$("unitCards").innerHTML=DATA.units.map((u,i)=>{
+let p=Number(localStorage.getItem("unitProgress"+i)||0);
 return `<div class="unit" onclick="openUnit(${i})">
 <small>UNIT ${String(i+1).padStart(2,"0")}</small>
-<h3>${u}</h3><p>Theory • Diagram • Q&A • MCQ</p>
-<div class="bar" style="width:${Math.max(p,3)}%"></div></div>`
+<h3>${u.title}</h3>
+<p>📚 Notes • 📝 Questions • 🖼️ Diagram • 🎥 Video</p>
+<div class="bar" style="width:${Math.max(3,p)}%"></div>
+</div>`
 }).join("");
 }
 
 function renderSubjects(){
-subjectGrid.innerHTML=DATA.subjects.map(s=>`
+$("subjects").innerHTML=DATA.subjects.map(s=>`
 <div class="subject" onclick="openSubject('${s.id}')">
-<div class="icon">${s.icon}</div>
+<div class="subject-icon">${s.icon}</div>
 <h3>${s.name}</h3>
 <p>${s.short} • ${s.units} Units</p>
 <div class="prof">👨‍🏫 ${s.prof}</div>
@@ -52,158 +155,340 @@ subjectGrid.innerHTML=DATA.subjects.map(s=>`
 }
 
 function renderImportant(){
-important.innerHTML=DATA.questions.filter(x=>x.m===10).map(x=>`
-<div class="question"><b>⭐ ${x.m} MARKS</b><p>${x.q}</p></div>`).join("");
+let q=DATA.units.flatMap((u,ui)=>u.questions.map(x=>({...x,unit:ui+1})))
+.filter(x=>x.m===10||x.m===5).slice(0,9);
+
+$("importantQuestions").innerHTML=q.map(x=>`
+<div class="question">
+<div class="mark">⭐ ${x.m} MARKS • UNIT ${x.unit}</div>
+<p>${x.q}</p>
+</div>`).join("");
 }
 
 function renderProgress(){
-progressGrid.innerHTML=DATA.units.map((u,i)=>{
-let p=Number(localStorage.getItem("unit"+i)||0);
-return `<div class="progress-card"><h3>${u}</h3>
-<div class="progress-track"><span style="width:${p}%"></span></div>
-<small>${p}% completed</small></div>`
+$("progress").innerHTML=DATA.units.map((u,i)=>{
+let p=Number(localStorage.getItem("unitProgress"+i)||0);
+return `<div class="question" style="margin-bottom:10px">
+<b>${u.title}</b>
+<div style="height:6px;background:var(--panel2);margin-top:12px;border-radius:20px;overflow:hidden">
+<span style="display:block;height:100%;width:${p}%;background:var(--white)"></span>
+</div>
+<p>${p}% completed</p>
+</div>`
 }).join("");
 }
 
 function openUnit(i){
-let p=Number(localStorage.getItem("unit"+i)||0);
-localStorage.setItem("unit"+i,Math.min(100,p+5));
-localStorage.setItem("overallProgress",
-Math.round(DATA.units.reduce((a,_,x)=>a+Number(localStorage.getItem("unit"+x)||0),0)/6)+"%");
-renderUnits();renderProgress();stats();
-modalBody.innerHTML=`
-<small>UNIT ${i+1}</small>
-<h2>${DATA.units[i]}</h2>
-<p>Complete syllabus-based learning section.</p>
+let u=DATA.units[i];
+localStorage.setItem("unitProgress"+i,Math.min(100,Number(localStorage.getItem("unitProgress"+i)||0)+10));
+renderUnits();renderProgress();updateStats();
+
+$("modalContent").innerHTML=`
+<small>${u.title.toUpperCase()}</small>
+<h2>${u.title} — Complete Study</h2>
+
+<div class="resource-box">
+<b>📚 NOTES & FULL THEORY</b>
+<p>${u.theory}</p>
+</div>
+
+<div class="resource-box">
+<b>📌 IMPORTANT TOPICS</b>
+<p>${u.topics.map((x,n)=>`${n+1}. ${x}`).join("<br>")}</p>
+</div>
+
+<div class="resource-box">
+<b>🖼️ RELATED DIAGRAM</b>
+<div class="diagram">${u.diagram.replaceAll("\n","<br>")}</div>
+<p style="margin-top:10px">
+Diagram is a visual study aid. For a larger topic-specific image,
+use the Google Images search button below.
+</p>
+</div>
+
+<div class="modal-actions">
+<button class="primary" onclick="googleDiagram('${encodeURIComponent(u.topics[0])}')">🔎 Google Diagram</button>
+<button class="secondary" onclick="youtubeSearch('${encodeURIComponent(u.youtube)}')">▶ YouTube</button>
+<button class="secondary" onclick="showUnitQuestions(${i})">📝 Questions</button>
+</div>
+`;
+showModal();
+}
+
+function showUnitQuestions(i){
+let u=DATA.units[i];
+$("modalContent").innerHTML=`
+<small>${u.title.toUpperCase()}</small>
+<h2>📝 Question Bank</h2>
+${u.questions.map((q,n)=>`
+<div class="modal-question">
+<div class="mark">Q${n+1} • ${q.m} MARKS</div>
+<p><b>${q.q}</b></p>
+<div class="modal-actions">
+<button class="secondary" onclick="saveBookmark('${encodeURIComponent(q.q)}')">☆ Bookmark</button>
+<button class="secondary" onclick="googleSearch('${encodeURIComponent(q.q)}')">🔎 Search</button>
+</div>
+</div>`).join("")}
+`;
+showModal();
+}
+
+function showNotes(){
+$("modalContent").innerHTML=`
+<small>STUDY MATERIAL</small><h2>📚 Complete Notes</h2>
+<p>Select a unit to open its full theory, key points, diagram and learning resources.</p>
+${DATA.units.map((u,i)=>`
+<div class="modal-question">
+<b>${u.title}</b>
+<p>${u.topics.join(" • ")}</p>
+<button class="secondary" onclick="openUnit(${i})">Open Notes →</button>
+</div>`).join("")}`;
+showModal();
+}
+
+function showQuestions(mark){
+let all=DATA.units.flatMap((u,ui)=>u.questions.map(q=>({...q,unit:ui+1})));
+if(mark)all=all.filter(q=>q.m===mark);
+$("modalContent").innerHTML=`
+<small>QUESTION BANK</small>
+<h2>📝 ${mark?mark+" Marks ":""}Questions</h2>
+<div class="modal-actions">
+<button class="secondary" onclick="showQuestions(2)">2 Marks</button>
+<button class="secondary" onclick="showQuestions(5)">5 Marks</button>
+<button class="secondary" onclick="showQuestions(10)">10 Marks</button>
+<button class="secondary" onclick="showQuestions()">All</button>
+</div>
+${all.map((q,i)=>`
+<div class="modal-question">
+<div class="mark">Q${i+1} • ${q.m} MARKS • UNIT ${q.unit}</div>
+<p><b>${q.q}</b></p>
+<div class="modal-actions">
+<button class="secondary" onclick="saveBookmark('${encodeURIComponent(q.q)}')">☆ Save</button>
+<button class="secondary" onclick="googleSearch('${encodeURIComponent(q.q)}')">🔎 Explain</button>
+</div>
+</div>`).join("")}`;
+showModal();
+}
+
+function showMCQ(){
+let pool=DATA.units.flatMap(u=>u.questions);
+let q=pool[Math.floor(Math.random()*pool.length)];
+$("modalContent").innerHTML=`
+<small>MCQ ARENA</small><h2>🧪 Quick Practice</h2>
+<div class="resource-box">
+<p><b>Which topic is related to this question?</b></p>
+<p>${q.q}</p>
 <br>
-<div class="question">
-<b>📖 THEORY</b><p>Detailed topic explanations will appear here from your uploaded syllabus.</p>
-</div><br>
-<div class="question">
-<b>🖼️ DIAGRAMS</b><p>Relevant diagrams and diagram explanations will appear here.</p>
-</div><br>
-<button class="btn-main" onclick="questions()">📝 Question Bank</button>
-<button class="btn-glass" onclick="mcq()">🧪 MCQ</button>`;
+<label><input type="radio" name="mcq"> Networking</label><br><br>
+<label><input type="radio" name="mcq"> Programming</label><br><br>
+<label><input type="radio" name="mcq"> Design</label><br><br>
+<label><input type="radio" name="mcq"> None</label>
+<br><br>
+<button class="primary" onclick="mcqResult()">Submit Answer</button>
+</div>`;
+showModal();
+}
+
+function mcqResult(){
+$("modalContent").innerHTML=`
+<h2>✓ Practice Submitted</h2>
+<p>Use the notes and explanations to verify your answer and continue practising.</p>
+<br><button class="primary" onclick="showMCQ()">Next Question →</button>`;
+}
+
+function generatePaper(){
+let all=DATA.units.flatMap((u,ui)=>u.questions.map(q=>({...q,unit:ui+1})))
+.sort(()=>Math.random()-.5);
+let selected=all.slice(0,8);
+$("modalContent").innerHTML=`
+<small>EXAM SIMULATOR</small>
+<h2>🎲 Random Question Paper</h2>
+<p>Every generation creates a different combination from the question bank.</p>
+${selected.map((q,i)=>`
+<div class="modal-question">
+<div class="mark">Q${i+1} • ${q.m} MARKS • UNIT ${q.unit}</div>
+<p>${q.q}</p>
+</div>`).join("")}
+<br><button class="primary" onclick="generatePaper()">⟳ Generate Again</button>`;
 showModal();
 }
 
 function openSubject(id){
 let s=DATA.subjects.find(x=>x.id===id);
-modalBody.innerHTML=`<small>SUBJECT</small><h2>${s.icon} ${s.name}</h2>
-<p>👨‍🏫 ${s.prof}</p><br>
-${DATA.units.map((u,i)=>`<div class="modal-question">
-<b>${u}</b><p>Theory • Important Questions • MCQ</p>
-<button class="btn-glass" onclick="openUnit(${i})">Open →</button>
+$("modalContent").innerHTML=`
+<small>SUBJECT</small><h2>${s.icon} ${s.name}</h2>
+<p>👨‍🏫 ${s.prof}</p>
+${DATA.units.map((u,i)=>`
+<div class="modal-question">
+<b>${u.title}</b><p>${u.topics.join(" • ")}</p>
+<button class="secondary" onclick="openUnit(${i})">Open →</button>
 </div>`).join("")}`;
 showModal();
 }
 
-function questions(mark){
-let list=DATA.questions.filter(x=>!mark||x.m===mark);
-modalBody.innerHTML=`<small>QUESTION BANK</small>
-<h2>${mark?mark+" Marks ":""}Questions</h2>
-${list.map((x,i)=>`<div class="modal-question">
-<b>Q${i+1} • ${x.m} MARKS</b><p>${x.q}</p>
-<button class="btn-glass" onclick="bookmark('${encodeURIComponent(x.q)}')">☆ Bookmark</button>
+function openOtherSubjects(){
+$("modalContent").innerHTML=`
+<small>FUTURE SUBJECTS</small><h2>＋ Other Subjects</h2>
+<p>Select a subject to add it to your study library.</p>
+${DATA.otherSubjects.map((s,i)=>`
+<div class="modal-question">
+<b>${s}</b>
+<p>Ready for syllabus, notes, questions, MCQs and resources.</p>
+<button class="secondary" onclick="addSubject(${i})">＋ Add Subject</button>
 </div>`).join("")}`;
 showModal();
 }
 
-function paper(){
-let arr=[...DATA.questions].sort(()=>Math.random()-.5);
-modalBody.innerHTML=`<small>EXAM SIMULATOR</small><h2>🎲 Fresh Question Paper</h2>
-<p>Generated randomly from the available question bank.</p>
-${arr.map((x,i)=>`<div class="modal-question"><b>Q${i+1} • ${x.m} MARKS</b><p>${x.q}</p></div>`).join("")}
-<br><button class="btn-main" onclick="paper()">⟳ Generate Again</button>`;
+function addSubject(i){
+let name=DATA.otherSubjects[i];
+if(!DATA.subjects.some(s=>s.name===name)){
+DATA.subjects.push({
+id:"subject"+Date.now(),name,short:name.substring(0,5).toUpperCase(),
+icon:"📘",prof:"Subject Professor",units:6
+});
+localStorage.setItem("subjects",JSON.stringify(DATA.subjects));
+renderSubjects();updateStats();
+}
+openOtherSubjects();
+}
+
+function openResources(){
+let u=DATA.units[0];
+$("modalContent").innerHTML=`
+<small>LEARNING RESOURCES</small>
+<h2>🔎 Diagrams & Videos</h2>
+<p>Choose a topic to search.</p>
+${DATA.units.map((x,i)=>`
+<div class="resource-box">
+<b>${x.title}</b>
+<div class="modal-actions">
+<button class="secondary" onclick="googleDiagram('${encodeURIComponent(x.topics[0])}')">🖼️ Diagram</button>
+<button class="secondary" onclick="youtubeSearch('${encodeURIComponent(x.youtube)}')">▶ YouTube</button>
+</div>
+</div>`).join("")}`;
 showModal();
 }
 
-function mcq(){
-modalBody.innerHTML=`<small>MCQ ARENA</small><h2>🧪 Practice Quiz</h2>
-<div class="question"><b>QUESTION</b>
-<p>Which model is commonly used to describe network communication in seven layers?</p>
-<br>
-<label><input type="radio" name="q"> TCP/IP</label><br><br>
-<label><input type="radio" name="q"> OSI</label><br><br>
-<label><input type="radio" name="q"> HTTP</label><br><br>
-<label><input type="radio" name="q"> DNS</label>
-<br><br><button class="btn-main" onclick="quizAnswer()">Submit Answer</button>
+function googleSearch(q){
+window.open("https://www.google.com/search?q="+q,"_blank");
+}
+function googleDiagram(q){
+window.open("https://www.google.com/search?tbm=isch&q="+q+" diagram","_blank");
+}
+function youtubeSearch(q){
+window.open("https://www.youtube.com/results?search_query="+q,"_blank");
+}
+
+function saveBookmark(q){
+let arr=JSON.parse(localStorage.getItem("bookmarks")||"[]");
+q=decodeURIComponent(q);
+if(!arr.includes(q))arr.push(q);
+localStorage.setItem("bookmarks",JSON.stringify(arr));
+alert("✓ Saved to bookmarks");
+}
+
+function showBookmarks(){
+let arr=JSON.parse(localStorage.getItem("bookmarks")||"[]");
+$("modalContent").innerHTML=`
+<small>SAVED</small><h2>☆ My Bookmarks</h2>
+${arr.length?arr.map(q=>`<div class="modal-question"><p>${q}</p></div>`).join("")
+:"<p>No saved questions yet.</p>"}`;
+showModal();
+}
+
+function showProgress(){
+renderProgress();
+$("modalContent").innerHTML=`
+<small>YOUR JOURNEY</small><h2>📊 My Progress</h2>
+<p>Progress is stored locally on this device.</p>
+${$("progress").innerHTML}`;
+showModal();
+}
+
+function openProfile(){
+let p=JSON.parse(localStorage.getItem("profile")||'{"name":"Mayur Rathod","course":"CSD","bio":"CSD StudyHub Creator"}');
+$("modalContent").innerHTML=`
+<small>PROFILE</small><h2>👤 My Profile</h2>
+<div class="profile-form">
+<input id="profileName" value="${p.name}">
+<input id="profileCourse" value="${p.course}">
+<input id="profileBio" value="${p.bio}">
+<button class="primary" onclick="saveProfile()">Save Profile</button>
 </div>`;
 showModal();
 }
-function quizAnswer(){
-modalBody.innerHTML=`<h2>✓ Correct!</h2><p>The OSI reference model has seven layers.</p>
-<br><button class="btn-main" onclick="mcq()">Next Question →</button>`;
+
+function editProfile(e){
+e.preventDefault();openProfile();
 }
 
-function bookmarks(){
-let b=JSON.parse(localStorage.getItem("bookmarks")||"[]");
-modalBody.innerHTML=`<small>SAVED</small><h2>☆ Bookmarks</h2>`+
-(b.length?b.map(x=>`<div class="modal-question"><p>${x}</p></div>`).join("")
-:`<p>No bookmarks yet. Save questions from Question Bank.</p>`);
-showModal();
-}
-function bookmark(q){
-let b=JSON.parse(localStorage.getItem("bookmarks")||"[]");
-q=decodeURIComponent(q);if(!b.includes(q))b.push(q);
-localStorage.setItem("bookmarks",JSON.stringify(b));
-alert("✓ Bookmarked");bookmarks();
+function saveProfile(){
+let p={
+name:$("profileName").value||"Student",
+course:$("profileCourse").value||"CSD",
+bio:$("profileBio").value||"Student"
+};
+localStorage.setItem("profile",JSON.stringify(p));
+alert("✓ Profile updated");
+closeModal();
 }
 
-function progress(){
-renderProgress();
-modalBody.innerHTML=`<small>YOUR JOURNEY</small><h2>📊 My Progress</h2>
-${progressGrid.innerHTML}`;
-showModal();
+function showFeedback(){
+document.querySelector(".feedback").scrollIntoView({behavior:"smooth"});
 }
-function profile(){
-modalBody.innerHTML=`<small>DEVELOPER</small><h2>👨‍💻 Mayur Rathod</h2>
-<p>CSD StudyHub creator</p><br><p>📧 mayuuuuuuur@gmail.com</p>
-<p>GitHub: mayurathodmr</p>`;
-showModal();
-}
-function feedback(){
-modalBody.innerHTML=`<small>FEEDBACK</small><h2>⭐ Rate StudyHub</h2>
-<p>Use the feedback section below to rate your experience.</p>
-<br><button class="btn-main" onclick="closeModal();document.querySelector('.feedback').scrollIntoView()">Give Feedback →</button>`;
-showModal();
-}
+
 function rate(n){
 rating=n;
-document.querySelectorAll("#stars button").forEach((x,i)=>x.classList.toggle("active",i<n));
+document.querySelectorAll("#stars button").forEach((b,i)=>b.classList.toggle("active",i<n));
 }
-function saveFeedback(){
-if(!rating){alert("Select a rating first ⭐");return}
-localStorage.setItem("feedback",JSON.stringify({
-rating,text:feedbackText.value,date:new Date().toISOString()
-}));
-feedbackMsg.textContent="✓ Feedback saved successfully.";
-}
-function continueStudy(){openUnit(0)}
-function subjects(){document.querySelector(".subjects").scrollIntoView({behavior:"smooth"})}
-function home(){window.scrollTo({top:0,behavior:"smooth"})}
-function linkedin(e){e.preventDefault();alert("Add your LinkedIn URL in app.js.");}
-function showModal(){modal.classList.add("show")}
-function closeModal(){modal.classList.remove("show")}
-modal.addEventListener("click",e=>{if(e.target===modal)closeModal()});
 
-theme.onclick=()=>{
+function saveFeedback(){
+if(!rating){alert("Please select a rating ⭐");return}
+localStorage.setItem("feedback",JSON.stringify({
+rating,text:$("feedbackText").value,date:new Date().toISOString()
+}));
+$("feedbackMsg").textContent="✓ Thank you! Feedback saved.";
+}
+
+function toggleTheme(){
 document.body.classList.toggle("light");
 localStorage.setItem("theme",document.body.classList.contains("light")?"light":"dark");
-};
-eco.onclick=()=>{
+}
+function toggleEco(){
 document.body.classList.toggle("eco");
 localStorage.setItem("eco",document.body.classList.contains("eco")?"1":"0");
-};
-if(localStorage.getItem("theme")==="light")document.body.classList.add("light");
-if(localStorage.getItem("eco")==="1")document.body.classList.add("eco");
+}
+function showSubjects(){
+document.querySelector(".subject-grid").scrollIntoView({behavior:"smooth"});
+}
+function goHome(){
+window.scrollTo({top:0,behavior:"smooth"});
+}
+function continueLearning(){
+openUnit(0);
+}
+function showModal(){
+$("modal").classList.add("show");
+}
+function closeModal(){
+$("modal").classList.remove("show");
+}
+$("modal").addEventListener("click",e=>{
+if(e.target===$("modal"))closeModal();
+});
 
-search.addEventListener("input",e=>{
-let q=e.target.value.toLowerCase();
+$("search").addEventListener("input",e=>{
+let q=e.target.value.toLowerCase().trim();
 if(!q){renderSubjects();return}
-let r=DATA.questions.filter(x=>x.q.toLowerCase().includes(q));
-subjectGrid.innerHTML=r.length?r.map(x=>`
-<div class="subject" onclick="questions(${x.m})">
-<div class="icon">🔎</div><h3>${x.q}</h3><p>${x.m} Marks</p>
-</div>`).join(""):`<div class="question"><h3>No results</h3><p>Try another keyword.</p></div>`;
+let results=DATA.units.flatMap((u,ui)=>[
+...u.topics.map(t=>({type:"topic",unit:ui,text:t})),
+...u.questions.map(x=>({type:"question",unit:ui,text:x.q,mark:x.m}))
+]).filter(x=>x.text.toLowerCase().includes(q));
+
+$("subjects").innerHTML=results.length?results.map(x=>`
+<div class="subject" onclick="${x.type==="topic"?`openUnit(${x.unit})`:`showQuestions(${x.mark})`}">
+<div class="subject-icon">🔎</div>
+<h3>${x.text}</h3>
+<p>Unit ${x.unit+1} ${x.mark?`• ${x.mark} Marks`:"• Topic"}</p>
+</div>`).join(""):`<div class="question"><h3>No results found</h3><p>Try another keyword.</p></div>`;
 });
