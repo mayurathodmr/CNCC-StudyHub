@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#0b1020">
+<meta name="description" content="CSD Final Year Computer Network and Cloud Computing Study Portal">
+<title>CNCC StudyHub | CSD Final Year</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div id="app">
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">CN</div>
+    <div>
+      <h1>CNCC <span>StudyHub</span></h1>
+      <small>CSD Final Year • Semester VII</small>
+    </div>
+  </div>
+
+  <div class="top-actions">
+    <button id="themeBtn" class="icon-btn">☀️</button>
+    <button id="menuBtn" class="icon-btn">☰</button>
+  </div>
+</header>
+
+<div class="layout">
+
+<aside id="sidebar">
+
+  <div class="profile-card">
+    <div class="avatar">MR</div>
+    <strong>Mayur Rathod</strong>
+    <span>Student Developer</span>
+  </div>
+
+  <nav>
+    <button class="nav active" data-page="home">🏠 Dashboard</button>
+    <button class="nav" data-page="syllabus">📚 Full Syllabus</button>
+    <button class="nav" data-page="units">📖 Units I–VI</button>
+    <button class="nav" data-page="questions">❓ Important Questions</button>
+    <button class="nav" data-page="mcq">🧠 MCQ Practice</button>
+    <button class="nav" data-page="diagrams">🧩 Diagrams</button>
+    <button class="nav" data-page="exam">🎯 Exam Strategy</button>
+    <button class="nav" data-page="about">ℹ️ About Portal</button>
+  </nav>
+
+  <div class="teacher">
+    <small>SUBJECT TEACHER</small>
+    <b>Professor Kiran Chaudhari</b>
+    <span>Computer Network & Cloud Computing</span>
+  </div>
+
+</aside>
+
+<main>
+
+<section id="home" class="page active">
+
+  <div class="hero">
+    <div>
+      <span class="badge">CSD • SEM VII • CSD403</span>
+      <h2>Computer Network &<br><span>Cloud Computing</span></h2>
+      <p>
+        A simple, complete and exam-focused learning portal
+        created for Final Year CSD students.
+      </p>
+
+      <div class="hero-buttons">
+        <button class="primary" onclick="openUnit('unit1')">Start Unit I →</button>
+        <button class="secondary" onclick="showPage('questions')">Important Questions</button>
+      </div>
+    </div>
+
+    <div class="hero-network">
+      <div class="node n1">USER</div>
+      <div class="node n2">LAN</div>
+      <div class="node n3">ROUTER</div>
+      <div class="node n4">CLOUD</div>
+      <div class="line l1"></div>
+      <div class="line l2"></div>
+      <div class="line l3"></div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><b>06</b><span>Units</span></div>
+    <div class="stat"><b>50+</b><span>Topics</span></div>
+    <div class="stat"><b>60+</b><span>Questions</span></div>
+    <div class="stat"><b>30+</b><span>MCQs</span></div>
+  </div>
+
+  <div class="section-title">
+    <div>
+      <small>QUICK LEARNING</small>
+      <h3>Explore Your Subject</h3>
+    </div>
+  </div>
+
+  <div class="unit-grid" id="homeUnits"></div>
+
+</section>
+
+
+<section id="syllabus" class="page">
+  <div class="page-head">
+    <span class="badge">OFFICIAL SYLLABUS STRUCTURE</span>
+    <h2>Complete Syllabus</h2>
+    <p>Computer Network and Cloud Computing • Semester VII</p>
+  </div>
+
+  <div id="syllabusContent"></div>
+</section>
+
+
+<section id="units" class="page">
+  <div class="page-head">
+    <span class="badge">LEARNING MODULES</span>
+    <h2>Units I – VI</h2>
+    <p>Select a unit to study detailed concepts, diagrams and questions.</p>
+  </div>
+
+  <div class="unit-grid" id="allUnits"></div>
+</section>
+
+
+<section id="unitDetail" class="page">
+  <button class="back" onclick="showPage('units')">← Back to Units</button>
+  <div id="unitDetailContent"></div>
+</section>
+
+
+<section id="questions" class="page">
+  <div class="page-head">
+    <span class="badge">EXAM PREPARATION</span>
+    <h2>Important Questions & Answers</h2>
+    <p>Questions arranged according to marks and exam importance.</p>
+  </div>
+
+  <div class="filters">
+    <button class="filter active" data-filter="all">All</button>
+    <button class="filter" data-filter="2">2 Marks</button>
+    <button class="filter" data-filter="5">5 Marks</button>
+    <button class="filter" data-filter="10">10 Marks</button>
+  </div>
+
+  <div id="questionList"></div>
+</section>
+
+
+<section id="mcq" class="page">
+  <div class="page-head">
+    <span class="badge">PRACTICE TEST</span>
+    <h2>MCQ Challenge</h2>
+    <p>Test your CNCC preparation.</p>
+  </div>
+
+  <div class="quiz-card">
+    <div class="quiz-top">
+      <span id="qNumber">Question 1</span>
+      <span id="score">Score: 0</span>
+    </div>
+
+    <h3 id="qText"></h3>
+    <div id="options"></div>
+
+    <button class="primary next-btn" id="nextBtn">Next Question →</button>
+    <div id="quizResult"></div>
+  </div>
+</section>
+
+
+<section id="diagrams" class="page">
+  <div class="page-head">
+    <span class="badge">VISUAL LEARNING</span>
+    <h2>Important Diagrams</h2>
+    <p>Exam मध्ये diagram काढण्यासाठी simplified visual references.</p>
+  </div>
+
+  <div id="diagramList"></div>
+</section>
+
+
+<section id="exam" class="page">
+  <div class="page-head">
+    <span class="badge">SMART PREPARATION</span>
+    <h2>Exam Strategy</h2>
+  </div>
+
+  <div class="strategy-grid">
+
+    <article>
+      <div class="strategy-icon">01</div>
+      <h3>2 Marks</h3>
+      <p>
+        Definition + 2 important points + example.
+        उत्तर short आणि direct ठेवा.
+      </p>
+    </article>
+
+    <article>
+      <div class="strategy-icon">05</div>
+      <h3>5 Marks</h3>
+      <p>
+        Definition, explanation, classification/features,
+        example आणि गरज असल्यास diagram.
+      </p>
+    </article>
+
+    <article>
+      <div class="strategy-icon">10</div>
+      <h3>10 Marks</h3>
+      <p>
+        Introduction → detailed explanation → diagram →
+        advantages/disadvantages → comparison → conclusion.
+      </p>
+    </article>
+
+  </div>
+
+  <div class="exam-note">
+    <h3>⭐ High Scoring Method</h3>
+    <ul>
+      <li>Headings आणि sub-headings वापरा.</li>
+      <li>Important keywords underline करा.</li>
+      <li>Network architecture चे diagrams neat काढा.</li>
+      <li>Comparison questions table format मध्ये लिहा.</li>
+      <li>Long answer मध्ये real-world examples द्या.</li>
+    </ul>
+  </div>
+</section>
+
+
+<section id="about" class="page">
+  <div class="about-card">
+    <div class="big-logo">CN</div>
+    <h2>CNCC StudyHub</h2>
+    <p>
+      This educational portal is designed to make Computer Network
+      and Cloud Computing easier for Final Year CSD students.
+    </p>
+
+    <div class="credits">
+      <div><small>CREATED BY</small><strong>Mayur Rathod</strong></div>
+      <div><small>SUBJECT TEACHER</small><strong>Professor Kiran Chaudhari</strong></div>
+      <div><small>COURSE</small><strong>CSD403</strong></div>
+      <div><small>SEMESTER</small><strong>VII</strong></div>
+    </div>
+
+    <div class="copyright">
+      <b>Educational Use Notice</b>
+      <p>
+        This portal is created for educational and revision purposes.
+        Original explanations, diagrams and interface elements are
+        created for this study portal. External resources are opened
+        through search links instead of copying third-party material.
+      </p>
+    </div>
+  </div>
+</section>
+
+</main>
+</div>
+
+<div id="toast"></div>
+
+<script src="app.js"></script>
+</body>
+</html>

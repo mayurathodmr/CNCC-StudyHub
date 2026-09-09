@@ -1,0 +1,498 @@
+const units = {
+
+unit1:{
+title:"Introduction to Computer Networks",
+hours:"06 Hrs",
+short:"Uses, types, technologies, protocols, OSI, TCP/IP and standardization.",
+topics:[
+{
+name:"Uses of Computer Networks",
+explain:"Computer network म्हणजे दोन किंवा अधिक computing devices यांना communication medium द्वारे जोडून data आणि resources share करण्याची व्यवस्था. Networks मुळे users files, printers, applications, internet आणि services share करू शकतात.",
+points:[
+"Resource sharing – printers, storage आणि software share करता येतात.",
+"Communication – email, messaging, video conferencing शक्य होते.",
+"Information sharing – files आणि databases access करता येतात.",
+"Remote access – दुसऱ्या location वरून systems/services वापरता येतात.",
+"Cost reduction – shared resources मुळे hardware cost कमी होतो."
+],
+tip:"Exam मध्ये definition + 4 uses + one real-life example लिहा."
+},
+{
+name:"Types of Computer Networks",
+explain:"Network चे classification सामान्यतः geographical coverage, architecture आणि communication technology यावर केले जाते.",
+points:[
+"PAN – Personal Area Network; अतिशय छोट्या area मध्ये.",
+"LAN – Local Area Network; room, building किंवा campus सारख्या area मध्ये.",
+"MAN – Metropolitan Area Network; city-level coverage.",
+"WAN – Wide Area Network; large geographical area.",
+"Internet – अनेक networks चे global interconnection."
+],
+tip:"PAN → LAN → MAN → WAN हा coverage क्रम लक्षात ठेवा."
+},
+{
+name:"Network Technologies",
+explain:"Network technology म्हणजे devices मध्ये communication करण्यासाठी वापरली जाणारी transmission आणि connectivity method.",
+points:[
+"Ethernet – wired LAN technology.",
+"Wi-Fi – wireless LAN technology.",
+"Fiber optics – high-speed long-distance communication.",
+"Mobile networks – cellular communication.",
+"Bluetooth – short-range wireless communication."
+],
+tip:"Wired vs Wireless comparison हा 5 marks साठी तयार ठेवा."
+},
+{
+name:"Network Protocols",
+explain:"Protocol म्हणजे communication करण्यासाठी devices ने follow करायचे rules. Sender आणि receiver मध्ये data कसा format, transmit आणि interpret करायचा हे protocol ठरवते.",
+points:[
+"HTTP/HTTPS – web communication.",
+"FTP – file transfer.",
+"DNS – domain name resolution.",
+"TCP – reliable transport.",
+"UDP – fast connectionless transport.",
+"IP – logical addressing आणि packet delivery."
+],
+tip:"Protocol म्हणजे communication rules — ही definition नक्की लक्षात ठेवा."
+},
+{
+name:"OSI Reference Model",
+explain:"OSI model हा networking communication समजण्यासाठी सात-layer reference model आहे. प्रत्येक layer ला specific responsibility दिलेली असते.",
+points:[
+"7 Application – network services to applications.",
+"6 Presentation – translation, encryption, compression.",
+"5 Session – sessions establish/manage/terminate.",
+"4 Transport – end-to-end delivery.",
+"3 Network – routing and logical addressing.",
+"2 Data Link – framing and MAC addressing.",
+"1 Physical – bits and physical transmission."
+],
+tip:"Mnemonic: All People Seem To Need Data Processing."
+},
+{
+name:"TCP/IP Model",
+explain:"TCP/IP हा practical networking model आहे जो Internet communication मध्ये वापरला जातो.",
+points:[
+"Application layer – HTTP, DNS, SMTP इ.",
+"Transport layer – TCP आणि UDP.",
+"Internet layer – IP and routing.",
+"Network Access layer – actual network transmission."
+],
+tip:"OSI आणि TCP/IP comparison 5/10 marks मध्ये विचारला जाऊ शकतो."
+},
+{
+name:"Standardization, Policy, Legal and Social Issues",
+explain:"Networking मध्ये standards मुळे different vendors ची systems एकमेकांशी communicate करू शकतात. Networking चा वापर करताना privacy, security, cyber law आणि ethical issues सुद्धा महत्त्वाचे आहेत.",
+points:[
+"Standards improve interoperability.",
+"Security protects data and systems.",
+"Privacy protects personal information.",
+"Cyber laws control illegal digital activities.",
+"Ethical use prevents misuse of technology."
+],
+tip:"Technical answer सोबत privacy/security examples दिल्यास answer strong होतो."
+}
+]
+},
+
+unit2:{
+title:"Data Link Layer and Network Layer",
+hours:"07 Hrs",
+short:"Framing, error control, routing, traffic management, internetworking and IP addressing.",
+topics:[
+{
+name:"Data Link Layer",
+explain:"Data Link Layer ही adjacent nodes मधील reliable frame-based communication साठी जबाबदार असते. Network layer कडून आलेल्या packets ला frames मध्ये organize करते.",
+points:[
+"Framing – network-layer packets ला frames मध्ये divide करते.",
+"Physical addressing – MAC address वापरते.",
+"Error detection – damaged frames detect करते.",
+"Flow control – sender आणि receiver चा speed balance करते.",
+"Medium access control – shared medium access manage करते."
+],
+tip:"Data Link Layer = Frame + MAC + Error + Flow."
+},
+{
+name:"Framing",
+explain:"Framing म्हणजे continuous bit stream ला manageable units म्हणजे frames मध्ये divide करण्याची प्रक्रिया.",
+points:[
+"Character count",
+"Byte stuffing",
+"Bit stuffing",
+"Physical layer coding violations",
+"Frame boundaries identify करणे"
+],
+tip:"Bit stuffing आणि byte stuffing difference तयार ठेवा."
+},
+{
+name:"Error Control",
+explain:"Transmission दरम्यान noise किंवा interference मुळे data corrupt होऊ शकतो. Error control techniques errors detect किंवा correct करण्यास मदत करतात.",
+points:[
+"Parity checking",
+"Checksum",
+"CRC",
+"ACK/NAK",
+"Retransmission"
+],
+tip:"CRC हा important error detection topic आहे."
+},
+{
+name:"Network Layer",
+explain:"Network Layer source आणि destination networks मध्ये packets पोहोचवण्यासाठी logical addressing आणि routing करते.",
+points:[
+"Logical addressing – IP addresses.",
+"Routing – best path selection.",
+"Packet forwarding.",
+"Internetworking.",
+"Traffic management."
+],
+tip:"Network Layer = IP + Routing + Forwarding."
+},
+{
+name:"Routing Algorithms",
+explain:"Routing algorithm source ते destination packet साठी suitable path select करते.",
+points:[
+"Shortest path routing",
+"Distance vector routing",
+"Link state routing",
+"Flooding",
+"Hierarchical routing"
+],
+tip:"Routing algorithm मध्ये metric म्हणजे path च्या quality/cost चे measurement."
+},
+{
+name:"Traffic Management",
+explain:"Network मध्ये congestion झाल्यास packets delay किंवा loss होऊ शकतो. Traffic management techniques network performance maintain करण्यास मदत करतात.",
+points:[
+"Congestion detection",
+"Traffic shaping",
+"Queue management",
+"Load balancing",
+"Resource management"
+],
+tip:"Congestion = network मध्ये traffic capacity पेक्षा जास्त होणे."
+},
+{
+name:"Internetworking",
+explain:"Different networks आणि technologies यांना connect करून communication उपलब्ध करून देण्याला internetworking म्हणतात. Routers यामध्ये महत्त्वाची भूमिका बजावतात.",
+points:[
+"Different networks connect करणे.",
+"Routing between networks.",
+"Packet forwarding.",
+"Protocol interoperability."
+],
+tip:"Internet हे अनेक interconnected networks चे उदाहरण आहे."
+},
+{
+name:"IP Address",
+explain:"IP address हा network वर device/interface ओळखण्यासाठी वापरला जाणारा logical address आहे.",
+points:[
+"IPv4 uses 32-bit address.",
+"IPv6 uses 128-bit address.",
+"Network part identifies network.",
+"Host/interface part identifies endpoint.",
+"IP supports packet delivery."
+],
+tip:"IPv4 = 32 bit, IPv6 = 128 bit."
+},
+{
+name:"Port Address",
+explain:"Port number transport layer वर specific application/service ओळखण्यासाठी वापरला जातो. IP device/network identify करते तर port application/service identify करतो.",
+points:[
+"HTTP – 80",
+"HTTPS – 443",
+"DNS – 53",
+"FTP – 21",
+"SMTP – 25"
+],
+tip:"IP = device/interface; Port = application/service."
+}
+]
+},
+
+unit3:{
+title:"Transport and Application Layer",
+hours:"06 Hrs",
+short:"Transport services, TCP, UDP, DNS, email, WWW, streaming and content delivery.",
+topics:[
+{name:"Transport Service",explain:"Transport layer applications मध्ये end-to-end communication उपलब्ध करून देते.",points:["Segmentation","Reliability","Flow control","Multiplexing","Connection management"],tip:"TCP reliable आहे; UDP lightweight आहे."},
+{name:"TCP and UDP",explain:"TCP connection-oriented आणि reliable transport protocol आहे. UDP connectionless आणि lower-overhead protocol आहे.",points:["TCP uses acknowledgements","TCP retransmits lost data","UDP has lower overhead","UDP is useful for real-time traffic","Both use port numbers"],tip:"TCP vs UDP table नक्की तयार करा."},
+{name:"Domain Name System (DNS)",explain:"DNS human-readable domain names ला IP addresses मध्ये resolve करते.",points:["Domain hierarchy","Name resolution","DNS servers","Caching","DNS records"],tip:"Example: domain name → IP address."},
+{name:"Electronic Mail",explain:"Email system sender आणि receiver मध्ये electronic messages transfer करते.",points:["SMTP for sending","POP/IMAP for receiving/access","Mail server","Mailbox","Attachments"],tip:"SMTP = sending; POP/IMAP = receiving/access."},
+{name:"World Wide Web",explain:"WWW हे Internet वर उपलब्ध interconnected web resources चे system आहे.",points:["Browser","Web server","HTTP/HTTPS","URL","Web pages"],tip:"Internet आणि WWW same नाहीत."},
+{name:"Streaming Audio and Video",explain:"Streaming मध्ये complete file download होण्याची वाट न पाहता media continuously receive आणि play करता येतो.",points:["Buffering","Compression","Adaptive bitrate","CDN","Real-time delivery"],tip:"Streaming मध्ये latency आणि bandwidth important आहेत."},
+{name:"Content Delivery",explain:"Content delivery म्हणजे users पर्यंत web/media content efficiently पोहोचवण्याची व्यवस्था.",points:["CDN","Caching","Edge servers","Load balancing","Reduced latency"],tip:"CDN user जवळ content serve करण्यास मदत करते."}
+]
+},
+
+unit4:{
+title:"Cloud Computing and Virtualization",
+hours:"07 Hrs",
+short:"Cloud models, computing evolution, cluster/grid/utility computing and virtualization.",
+topics:[
+{name:"Introduction to Cloud Computing",explain:"Cloud computing म्हणजे internet/network द्वारे computing resources on-demand उपलब्ध करून देणे.",points:["On-demand resources","Elasticity","Resource pooling","Measured service","Broad network access"],tip:"Cloud = computing as a service."},
+{name:"Evolution of Computing Models",explain:"Computing centralized mainframes पासून client-server, distributed आणि cloud computing कडे evolve झाले.",points:["Mainframe","PC","Client-server","Distributed computing","Cloud computing"],tip:"Evolution sequence लक्षात ठेवा."},
+{name:"Cluster Computing",explain:"Multiple computers एकत्र काम करून एक system सारखी processing capability देतात.",points:["Multiple nodes","High performance","Load sharing","Fault tolerance","Parallel processing"],tip:"Cluster = connected computers working together."},
+{name:"Grid Computing",explain:"Different locations मधील distributed resources एकत्र करून large computational tasks solve करण्याला grid computing म्हणतात.",points:["Distributed resources","Multiple organizations","Resource sharing","Large computations"],tip:"Grid resources geographically distributed असू शकतात."},
+{name:"Utility Computing",explain:"Electricity utility सारखे computing resources वापरानुसार pay करून मिळतात.",points:["Metered usage","Pay per use","Scalability","Resource provisioning"],tip:"Utility computing = computing as measurable utility."},
+{name:"Virtualization",explain:"Physical computing resource चे logical/virtual versions तयार करण्याला virtualization म्हणतात.",points:["VM","Hypervisor","Resource isolation","Server consolidation","Better utilization"],tip:"Virtualization is a key enabling technology for cloud computing."},
+{name:"Virtualization Types",explain:"Virtualization अनेक resources साठी लागू केली जाऊ शकते.",points:["Server virtualization","Storage virtualization","Network virtualization","Desktop virtualization","Application virtualization"],tip:"Type + example लिहा."}
+]
+},
+
+unit5:{
+title:"Cloud Computing Architecture",
+hours:"07 Hrs",
+short:"NIST architecture, service models, web services, deployment models and cloud infrastructure.",
+topics:[
+{name:"NIST Cloud Architecture",explain:"NIST cloud framework cloud actors, characteristics, service models आणि deployment models समजण्यासाठी reference architecture देते.",points:["Cloud consumer","Cloud provider","Cloud broker","Cloud auditor","Cloud carrier"],tip:"NIST characteristics: on-demand, broad access, resource pooling, elasticity, measured service."},
+{name:"Infrastructure as a Service",explain:"IaaS मध्ये virtual machines, storage आणि networking सारखी infrastructure resources service म्हणून मिळतात.",points:["VMs","Storage","Networks","Elastic resources","Customer manages OS/apps"],tip:"IaaS = infrastructure."},
+{name:"Platform as a Service",explain:"PaaS developers ना application build/deploy करण्यासाठी platform आणि runtime environment देते.",points:["Development platform","Runtime","Databases/tools","Less infrastructure management"],tip:"PaaS = platform for developers."},
+{name:"Software as a Service",explain:"SaaS मध्ये complete software application internet द्वारे वापरता येते.",points:["Browser based access","Provider manages software","Subscription possible","Automatic updates"],tip:"SaaS = ready-to-use software."},
+{name:"Deployment Models",explain:"Cloud infrastructure public, private, hybrid किंवा community model मध्ये deploy केली जाऊ शकते.",points:["Public cloud","Private cloud","Hybrid cloud","Community cloud"],tip:"Deployment model आणि service model वेगळे आहेत."},
+{name:"Role of Web Services",explain:"Web services standardized interfaces वापरून applications आणि systems मध्ये communication enable करतात.",points:["Interoperability","API based communication","Service reuse","Distributed applications"],tip:"Web service = software functionality accessible over network."}
+]
+},
+
+unit6:{
+title:"Cloud Applications",
+hours:"07 Hrs",
+short:"Media applications, gaming, AWS, storage, communication services, Google App Engine and Microsoft Azure.",
+topics:[
+{name:"Media Applications",explain:"Cloud media applications scalable storage, processing आणि delivery resources वापरतात.",points:["Video storage","Transcoding","Streaming","CDN","Scalable infrastructure"],tip:"Media workloads require high bandwidth and storage."},
+{name:"Multiplayer Online Gaming",explain:"Cloud gaming infrastructure game servers, matchmaking, storage आणि real-time communication support करते.",points:["Game servers","Matchmaking","Low latency","Player data","Scalability"],tip:"Gaming मध्ये latency critical आहे."},
+{name:"Amazon Web Services",explain:"AWS cloud platform compute, storage, database, networking आणि अनेक managed services provide करते.",points:["Compute","Storage","Databases","Networking","Monitoring"],tip:"AWS हा cloud service provider example आहे."},
+{name:"Google App Engine",explain:"Google App Engine developers ना infrastructure manually manage न करता applications deploy करण्यासाठी platform देते.",points:["Managed platform","Application deployment","Automatic scaling","Developer focused"],tip:"App Engine = PaaS example."},
+{name:"Microsoft Azure",explain:"Azure हा cloud platform आहे जो compute, storage, databases, networking आणि application services provide करतो.",points:["Virtual machines","Storage","Databases","Networking","App services"],tip:"Azure = Microsoft cloud platform."},
+{name:"Cloud Storage",explain:"Cloud storage मध्ये data remote provider-managed infrastructure वर store केला जातो.",points:["Scalability","Remote access","Backup","Availability","Data management"],tip:"Storage cloud applications मध्ये core service आहे."},
+{name:"Communication Services",explain:"Cloud communication services messaging, email, voice, video आणि notification workloads support करतात.",points:["Email","Messaging","Video communication","Notifications","APIs"],tip:"Communication services distributed applications साठी useful आहेत."}
+]
+}
+
+};
+
+const questions=[
+{u:1,m:2,q:"What is a computer network?",a:"A computer network is an interconnected collection of devices that communicate and share data/resources using communication links and protocols."},
+{u:1,m:2,q:"Define protocol.",a:"A protocol is a set of rules that defines how data is formatted, transmitted and interpreted between communicating devices."},
+{u:1,m:5,q:"Explain different types of computer networks.",a:"PAN covers personal devices, LAN covers a small local area, MAN covers a city/metropolitan area and WAN covers a large geographical area. The Internet is a global interconnection of networks."},
+{u:1,m:5,q:"Explain OSI model.",a:"OSI has seven layers: Physical, Data Link, Network, Transport, Session, Presentation and Application. Each layer performs a specific networking function."},
+{u:1,m:10,q:"Explain OSI model with functions of all layers.",a:"Physical transmits bits; Data Link provides framing and MAC addressing; Network provides IP addressing and routing; Transport provides end-to-end delivery; Session manages sessions; Presentation handles translation, encryption and compression; Application provides network services to applications."},
+{u:2,m:2,q:"What is framing?",a:"Framing is the process of dividing a continuous bit stream into identifiable data-link frames."},
+{u:2,m:2,q:"What is an IP address?",a:"An IP address is a logical address used to identify a network interface and support packet delivery."},
+{u:2,m:5,q:"Explain error control techniques.",a:"Error control uses techniques such as parity, checksum and CRC for error detection, and acknowledgements/retransmission for reliable delivery."},
+{u:2,m:5,q:"Explain routing.",a:"Routing is the process of selecting a suitable path for packets from source to destination. Routing algorithms use metrics and network information to select paths."},
+{u:2,m:10,q:"Explain Data Link Layer and its functions.",a:"Data Link Layer provides node-to-node delivery using framing, physical/MAC addressing, error detection, flow control and medium access control."},
+{u:2,m:10,q:"Differentiate IP address and port address.",a:"IP address identifies a network interface/device at the network layer, while a port number identifies a specific application/service at the transport layer."},
+{u:3,m:2,q:"What is DNS?",a:"DNS translates human-readable domain names into IP addresses and supports hierarchical name resolution."},
+{u:3,m:5,q:"Differentiate TCP and UDP.",a:"TCP is connection-oriented, reliable and uses acknowledgements/retransmission. UDP is connectionless, has lower overhead and is useful where speed/latency is important."},
+{u:3,m:5,q:"Explain WWW.",a:"WWW is a system of interconnected web resources accessed through browsers using technologies such as URLs, HTTP/HTTPS and web servers."},
+{u:4,m:2,q:"Define cloud computing.",a:"Cloud computing provides computing resources such as servers, storage and applications over a network on demand."},
+{u:4,m:5,q:"Explain virtualization.",a:"Virtualization creates virtual versions of computing resources. A hypervisor can create and manage virtual machines while isolating workloads and improving resource utilization."},
+{u:4,m:10,q:"Explain virtualization types and advantages.",a:"Types include server, storage, network, desktop and application virtualization. Advantages include resource utilization, isolation, flexibility, server consolidation, scalability and easier management."},
+{u:5,m:2,q:"What is IaaS?",a:"IaaS provides infrastructure resources such as virtual machines, storage and networking as a service."},
+{u:5,m:5,q:"Explain IaaS, PaaS and SaaS.",a:"IaaS provides infrastructure, PaaS provides an application development/deployment platform, and SaaS provides ready-to-use software applications."},
+{u:5,m:10,q:"Explain cloud deployment models.",a:"Public cloud resources are generally shared among customers, private cloud is dedicated to one organization, hybrid cloud combines cloud environments, and community cloud is designed for organizations sharing common requirements."},
+{u:6,m:2,q:"What is cloud storage?",a:"Cloud storage stores data on provider-managed remote infrastructure and provides access through a network."},
+{u:6,m:5,q:"Explain AWS.",a:"AWS is a cloud platform providing services across compute, storage, databases, networking, security and monitoring."},
+{u:6,m:5,q:"Explain Google App Engine.",a:"Google App Engine is a managed application platform that lets developers deploy applications while the platform handles much of the underlying infrastructure."},
+{u:6,m:5,q:"Explain Microsoft Azure.",a:"Microsoft Azure provides cloud services including virtual machines, storage, databases, networking and application services."}
+];
+
+const mcqs=[
+["Which layer is responsible for routing?",["Physical","Data Link","Network","Application"],2],
+["How many layers are in OSI model?",["4","5","7","8"],2],
+["Which protocol is reliable and connection-oriented?",["UDP","TCP","IP","DNS"],1],
+["DNS is mainly used for?",["Encryption","Name resolution","Routing","Framing"],1],
+["IPv4 address length is?",["16 bit","32 bit","64 bit","128 bit"],1],
+["IPv6 address length is?",["32 bit","64 bit","96 bit","128 bit"],3],
+["Which is an example of IaaS?",["Virtual machine infrastructure","Email application","Web browser","Text editor"],0],
+["Which cloud model provides ready-to-use software?",["IaaS","PaaS","SaaS","LAN"],2],
+["Which device commonly forwards packets between networks?",["Switch","Router","Keyboard","Monitor"],1],
+["Which layer uses MAC addressing?",["Application","Transport","Network","Data Link"],3],
+["Which protocol commonly uses port 443?",["HTTP","HTTPS","FTP","DNS"],1],
+["Which is a cloud deployment model?",["Hybrid","TCP","DNS","OSI"],0]
+];
+
+function $(id){return document.getElementById(id)}
+
+function showPage(id){
+ document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+ $(id).classList.add("active");
+
+ document.querySelectorAll(".nav").forEach(n=>{
+   n.classList.toggle("active",n.dataset.page===id || (id==="unitDetail"&&n.dataset.page==="units"));
+ });
+
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+
+document.querySelectorAll(".nav").forEach(n=>{
+ n.onclick=()=>showPage(n.dataset.page);
+});
+
+$("menuBtn").onclick=()=>{
+ $("sidebar").classList.toggle("open");
+};
+
+$("themeBtn").onclick=()=>{
+ document.body.classList.toggle("light");
+ localStorage.setItem("theme",document.body.classList.contains("light")?"light":"dark");
+ $("themeBtn").textContent=document.body.classList.contains("light")?"🌙":"☀️";
+};
+
+if(localStorage.getItem("theme")==="light"){
+ document.body.classList.add("light");
+ $("themeBtn").textContent="🌙";
+}
+
+function unitCard(key){
+ const u=units[key];
+ const num=key.replace("unit","");
+ return `
+ <div class="unit-card" onclick="openUnit('${key}')">
+   <div class="unit-number">UNIT ${num} • ${u.hours}</div>
+   <h3>${u.title}</h3>
+   <p>${u.short}</p>
+   <div class="progress"><span style="width:${Math.min(100,u.topics.length*11+25)}%"></span></div>
+ </div>`;
+}
+
+$("homeUnits").innerHTML=Object.keys(units).slice(0,3).map(unitCard).join("");
+$("allUnits").innerHTML=Object.keys(units).map(unitCard).join("");
+
+$("syllabusContent").innerHTML=Object.entries(units).map(([key,u])=>{
+ return `<div class="syllabus-card">
+ <div class="unit-number">${key.toUpperCase()} • ${u.hours}</div>
+ <h3>${u.title}</h3>
+ <p>${u.short}</p>
+ <p><b>Topics:</b> ${u.topics.map(x=>x.name).join(" • ")}</p>
+ </div>`;
+}).join("");
+
+function openUnit(key){
+ const u=units[key];
+ $("unitDetailContent").innerHTML=`
+ <div class="page-head">
+   <span class="badge">${key.toUpperCase()} • ${u.hours}</span>
+   <h2>${u.title}</h2>
+   <p>${u.short}</p>
+ </div>
+ ${u.topics.map((t,i)=>`
+ <article class="topic">
+   <h3><span>${String(i+1).padStart(2,"0")}</span> ${t.name}</h3>
+   <p>${t.explain}</p>
+   <ul>${t.points.map(p=>`<li>${p}</li>`).join("")}</ul>
+   <div class="exam-tip">🎯 <b>Exam Tip:</b> ${t.tip}</div>
+ </article>`).join("")}
+ `;
+ showPage("unitDetail");
+}
+
+function renderQuestions(filter="all"){
+ let list=questions.filter(x=>filter==="all"||String(x.m)===filter);
+ $("questionList").innerHTML=list.map(x=>`
+ <article class="question">
+   <span class="marks">${x.m} MARKS • UNIT ${x.u}</span>
+   <h3>${x.q}</h3>
+   <div class="answer"><b>Answer:</b><p>${x.a}</p></div>
+ </article>
+ `).join("");
+}
+
+renderQuestions();
+
+document.querySelectorAll(".filter").forEach(btn=>{
+ btn.onclick=()=>{
+   document.querySelectorAll(".filter").forEach(b=>b.classList.remove("active"));
+   btn.classList.add("active");
+   renderQuestions(btn.dataset.filter);
+ };
+});
+
+const diagrams=[
+ ["OSI 7 Layer Model",["Application","Presentation","Session","Transport","Network","Data Link","Physical"],"OSI Model networking layers"],
+ ["Basic Network Communication",["Sender","Switch / Router","Network","Receiver"],"Computer network sender receiver diagram"],
+ ["TCP/IP Model",["Application","Transport","Internet","Network Access"],"TCP IP model diagram"],
+ ["Cloud Architecture",["User","Internet","Cloud Provider","Compute / Storage"],"cloud computing architecture diagram"],
+ ["IaaS PaaS SaaS",["IaaS","PaaS","SaaS"],"IaaS PaaS SaaS service models diagram"],
+ ["Public Private Hybrid",["Public Cloud","Private Cloud","Hybrid Cloud","Community Cloud"],"cloud deployment models diagram"]
+];
+
+$("diagramList").innerHTML=diagrams.map(d=>`
+ <article class="diagram-card">
+   <h3>${d[0]}</h3>
+   <div class="diagram">
+     <div class="diagram-row">
+       ${d[1].map((x,i)=>`
+       ${i?'<span class="arrow">→</span>':''}
+       <div class="dbox">${x}</div>`).join("")}
+     </div>
+   </div>
+   <div class="diagram-actions">
+     <a target="_blank" href="https://www.google.com/search?tbm=isch&q=${encodeURIComponent(d[2])}">🔎 Google Images</a>
+     <a target="_blank" href="https://www.google.com/search?q=${encodeURIComponent(d[2])}">🌐 Search Details</a>
+   </div>
+ </article>
+`).join("");
+
+let qi=0;
+let score=0;
+let answered=false;
+
+function loadQuestion(){
+ if(qi>=mcqs.length){
+   $("qText").textContent="🎉 Test Completed!";
+   $("options").innerHTML="";
+   $("nextBtn").style.display="none";
+   $("quizResult").innerHTML=`<div class="exam-note"><h3>Your Score: ${score}/${mcqs.length}</h3><p>Test पुन्हा करण्यासाठी page refresh करा.</p></div>`;
+   return;
+ }
+
+ answered=false;
+ const q=mcqs[qi];
+ $("qNumber").textContent=`Question ${qi+1} / ${mcqs.length}`;
+ $("score").textContent=`Score: ${score}`;
+ $("qText").textContent=q[0];
+
+ $("options").innerHTML=q[1].map((o,i)=>
+ `<button class="option" onclick="answer(${i})">${String.fromCharCode(65+i)}. ${o}</button>`
+ ).join("");
+}
+
+window.answer=function(i){
+ if(answered)return;
+ answered=true;
+
+ const correct=mcqs[qi][2];
+ document.querySelectorAll(".option").forEach((b,n)=>{
+   if(n===correct)b.classList.add("correct");
+   if(n===i&&i!==correct)b.classList.add("wrong");
+ });
+
+ if(i===correct){
+   score++;
+   showToast("Correct answer ✓");
+ }else{
+   showToast("Wrong answer — correct option highlighted");
+ }
+
+ $("score").textContent=`Score: ${score}`;
+};
+
+$("nextBtn").onclick=()=>{
+ if(!answered){
+   showToast("First select an answer");
+   return;
+ }
+ qi++;
+ loadQuestion();
+};
+
+loadQuestion();
+
+function showToast(msg){
+ $("toast").textContent=msg;
+ $("toast").classList.add("show");
+ setTimeout(()=>$("toast").classList.remove("show"),2200);
+}
+
+console.log("CNCC StudyHub loaded successfully.");
