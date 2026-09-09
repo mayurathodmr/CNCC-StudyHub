@@ -3,385 +3,226 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="theme-color" content="#0b1020">
-<meta name="description" content="CNCC StudyHub - CSD Final Year Exam Portal by Mayur Rathod">
-<title>CNCC StudyHub | CSD Final Year Exam Portal</title>
+<meta name="theme-color" content="#09090f">
+<meta name="description" content="CSD Final Year Premium Study Portal">
+<title>CSD StudyHub — Premium Study Portal</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
 <div id="loader">
-  <div class="loader-logo">CN</div>
-  <h2>CNCC StudyHub</h2>
-  <p>Preparing your exam portal...</p>
+  <div class="loader-logo">S</div>
+  <div class="loader-text">CSD STUDYHUB</div>
+  <div class="loader-bar"><span></span></div>
 </div>
 
-<header class="topbar">
-  <div class="brand" onclick="showPage('home')">
-    <div class="brand-logo">CN</div>
+<header class="navbar">
+  <div class="brand">
+    <div class="brand-logo">S</div>
     <div>
-      <strong>CNCC</strong>
-      <span>StudyHub</span>
+      <b>CSD StudyHub</b>
+      <small>Final Year Exam Portal</small>
     </div>
   </div>
 
-  <nav>
-    <button onclick="showPage('home')">Home</button>
-    <button onclick="showPage('syllabus')">Syllabus</button>
-    <button onclick="showPage('questions')">Question Bank</button>
-    <button onclick="showPage('practice')">Practice</button>
-    <button onclick="showPage('about')">About</button>
-  </nav>
+  <div class="nav-search">
+    <span>⌕</span>
+    <input id="searchInput" placeholder="Search subjects, topics, questions...">
+  </div>
 
-  <div class="top-actions">
-    <button class="icon-btn" onclick="toggleTheme()" title="Theme">☀️</button>
-    <button class="menu-btn" onclick="toggleMenu()">☰</button>
+  <div class="nav-actions">
+    <button id="themeBtn" title="Theme">☀️</button>
+    <button id="ecoBtn" title="Eco Mode">🌱</button>
+    <button id="profileBtn" title="Profile">👤</button>
   </div>
 </header>
 
 <main>
 
-<section id="home" class="page active">
+<section class="hero">
+  <div class="hero-content">
+    <span class="pill">✦ PREMIUM STUDY EXPERIENCE</span>
+    <h1>Learn smarter.<br><span>Prepare better.</span></h1>
+    <p>
+      Your syllabus, notes, diagrams, question bank, MCQs and
+      exam practice — organised in one beautiful study portal.
+    </p>
 
-  <div class="hero">
-
-    <div class="hero-content">
-
-      <div class="eyebrow">FINAL YEAR B.TECH • CSD • SEM VII</div>
-
-      <h1>
-        Computer Network &
-        <span>Cloud Computing</span>
-      </h1>
-
-      <p class="hero-text">
-        A complete student-friendly exam portal designed from your official
-        CSD syllabus — with deep theory, diagrams, important questions,
-        MCQs, marks-wise answers and practice tests.
-      </p>
-
-      <div class="hero-buttons">
-        <button class="primary-btn" onclick="showPage('syllabus')">
-          Start Learning →
-        </button>
-
-        <button class="secondary-btn" onclick="showPage('questions')">
-          Question Bank
-        </button>
-      </div>
-
-      <div class="creator-line">
-        <span>Designed & Developed by</span>
-        <strong>Mayur Rathod</strong>
-      </div>
-
+    <div class="hero-buttons">
+      <button class="primary" onclick="continueLearning()">▶ Continue Learning</button>
+      <button class="secondary" onclick="openRandomPaper()">🎲 Random Paper</button>
     </div>
 
-    <div class="welcome-card">
-
-      <div class="character">
-        <div class="hair"></div>
-        <div class="face">
-          <span class="eye e1"></span>
-          <span class="eye e2"></span>
-          <span class="smile"></span>
-        </div>
-        <div class="body"></div>
-      </div>
-
-      <div>
-        <small>WELCOME STUDENT 👋</small>
-        <h3>Let's crack CNCC!</h3>
-        <p>
-          Learn concepts → understand diagrams → practice questions →
-          prepare for exams.
-        </p>
-      </div>
-
+    <div class="hero-stats">
+      <div><b id="subjectCount">1</b><small>Subjects</small></div>
+      <div><b id="unitCount">6</b><small>Units</small></div>
+      <div><b id="questionCount">0</b><small>Questions</small></div>
+      <div><b id="progressValue">0%</b><small>Progress</small></div>
     </div>
-
   </div>
 
-  <div class="teacher-card">
+  <div class="hero-orb">
+    <div class="orbit o1"></div>
+    <div class="orbit o2"></div>
+    <div class="orbit o3"></div>
+    <div class="floating-book">📚</div>
+  </div>
+</section>
 
-    <div class="teacher-avatar">KC</div>
-
+<section class="section">
+  <div class="section-head">
     <div>
-      <span class="mini-label">SUBJECT TEACHER / GUIDE</span>
-      <h3>Professor Kiran Chaudhari</h3>
-      <p>
-        Computer Network and Cloud Computing
-      </p>
+      <span class="eyebrow">YOUR LEARNING</span>
+      <h2>Continue Learning</h2>
     </div>
-
-    <div class="teacher-badge">
-      <span>📘</span>
-      <b>SEM VII</b>
-    </div>
-
+    <button onclick="showAllUnits()">View All →</button>
   </div>
 
-  <div class="stats-grid">
+  <div id="continueRow" class="card-row"></div>
+</section>
 
-    <div class="stat">
-      <b>06</b>
-      <span>Units</span>
+<section class="section">
+  <div class="section-head">
+    <div>
+      <span class="eyebrow">YOUR SUBJECTS</span>
+      <h2>Explore Subjects</h2>
     </div>
-
-    <div class="stat">
-      <b>30+</b>
-      <span>Major Topics</span>
-    </div>
-
-    <div class="stat">
-      <b>100+</b>
-      <span>Exam Questions</span>
-    </div>
-
-    <div class="stat">
-      <b>∞</b>
-      <span>Practice Sets</span>
-    </div>
-
   </div>
 
-  <div class="section-title">
-    <span>LEARNING PATH</span>
-    <h2>Everything you need for the exam</h2>
+  <div id="subjectGrid" class="subject-grid"></div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div>
+      <span class="eyebrow">EXAM PREPARATION</span>
+      <h2>Practice Zone</h2>
+    </div>
   </div>
 
   <div class="feature-grid">
 
-    <article class="feature-card" onclick="showUnit(1)">
-      <div class="feature-icon">🌐</div>
-      <h3>Unit I</h3>
-      <p>Introduction to Computer Networks</p>
-      <span>Learn →</span>
+    <article class="feature-card" onclick="openQuestions(2)">
+      <div class="feature-icon">📝</div>
+      <h3>2 Marks</h3>
+      <p>Definitions and short exam answers.</p>
+      <span>Practice →</span>
     </article>
 
-    <article class="feature-card" onclick="showUnit(2)">
-      <div class="feature-icon">🔗</div>
-      <h3>Unit II</h3>
-      <p>Data Link & Network Layer</p>
-      <span>Learn →</span>
+    <article class="feature-card" onclick="openQuestions(5)">
+      <div class="feature-icon">📖</div>
+      <h3>5 Marks</h3>
+      <p>Explain, compare and working-based answers.</p>
+      <span>Practice →</span>
     </article>
 
-    <article class="feature-card" onclick="showUnit(3)">
-      <div class="feature-icon">🚚</div>
-      <h3>Unit III</h3>
-      <p>Transport & Application Layer</p>
-      <span>Learn →</span>
+    <article class="feature-card" onclick="openQuestions(10)">
+      <div class="feature-icon">🎓</div>
+      <h3>10 Marks</h3>
+      <p>Detailed answers with diagrams and points.</p>
+      <span>Practice →</span>
     </article>
 
-    <article class="feature-card" onclick="showUnit(4)">
-      <div class="feature-icon">☁️</div>
-      <h3>Unit IV</h3>
-      <p>Cloud Computing & Virtualization</p>
-      <span>Learn →</span>
-    </article>
-
-    <article class="feature-card" onclick="showUnit(5)">
-      <div class="feature-icon">🏗️</div>
-      <h3>Unit V</h3>
-      <p>Cloud Computing Architecture</p>
-      <span>Learn →</span>
-    </article>
-
-    <article class="feature-card" onclick="showUnit(6)">
-      <div class="feature-icon">⚡</div>
-      <h3>Unit VI</h3>
-      <p>Cloud Applications</p>
-      <span>Learn →</span>
+    <article class="feature-card" onclick="startMCQ()">
+      <div class="feature-icon">🧪</div>
+      <h3>MCQ Arena</h3>
+      <p>Test yourself with instant scoring.</p>
+      <span>Start Quiz →</span>
     </article>
 
   </div>
-
 </section>
 
-
-<section id="syllabus" class="page">
-
-  <div class="page-heading">
-    <span>OFFICIAL SYLLABUS</span>
-    <h1>Computer Network & Cloud Computing</h1>
-    <p>Final Year B.Tech Computer Science and Design • Semester VII</p>
-  </div>
-
-  <div id="unitCards" class="unit-list"></div>
-
-</section>
-
-
-<section id="unitPage" class="page">
-
-  <div id="unitContent"></div>
-
-</section>
-
-
-<section id="questions" class="page">
-
-  <div class="page-heading">
-    <span>EXAM PREPARATION</span>
-    <h1>Smart Question Bank</h1>
-    <p>Marks-wise questions based on the syllabus and your college paper pattern.</p>
-  </div>
-
-  <div class="question-controls">
-
-    <select id="questionUnit" onchange="renderQuestions()">
-      <option value="all">All Units</option>
-      <option value="1">Unit I</option>
-      <option value="2">Unit II</option>
-      <option value="3">Unit III</option>
-      <option value="4">Unit IV</option>
-      <option value="5">Unit V</option>
-      <option value="6">Unit VI</option>
-    </select>
-
-    <select id="questionMarks" onchange="renderQuestions()">
-      <option value="all">All Marks</option>
-      <option value="2">2 Marks</option>
-      <option value="5">5 Marks</option>
-      <option value="10">10 Marks</option>
-    </select>
-
-    <button class="primary-btn" onclick="generateRandomQuestions()">
-      🔀 Generate Random Set
-    </button>
-
-  </div>
-
-  <div id="questionContainer"></div>
-
-</section>
-
-
-<section id="practice" class="page">
-
-  <div class="page-heading">
-    <span>SELF TEST</span>
-    <h1>Quick MCQ Practice</h1>
-    <p>Test your concepts and track your score.</p>
-  </div>
-
-  <div class="quiz-box">
-
-    <div class="quiz-top">
-      <span id="quizProgress">Question 1</span>
-      <span id="quizScore">Score: 0</span>
-    </div>
-
-    <div id="quizQuestion"></div>
-
-    <div id="quizOptions"></div>
-
-    <button class="primary-btn" id="nextQuiz" onclick="nextQuestion()">
-      Next Question →
-    </button>
-
-  </div>
-
-</section>
-
-
-<section id="about" class="page">
-
-  <div class="page-heading">
-    <span>ABOUT THE PORTAL</span>
-    <h1>Built for CSD Students</h1>
-  </div>
-
-  <div class="about-grid">
-
-    <div class="about-card">
-      <div class="big-icon">👨‍💻</div>
-      <h2>Mayur Rathod</h2>
-      <p>
-        Student-designed academic portal for making Computer Network &
-        Cloud Computing easier to understand, revise and practice.
-      </p>
-
-      <div class="social-links">
-        <a href="mailto:mayuuuuuur@gmail.com">📧 Email</a>
-        <a href="https://github.com/mayurathodmr" target="_blank">🐙 GitHub</a>
-        <a href="https://www.linkedin.com/" target="_blank">💼 LinkedIn</a>
-      </div>
-    </div>
-
-    <div class="about-card">
-      <h2>Subject Guide</h2>
-      <p>Professor Kiran Chaudhari</p>
-      <p class="muted">
-        Computer Network and Cloud Computing
-      </p>
-
-      <hr>
-
-      <h3>Study Method</h3>
-      <ul class="check-list">
-        <li>Understand the concept</li>
-        <li>Study the diagram</li>
-        <li>Remember key points</li>
-        <li>Practice marks-wise answers</li>
-        <li>Attempt random question sets</li>
-      </ul>
-    </div>
-
-  </div>
-
-  <div class="feedback-card">
-
+<section class="section">
+  <div class="section-head">
     <div>
-      <span class="mini-label">STUDENT FEEDBACK</span>
-      <h2>How useful is CNCC StudyHub?</h2>
-      <p>Your feedback helps improve the portal.</p>
+      <span class="eyebrow">IMPORTANT</span>
+      <h2>Exam Focus</h2>
     </div>
+  </div>
 
-    <div class="rating" id="rating">
-      <button onclick="setRating(1)">★</button>
-      <button onclick="setRating(2)">★</button>
-      <button onclick="setRating(3)">★</button>
-      <button onclick="setRating(4)">★</button>
-      <button onclick="setRating(5)">★</button>
+  <div id="importantRow" class="question-row"></div>
+</section>
+
+<section class="section random-section">
+  <div class="random-box">
+    <div>
+      <span class="eyebrow">PRACTICE DIFFERENTLY</span>
+      <h2>Generate a Fresh Question Paper</h2>
+      <p>Every generation can create a different question combination.</p>
+    </div>
+    <button class="primary" onclick="openRandomPaper()">🎲 Generate Paper</button>
+  </div>
+</section>
+
+<section class="section progress-section">
+  <div class="section-head">
+    <div>
+      <span class="eyebrow">TRACK YOUR JOURNEY</span>
+      <h2>Your Progress</h2>
+    </div>
+  </div>
+
+  <div id="progressGrid" class="progress-grid"></div>
+</section>
+
+<section class="teacher-section">
+  <div class="teacher-card">
+    <div class="teacher-avatar">👨‍🏫</div>
+    <div>
+      <span class="eyebrow">SUBJECT TEACHER</span>
+      <h2 id="teacherName">Professor Kiran Chaudhari</h2>
+      <p>Subject guidance • Exam preparation • Learning support</p>
+    </div>
+  </div>
+
+  <div class="developer-card">
+    <span class="eyebrow">CREATED BY</span>
+    <h2>Mayur Rathod</h2>
+    <p>Premium academic study portal</p>
+    <div class="contact-buttons">
+      <a href="mailto:mayuuuuuuur@gmail.com">📧 Email</a>
+      <a href="https://github.com/mayurathodmr" target="_blank">GitHub</a>
+      <a href="#" onclick="openLinkedIn(event)">LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<section class="feedback-section">
+  <div class="feedback-box">
+    <span class="eyebrow">STUDENT FEEDBACK</span>
+    <h2>How was your StudyHub experience?</h2>
+
+    <div id="stars" class="stars">
+      <button onclick="rate(1)">★</button>
+      <button onclick="rate(2)">★</button>
+      <button onclick="rate(3)">★</button>
+      <button onclick="rate(4)">★</button>
+      <button onclick="rate(5)">★</button>
     </div>
 
     <textarea id="feedbackText" placeholder="Write your feedback..."></textarea>
-
-    <button class="primary-btn" onclick="submitFeedback()">
-      Send Feedback
-    </button>
-
-    <p id="feedbackStatus"></p>
-
+    <button class="primary" onclick="submitFeedback()">Send Feedback</button>
+    <p id="feedbackMsg"></p>
   </div>
-
 </section>
 
 </main>
 
-
 <footer>
-
-  <div>
-    <strong>CNCC StudyHub</strong>
-    <p>Final Year CSD Exam Portal</p>
-  </div>
-
-  <div>
-    <p>Created by <b>Mayur Rathod</b></p>
-    <p>Subject Teacher: Prof. Kiran Chaudhari</p>
-  </div>
-
-  <div>
-    <a href="mailto:mayuuuuuur@gmail.com">mayuuuuuur@gmail.com</a>
-  </div>
-
+  <div class="footer-logo">CSD StudyHub</div>
+  <p>Learn • Practice • Progress • Grow 🌱</p>
+  <small>Designed for students • Digital-first • Eco Study</small>
 </footer>
 
+<div id="modal" class="modal">
+  <div class="modal-box">
+    <button class="close" onclick="closeModal()">×</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
 
 <script src="app.js"></script>
-
 </body>
 </html>
