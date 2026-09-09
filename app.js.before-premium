@@ -1,1322 +1,1184 @@
-const units = {
-
-1:{
-title:"Introduction to Computer Networks",
-hours:"06 Hours",
-summary:"Fundamentals of computer networks, network types, technologies, protocols, OSI and TCP/IP models, standardization and social/legal issues.",
-
-topics:[
-
-{
-title:"1. Uses of Computer Networks",
-explain:`A computer network is a collection of interconnected computing devices that communicate with each other to exchange data and share resources. Networks are used almost everywhere: colleges, banks, hospitals, industries, homes, government offices and cloud platforms.
-
-The most important purpose of networking is communication and resource sharing. A network allows users to share files, printers, applications, databases, internet connections and other hardware resources.
-
-Modern networks also support remote access, online learning, video conferencing, e-commerce, cloud computing and distributed applications.`,
-points:[
-"Resource sharing – hardware, software and files can be shared.",
-"Communication – email, messaging, voice and video communication.",
-"Information sharing – databases and documents can be accessed by authorized users.",
-"Remote access – users can access systems from different locations.",
-"Cost reduction – shared resources reduce infrastructure cost.",
-"Reliability – backup systems and redundant networks improve availability.",
-"Scalability – networks can grow by adding new devices.",
-"Internet and cloud access – networks provide connectivity to online services."
-],
-example:"A college LAN can connect computers in laboratories so students can access a common server, printer and internet connection."
-},
-
-{
-title:"2. Types of Computer Networks",
-explain:`Networks can be classified according to geographical coverage, ownership and purpose.
-
-PAN (Personal Area Network) covers a very small area around a person, such as Bluetooth between a phone and earbuds.
-
-LAN (Local Area Network) covers a room, building, laboratory or campus section. It normally provides high speed and is commonly managed by one organization.
-
-MAN (Metropolitan Area Network) covers a city or large metropolitan area.
-
-WAN (Wide Area Network) covers large geographical areas such as countries or continents. The Internet is the best-known example of a global interconnected network.`,
-points:[
-"PAN – very small personal range.",
-"LAN – building, office, laboratory or campus.",
-"MAN – city-level network.",
-"WAN – country/continent-level network.",
-"Internet – global interconnection of networks."
-],
-diagram:"network-types"
-},
-
-{
-title:"3. Network Technologies",
-explain:`Network technology describes the methods and communication technologies used to connect devices.
-
-Ethernet is widely used for wired LAN communication. Wi-Fi provides wireless LAN connectivity. Bluetooth is commonly used for short-range personal communication. Cellular networks provide mobile connectivity over large areas.
-
-Modern systems may combine wired Ethernet, Wi-Fi, fiber optics, cellular networks and satellite communication.`,
-points:[
-"Ethernet – common wired LAN technology.",
-"Wi-Fi – wireless local connectivity.",
-"Bluetooth – short-range personal connectivity.",
-"Fiber optic – high-speed long-distance communication.",
-"Cellular – mobile wide-area connectivity.",
-"Satellite – communication over very large geographic areas."
-]
-},
-
-{
-title:"4. Network Protocols",
-explain:`A protocol is a set of rules that defines how devices communicate.
-
-Protocols specify how data is formatted, addressed, transmitted, received and interpreted. Without common protocols, devices from different manufacturers could not reliably communicate.
-
-Examples include HTTP/HTTPS for web communication, DNS for name resolution, TCP and UDP for transport communication, IP for internetworking and Ethernet for LAN communication.`,
-points:[
-"Protocol defines communication rules.",
-"Specifies message format.",
-"Defines addressing.",
-"Controls communication procedures.",
-"Supports interoperability between different systems."
-]
-},
-
-{
-title:"5. OSI Reference Model",
-explain:`The OSI (Open Systems Interconnection) model is a conceptual seven-layer model used to understand network communication.
-
-The seven layers are Application, Presentation, Session, Transport, Network, Data Link and Physical.
-
-Each layer performs a specific group of functions and provides services to the layer above it. Data moves down the layers at the sender and up the layers at the receiver.
-
-The OSI model is especially useful for learning, designing networks and troubleshooting communication problems.`,
-points:[
-"Layer 7 – Application: network services used by applications.",
-"Layer 6 – Presentation: translation, encryption and compression.",
-"Layer 5 – Session: establishes and manages sessions.",
-"Layer 4 – Transport: end-to-end delivery, reliability and flow control.",
-"Layer 3 – Network: logical addressing and routing.",
-"Layer 2 – Data Link: framing, MAC addressing and error detection.",
-"Layer 1 – Physical: transmission of raw bits."
-],
-diagram:"osi"
-},
-
-{
-title:"6. TCP/IP Reference Model",
-explain:`The TCP/IP model is the practical networking architecture used by the Internet.
-
-It is commonly represented using four layers: Application, Transport, Internet and Network Access.
-
-The Application layer includes protocols such as HTTP, DNS and SMTP. The Transport layer includes TCP and UDP. The Internet layer mainly uses IP. The Network Access layer handles local network technologies such as Ethernet and Wi-Fi.`,
-points:[
-"Application layer – application-level network services.",
-"Transport layer – process-to-process communication.",
-"Internet layer – logical addressing and routing.",
-"Network Access layer – local network transmission."
-],
-diagram:"tcpip"
-},
-
-{
-title:"7. Standardization, Policy, Legal and Social Issues",
-explain:`Networking requires standards so equipment and software from different vendors can communicate. Organizations such as ISO, IEEE, IETF and ITU contribute to networking standards.
-
-Network usage also creates policy, legal and social responsibilities. Privacy, data protection, unauthorized access, cybercrime, intellectual property, digital identity and responsible use are important considerations.
-
-Students should understand that technical networking decisions can have legal and social consequences.`,
-points:[
-"Standards improve interoperability.",
-"IEEE develops many LAN-related standards.",
-"IETF develops Internet standards and protocols.",
-"Privacy protects personal information.",
-"Unauthorized access is a security and legal concern.",
-"Copyright protects original digital content.",
-"Responsible network usage is essential."
-]
-}
-
-]},
-
-2:{
-title:"Data Link Layer and Network Layer",
-hours:"07 Hours",
-summary:"Data link layer services, framing, error control, network layer design, routing, traffic management, internetworking, IP addresses and port-related addressing concepts.",
-
-topics:[
-
-{
-title:"1. Data Link Layer",
-explain:`The Data Link Layer is Layer 2 of the OSI model. It provides node-to-node delivery over a physical link.
-
-Its responsibilities include framing, physical addressing, error detection/correction, flow control and media access control.
-
-The layer takes packets from the network layer and encapsulates them into frames. At the receiver, frames are checked and the original packet is delivered to the network layer.`,
-points:[
-"Provides node-to-node delivery.",
-"Creates frames.",
-"Uses physical/MAC addresses.",
-"Detects transmission errors.",
-"Can provide flow control.",
-"Controls access to shared media."
-],
-diagram:"datalink"
-},
-
-{
-title:"2. Framing",
-explain:`Framing is the process of dividing a continuous stream of bits into manageable units called frames.
-
-A frame normally contains control information such as source and destination addresses, data and an error-detection field.
-
-Common framing approaches include character count, byte stuffing and bit stuffing.`,
-points:[
-"Creates identifiable data units.",
-"Adds header and trailer information.",
-"Helps synchronization.",
-"Supports error detection.",
-"Byte stuffing inserts escape bytes when required.",
-"Bit stuffing inserts a 0 after a sequence of five 1s in relevant bit-oriented protocols."
-],
-diagram:"frame"
-},
-
-{
-title:"3. Error Detection and Correction",
-explain:`Errors can occur because of noise, interference, attenuation or hardware problems.
-
-Error detection determines whether received data has been corrupted. Common techniques include parity, checksum and CRC.
-
-Error correction attempts to recover the original information. Some systems retransmit corrupted frames while others use error-correcting codes.`,
-points:[
-"Parity – simple error detection.",
-"Checksum – arithmetic-based verification.",
-"CRC – polynomial-based powerful error detection.",
-"Retransmission can recover damaged frames.",
-"Hamming code is an example of error correction."
-]
-},
-
-{
-title:"4. Network Layer",
-explain:`The Network Layer is Layer 3 of the OSI model. Its major responsibilities are logical addressing, routing and forwarding.
-
-The network layer determines how packets travel from a source network to a destination network. Routers operate primarily at this layer.
-
-IP is the most important protocol family used for Internet network-layer communication.`,
-points:[
-"Logical addressing.",
-"Routing.",
-"Packet forwarding.",
-"Internetworking.",
-"Traffic management.",
-"Fragmentation/reassembly concepts.",
-"Supports communication between different networks."
-],
-diagram:"routing"
-},
-
-{
-title:"5. Routing Algorithms",
-explain:`Routing is the process of selecting a path for packets.
-
-Routing algorithms may use information such as hop count, delay, bandwidth, cost and network topology.
-
-Distance Vector routing maintains distance information to destinations. Link State routing builds knowledge about network topology and computes shortest paths.`,
-points:[
-"Routing selects suitable paths.",
-"Static routing uses manually configured routes.",
-"Dynamic routing adapts to network changes.",
-"Distance Vector exchanges routing information with neighbors.",
-"Link State maintains topology information.",
-"Shortest path algorithms can calculate efficient routes."
-]
-},
-
-{
-title:"6. Traffic Management",
-explain:`Traffic management controls network congestion and improves quality of service.
-
-Congestion occurs when too many packets compete for limited network resources. Network devices may use queue management, traffic shaping, admission control and congestion-control techniques.
-
-Good traffic management helps maintain throughput, delay and reliability.`,
-points:[
-"Congestion means excessive traffic load.",
-"Traffic shaping regulates transmission rate.",
-"Queuing manages packets waiting for transmission.",
-"Admission control decides whether new traffic should be accepted.",
-"QoS can prioritize important traffic."
-]
-},
-
-{
-title:"7. Internetworking",
-explain:`Internetworking means connecting multiple independent networks so that devices can communicate across them.
-
-Routers connect different networks and forward packets using logical addresses. The Internet is a huge example of internetworking.
-
-Different physical technologies can participate in one interconnected system because IP provides a common network-layer mechanism.`,
-points:[
-"Connects different networks.",
-"Routers perform forwarding.",
-"IP provides logical addressing.",
-"Supports heterogeneous networks.",
-"Forms the basis of the Internet."
-]
-},
-
-{
-title:"8. IP Addresses",
-explain:`An IP address is a logical address assigned to a device or network interface for network communication.
-
-IPv4 uses 32-bit addresses and is normally written in dotted-decimal notation. IPv6 uses 128-bit addresses and provides a much larger address space.
-
-An IP address identifies a network location/interface and is different from a physical MAC address.`,
-points:[
-"IPv4 = 32 bits.",
-"IPv6 = 128 bits.",
-"IPv4 example format: 192.168.1.10.",
-"IPv6 uses hexadecimal notation.",
-"IP addresses support logical routing.",
-"Private and public addressing serve different purposes."
-],
-diagram:"ip"
-},
-
-{
-title:"9. Port Addresses",
-explain:`A port number identifies a particular application or service endpoint on a host.
-
-IP addresses identify the host/interface, while port numbers help identify the destination process or service.
-
-Examples include HTTP 80, HTTPS 443, DNS 53 and SSH 22. Port numbers are associated mainly with transport-layer communication.`,
-points:[
-"IP identifies the host/interface.",
-"Port identifies a service/process endpoint.",
-"TCP and UDP use port numbers.",
-"Well-known ports are commonly associated with standard services."
-]
-}
-
-]},
-
-3:{
-title:"Transport and Application Layer",
-hours:"06 Hours",
-summary:"Transport service, transport protocol elements, UDP, TCP, DNS, electronic mail, World Wide Web, streaming audio/video and content delivery.",
-
-topics:[
-{
-title:"1. Transport Service",
-explain:`The Transport Layer provides process-to-process communication between applications running on different hosts.
-
-Its functions may include segmentation, reassembly, reliability, flow control, multiplexing and connection management.
-
-TCP provides reliable connection-oriented communication while UDP provides connectionless datagram communication with lower overhead.`,
-points:[
-"Process-to-process delivery.",
-"Segmentation and reassembly.",
-"Multiplexing using port numbers.",
-"Flow control.",
-"Reliability when supported by the protocol.",
-"Connection management."
-],
-diagram:"transport"
-},
-{
-title:"2. UDP",
-explain:`UDP is a connectionless transport protocol. It sends datagrams without establishing a connection and does not guarantee delivery, ordering or retransmission.
-
-Its low overhead makes it useful when speed and low delay are more important than guaranteed delivery, such as DNS queries, real-time media and certain interactive applications.`,
-points:[
-"Connectionless.",
-"Low overhead.",
-"No guaranteed delivery.",
-"No guaranteed ordering.",
-"Uses source and destination ports.",
-"Suitable for delay-sensitive applications."
-]
-},
-{
-title:"3. TCP",
-explain:`TCP is a connection-oriented transport protocol that provides reliable byte-stream communication.
-
-TCP uses sequence numbers, acknowledgements, retransmissions, flow control and congestion control. It begins communication using a connection-establishment procedure and terminates the connection using controlled procedures.`,
-points:[
-"Connection-oriented.",
-"Reliable delivery.",
-"Ordered byte stream.",
-"Uses acknowledgements.",
-"Retransmits lost data.",
-"Flow and congestion control."
-],
-diagram:"tcp"
-},
-{
-title:"4. Domain Name System",
-explain:`DNS translates human-readable domain names into IP addresses and also supports other name-related information.
-
-When a user enters a website name, a DNS resolver can obtain the corresponding address from DNS servers. DNS uses a hierarchical namespace including root, top-level domains and authoritative servers.`,
-points:[
-"Converts names to IP addresses.",
-"Uses hierarchical naming.",
-"Improves usability of Internet services.",
-"DNS commonly uses port 53.",
-"Supports different record types."
-],
-diagram:"dns"
-},
-{
-title:"5. Electronic Mail",
-explain:`Electronic mail allows users to exchange messages over computer networks.
-
-SMTP is commonly used for sending mail. POP3 and IMAP are commonly used for retrieving/accessing mail. Email systems use servers to store and transfer messages.`,
-points:[
-"SMTP – sending/transfer of mail.",
-"POP3 – retrieval model.",
-"IMAP – server-based mailbox access and synchronization.",
-"Mail servers handle message transfer and storage."
-]
-},
-{
-title:"6. World Wide Web",
-explain:`The World Wide Web is a distributed information system accessed using web browsers.
-
-A browser sends HTTP/HTTPS requests to web servers. The server responds with resources such as HTML, CSS, JavaScript, images or API data.
-
-HTTPS adds encryption and authentication through TLS.`,
-points:[
-"Browser acts as client.",
-"Web server provides resources.",
-"HTTP/HTTPS defines web communication.",
-"HTML structures content.",
-"CSS controls presentation.",
-"JavaScript provides behavior."
-],
-diagram:"web"
-},
-{
-title:"7. Streaming Audio and Video",
-explain:`Streaming allows media to be consumed while data is being delivered instead of waiting for the complete file.
-
-Streaming systems divide media into small segments or packets and deliver them according to network conditions. Buffering helps handle temporary variation in network speed.`,
-points:[
-"Media is delivered continuously.",
-"Buffering reduces interruption.",
-"Adaptive streaming can change quality.",
-"Network delay and bandwidth affect experience."
-]
-},
-{
-title:"8. Content Delivery",
-explain:`Content Delivery Networks (CDNs) distribute content through geographically distributed servers or edge locations.
-
-A user can often receive content from a nearby edge location, reducing latency and improving performance.`,
-points:[
-"Uses distributed edge servers.",
-"Reduces latency.",
-"Improves scalability.",
-"Reduces load on origin servers.",
-"Useful for websites, video and static assets."
-]
-}
-]},
-
-4:{
-title:"Cloud Computing and Virtualization",
-hours:"07 Hours",
-summary:"Introduction and evolution of cloud computing, service benefits and limitations, cluster/grid/utility computing and virtualization.",
-
-topics:[
-{
-title:"1. Introduction to Cloud Computing",
-explain:`Cloud computing provides computing resources such as servers, storage, databases, networking and software through a network on demand.
-
-Instead of owning and maintaining every physical resource, organizations can consume resources as services and scale them according to workload.`,
-points:[
-"On-demand resource access.",
-"Network-based service delivery.",
-"Elastic scaling.",
-"Resource pooling.",
-"Measured usage.",
-"Reduced infrastructure management."
-],
-diagram:"cloud"
-},
-{
-title:"2. Evolution of Computing Models",
-explain:`Computing evolved from centralized mainframes to personal computers, client-server systems, distributed computing, clusters, grids, utility computing and cloud computing.
-
-Cloud computing combines virtualization, large-scale data centers, networking, automation and service-oriented delivery.`,
-points:[
-"Mainframe computing.",
-"Personal computing.",
-"Client-server computing.",
-"Distributed computing.",
-"Cluster computing.",
-"Grid computing.",
-"Utility computing.",
-"Cloud computing."
-]
-},
-{
-title:"3. Pros and Cons of Cloud Computing",
-explain:`Cloud computing can reduce upfront infrastructure investment and provide flexible capacity. However, organizations must consider security, privacy, dependency on connectivity, vendor lock-in, compliance and service availability.`,
-points:[
-"Advantages: scalability.",
-"Advantages: reduced upfront cost.",
-"Advantages: rapid provisioning.",
-"Advantages: global access.",
-"Challenges: security and privacy.",
-"Challenges: network dependency.",
-"Challenges: vendor lock-in.",
-"Challenges: outages and compliance concerns."
-]
-},
-{
-title:"4. Cluster Computing",
-explain:`Cluster computing connects multiple computers so they work together as a coordinated system.
-
-Clusters are often used for high availability, high performance and workload distribution.`,
-points:[
-"Multiple connected computers.",
-"Can provide high availability.",
-"Can improve performance.",
-"Workloads can be distributed."
-],
-diagram:"cluster"
-},
-{
-title:"5. Grid Computing",
-explain:`Grid computing coordinates geographically distributed and heterogeneous resources to solve large computational problems.
-
-Resources may belong to different organizations and may be managed independently.`,
-points:[
-"Distributed resources.",
-"Heterogeneous systems.",
-"Resource sharing.",
-"Useful for large computational tasks."
-]
-},
-{
-title:"6. Utility Computing",
-explain:`Utility computing treats computing resources similarly to utilities such as electricity: users consume resources and are charged according to usage or service arrangement.`,
-points:[
-"Pay/use-oriented concept.",
-"Flexible resource consumption.",
-"Reduces need for owning all infrastructure."
-]
-},
-{
-title:"7. Virtualization",
-explain:`Virtualization abstracts physical computing resources and allows multiple virtual environments to operate on one physical machine.
-
-A hypervisor manages virtual machines and allocates resources such as CPU, memory and storage.`,
-points:[
-"Creates virtual resources.",
-"Improves hardware utilization.",
-"Provides isolation.",
-"Supports server consolidation.",
-"Enables flexible resource allocation.",
-"Hypervisor manages virtual machines."
-],
-diagram:"virtualization"
-},
-{
-title:"8. Virtualization Types",
-explain:`Common forms include server virtualization, storage virtualization, network virtualization and desktop virtualization.
-
-Virtual machines may run different operating systems on the same physical host when supported by the virtualization platform.`,
-points:[
-"Server virtualization.",
-"Storage virtualization.",
-"Network virtualization.",
-"Desktop virtualization.",
-"Application-level virtualization."
-]
-}
-]},
-
-5:{
-title:"Cloud Computing Architecture",
-hours:"07 Hours",
-summary:"NIST cloud architecture, cloud service layers, role of networks and web services, IaaS, PaaS, SaaS and deployment models.",
-
-topics:[
-{
-title:"1. NIST Cloud Computing Architecture",
-explain:`The NIST cloud model describes essential characteristics, service models and deployment models of cloud computing.
-
-The three major service models are Infrastructure as a Service, Platform as a Service and Software as a Service. Deployment models include public, private, community and hybrid cloud.`,
-points:[
-"On-demand self-service.",
-"Broad network access.",
-"Resource pooling.",
-"Rapid elasticity.",
-"Measured service.",
-"IaaS, PaaS and SaaS.",
-"Public, private, community and hybrid deployment."
-],
-diagram:"cloudlayers"
-},
-{
-title:"2. Role of Networks in Cloud Computing",
-explain:`Networks are fundamental to cloud computing because users and applications access cloud resources through network connections.
-
-High bandwidth, low latency, reliability, routing, security and load balancing influence cloud application performance.`,
-points:[
-"Provides connectivity.",
-"Carries application traffic.",
-"Connects users to data centers.",
-"Supports load balancing.",
-"Enables distributed services.",
-"Security controls protect communication."
-]
-},
-{
-title:"3. Role of Web Services",
-explain:`Web services allow applications to communicate using standardized network interfaces.
-
-REST APIs and other service interfaces enable cloud applications to consume functionality from remote systems.`,
-points:[
-"Application-to-application communication.",
-"API-based service access.",
-"Supports distributed applications.",
-"Enables integration between systems."
-]
-},
-{
-title:"4. IaaS",
-explain:`Infrastructure as a Service provides virtualized infrastructure such as virtual machines, storage and networking.
-
-The cloud provider manages physical infrastructure while the customer manages operating systems, applications and other software according to the service.`,
-points:[
-"Virtual machines.",
-"Storage.",
-"Networking.",
-"Flexible infrastructure.",
-"Customer manages higher-level software."
-]
-},
-{
-title:"5. PaaS",
-explain:`Platform as a Service provides a managed application-development and deployment platform.
-
-Developers can focus on application code while the platform manages many infrastructure and runtime responsibilities.`,
-points:[
-"Application development platform.",
-"Managed runtime.",
-"Developer-focused service.",
-"Reduces infrastructure management."
-]
-},
-{
-title:"6. SaaS",
-explain:`Software as a Service provides complete software applications over a network.
-
-Users normally access SaaS applications through a browser or application interface without managing the underlying infrastructure.`,
-points:[
-"Complete application.",
-"Provider manages infrastructure and application platform.",
-"Users consume software as a service.",
-"Usually accessible over network."
-],
-diagram:"service-models"
-},
-{
-title:"7. Deployment Models",
-explain:`Public cloud infrastructure is offered for broad use. Private cloud is dedicated to a particular organization. Community cloud serves organizations with shared requirements. Hybrid cloud combines multiple cloud environments.
-
-The choice depends on cost, control, security, compliance and workload requirements.`,
-points:[
-"Public cloud.",
-"Private cloud.",
-"Community cloud.",
-"Hybrid cloud."
-],
-diagram:"deployment"
-}
-]},
-
-6:{
-title:"Cloud Applications",
-hours:"06 Hours",
-summary:"Media applications, multiplayer online gaming, AWS compute/storage/communication services, Google App Engine, Microsoft Azure core concepts and SQL Azure.",
-
-topics:[
-{
-title:"1. Media Applications in Cloud",
-explain:`Cloud infrastructure is widely used for media storage, processing, transcoding, distribution and streaming.
-
-Media applications require scalable storage, high network bandwidth and content delivery infrastructure.`,
-points:[
-"Media storage.",
-"Video processing.",
-"Transcoding.",
-"Streaming.",
-"CDN distribution.",
-"Elastic scaling."
-]
-},
-{
-title:"2. Multiplayer Online Gaming",
-explain:`Cloud platforms support multiplayer games by providing scalable servers, databases, matchmaking, communication services and global distribution.
-
-Game workloads can vary greatly depending on the number of active players, so elastic infrastructure is useful.`,
-points:[
-"Game server hosting.",
-"Matchmaking.",
-"Player data storage.",
-"Scalability.",
-"Low-latency networking.",
-"Monitoring and analytics."
-]
-},
-{
-title:"3. Amazon Web Services – Compute Services",
-explain:`Cloud compute services provide virtual or managed computing capacity for applications.
-
-Compute platforms can run web servers, APIs, background jobs and other workloads. The exact service choice depends on workload requirements.`,
-points:[
-"Virtual computing.",
-"Elastic scaling.",
-"Application hosting.",
-"Load distribution.",
-"Pay/use-oriented resource management."
-]
-},
-{
-title:"4. AWS Storage Services",
-explain:`Cloud storage provides scalable storage for objects, files, databases and block-level data depending on the service.
-
-Applications select storage according to performance, durability, access pattern and data structure requirements.`,
-points:[
-"Object storage.",
-"Block storage.",
-"File storage.",
-"Database storage.",
-"Backup and archival."
-]
-},
-{
-title:"5. Communication Services",
-explain:`Cloud communication services help applications exchange messages, notifications, events and requests.
-
-Messaging systems improve reliability and decouple components in distributed applications.`,
-points:[
-"Queues.",
-"Publish/subscribe messaging.",
-"Notifications.",
-"Event-driven communication.",
-"Application integration."
-]
-},
-{
-title:"6. Google App Engine",
-explain:`Google App Engine is a platform for deploying applications without directly managing traditional server infrastructure.
-
-It provides managed application hosting and scaling features so developers can focus on application development.`,
-points:[
-"Managed application platform.",
-"Application deployment.",
-"Automatic scaling capabilities.",
-"Developer-focused environment.",
-"Integration with cloud services."
-]
-},
-{
-title:"7. Microsoft Azure Core Concepts",
-explain:`Azure provides cloud services for computing, storage, networking, databases, analytics and application development.
-
-Azure resources are organized and managed through subscriptions, resource groups and regional infrastructure concepts.`,
-points:[
-"Compute.",
-"Storage.",
-"Networking.",
-"Databases.",
-"Identity and access.",
-"Monitoring and management."
-]
-},
-{
-title:"8. SQL Azure",
-explain:`Azure SQL services provide managed relational database capabilities.
-
-Managed database services reduce the need for customers to maintain physical database infrastructure and can provide scalability, backup and security features.`,
-points:[
-"Managed relational database.",
-"SQL-based data access.",
-"Backups.",
-"Scalability.",
-"Security and access management."
-]
-}
-]}
-
+"use strict";
+
+/* =========================================================
+   CSD STUDYHUB
+   Computer Networks & Cloud Computing
+   Exact syllabus topics from provided college syllabus
+========================================================= */
+
+const SUBJECT={
+name:"Computer Networks and Cloud Computing",
+code:"CSD403",
+stream:"B.Tech Computer Science and Design",
+year:"Final Year • Semester VII",
+teacher:"Professor Kiran Chaudhari",
+creator:"Mayur Rathod"
 };
 
-const questions = [
-
-[1,2,"What is a computer network?","A computer network is a group of interconnected devices that communicate and share resources such as data, applications, printers and Internet connectivity."],
-[1,2,"Define LAN and WAN.","LAN covers a small area such as a building or campus, while WAN covers a large geographical area such as a country or continent."],
-[1,2,"What is a protocol?","A protocol is a set of communication rules defining message format, addressing, transmission and interpretation."],
-[1,2,"List the seven OSI layers.","Application, Presentation, Session, Transport, Network, Data Link and Physical."],
-[1,2,"What is the purpose of the OSI model?","It provides a conceptual framework for understanding and troubleshooting network communication by dividing functions into layers."],
-[1,5,"Explain the uses of computer networks.","Networks enable resource sharing, communication, remote access, information sharing, cost reduction, reliability, scalability and access to Internet/cloud services."],
-[1,5,"Explain OSI reference model.","OSI divides communication into seven layers. Application provides network services, Presentation handles representation/encryption/compression, Session manages sessions, Transport provides end-to-end communication, Network performs routing, Data Link performs framing and Physical transmits bits."],
-[1,5,"Compare OSI and TCP/IP models.","OSI is a seven-layer conceptual model, while TCP/IP is the practical Internet architecture commonly represented with four layers. OSI separates Session and Presentation, whereas TCP/IP includes their functions in Application."],
-[1,10,"Explain OSI model in detail with functions of all layers.","The OSI model has seven layers: Application, Presentation, Session, Transport, Network, Data Link and Physical. Each layer performs specific functions and communicates with adjacent layers. Application provides network services; Presentation handles translation, compression and encryption; Session manages sessions; Transport provides end-to-end delivery, reliability and flow control; Network performs logical addressing and routing; Data Link performs framing and error detection; Physical transmits raw bits."],
-[1,10,"Explain types of computer networks with examples.","PAN covers personal devices, LAN covers rooms/buildings/campuses, MAN covers a metropolitan area, and WAN covers large geographical areas. The Internet is a global interconnection of networks."],
-
-[2,2,"What is framing?","Framing divides a bit stream into identifiable data units called frames."],
-[2,2,"What is CRC?","CRC is a polynomial-based error detection technique used to detect corruption in transmitted data."],
-[2,2,"What is routing?","Routing is the process of selecting a path for packets from source to destination."],
-[2,2,"What is an IP address?","An IP address is a logical address used to identify a network interface and support packet routing."],
-[2,2,"What is a port number?","A port number identifies an application or service endpoint associated with transport-layer communication."],
-[2,5,"Explain framing techniques.","Framing divides a stream into frames. Common techniques include character count, byte stuffing and bit stuffing. These techniques help identify frame boundaries and maintain synchronization."],
-[2,5,"Explain error detection and correction.","Parity, checksum and CRC can detect errors. Correction may use retransmission or error-correcting codes such as Hamming code."],
-[2,5,"Explain network layer functions.","The network layer provides logical addressing, routing, forwarding, internetworking and traffic-management-related functions."],
-[2,10,"Explain Data Link Layer in detail.","The Data Link Layer provides node-to-node delivery. Its important functions are framing, MAC addressing, error detection, flow control and media access control. It receives packets from the network layer and encapsulates them into frames for transmission."],
-[2,10,"Explain routing algorithms and routing concepts.","Routing selects suitable paths through a network. Static routing is manually configured, while dynamic routing adapts to topology changes. Distance Vector methods exchange route information with neighbors, while Link State methods maintain topology information and calculate paths."],
-[2,10,"Explain IP addressing and port addressing.","IP addressing identifies a network interface logically and supports routing. IPv4 uses 32 bits while IPv6 uses 128 bits. Port addressing identifies a service/process endpoint at the transport layer. Together, IP address and port information help identify the destination host and application service."],
-
-[3,2,"What is TCP?","TCP is a connection-oriented transport protocol providing reliable ordered byte-stream communication."],
-[3,2,"What is UDP?","UDP is a connectionless transport protocol with low overhead and no built-in guarantee of delivery or ordering."],
-[3,2,"What is DNS?","DNS is a hierarchical naming system that maps domain names to IP addresses and other information."],
-[3,2,"What is WWW?","The World Wide Web is a distributed information system accessed through web browsers using HTTP/HTTPS."],
-[3,5,"Compare TCP and UDP.","TCP is connection-oriented and provides reliable ordered delivery, acknowledgements, retransmission, flow control and congestion control. UDP is connectionless, lightweight and does not guarantee delivery or ordering."],
-[3,5,"Explain DNS.","DNS provides hierarchical domain-name resolution. A resolver obtains information from DNS infrastructure so users can access services using human-readable domain names."],
-[3,5,"Explain electronic mail protocols.","SMTP is used for sending/transferring email, while POP3 and IMAP are used to retrieve/access mailbox messages."],
-[3,10,"Explain TCP in detail.","TCP provides reliable connection-oriented byte-stream communication. It uses sequence numbers, acknowledgements, retransmissions, flow control and congestion control. It establishes a connection before normal data transfer and provides ordered delivery."],
-[3,10,"Explain transport layer services and protocols.","Transport layer provides process-to-process delivery, segmentation, reassembly, multiplexing, flow control and connection management. TCP provides reliable communication, while UDP provides low-overhead connectionless datagrams."],
-
-[4,2,"What is cloud computing?","Cloud computing provides computing resources such as servers, storage and applications over a network on demand."],
-[4,2,"What is virtualization?","Virtualization abstracts physical resources so multiple virtual environments can operate on shared physical infrastructure."],
-[4,2,"What is a hypervisor?","A hypervisor is software or firmware that manages virtual machines and allocates physical resources to them."],
-[4,5,"Explain advantages and disadvantages of cloud computing.","Advantages include scalability, rapid provisioning, flexible access and reduced infrastructure burden. Challenges include security, privacy, connectivity dependency, vendor lock-in and compliance."],
-[4,5,"Explain cluster and grid computing.","Cluster computing coordinates connected computers as a system, often for performance or availability. Grid computing coordinates distributed and heterogeneous resources that may be geographically separated."],
-[4,10,"Explain virtualization and its types.","Virtualization abstracts physical resources and creates virtual environments. Types include server, storage, network, desktop and application virtualization. It improves utilization, isolation and flexibility."],
-[4,10,"Explain cloud computing and its evolution.","Computing evolved through mainframes, personal computers, client-server systems, distributed systems, clusters, grids and utility computing to cloud computing. Cloud combines virtualization, automation, networking and large-scale data centers to provide on-demand services."],
-
-[5,2,"What is IaaS?","IaaS provides infrastructure resources such as virtual machines, storage and networking."],
-[5,2,"What is PaaS?","PaaS provides a managed platform for application development and deployment."],
-[5,2,"What is SaaS?","SaaS provides complete software applications to users over a network."],
-[5,2,"Name cloud deployment models.","Public, private, community and hybrid cloud."],
-[5,5,"Compare IaaS, PaaS and SaaS.","IaaS provides infrastructure, PaaS provides an application platform, and SaaS provides complete software applications. As we move from IaaS to SaaS, the provider manages more of the technology stack."],
-[5,5,"Explain cloud deployment models.","Public cloud is broadly available, private cloud is dedicated to an organization, community cloud serves organizations with shared requirements, and hybrid cloud combines multiple environments."],
-[5,10,"Explain NIST cloud architecture and service models.","The cloud model includes characteristics such as on-demand self-service, broad network access, resource pooling, rapid elasticity and measured service. Service models are IaaS, PaaS and SaaS. Deployment models include public, private, community and hybrid cloud."],
-
-[6,2,"What is a CDN?","A Content Delivery Network uses distributed edge locations to deliver content closer to users and reduce latency."],
-[6,2,"What is cloud gaming infrastructure?","It is cloud-based infrastructure providing game servers, storage, networking, matchmaking and scalable resources for multiplayer applications."],
-[6,2,"What is Google App Engine?","It is a managed application platform for deploying applications without directly managing traditional server infrastructure."],
-[6,5,"Explain cloud applications for media.","Cloud media systems provide scalable storage, processing, transcoding, streaming and distribution through networks and edge infrastructure."],
-[6,5,"Explain cloud applications in multiplayer gaming.","Cloud platforms provide game servers, matchmaking, player-data storage, scalable compute and low-latency networking for multiplayer workloads."],
-[6,10,"Explain AWS, Google App Engine and Microsoft Azure applications.","Cloud platforms provide compute, storage, networking, databases and managed application services. Google App Engine provides managed application hosting, while Azure provides broad cloud capabilities including compute, storage, networking and managed databases. AWS similarly provides scalable infrastructure and managed services for application workloads."],
-[6,10,"Explain cloud application architecture for a media service.","A media service can use object storage for media files, compute for processing/transcoding, databases for metadata, CDN/edge locations for delivery and monitoring/security services for operational control. Scaling allows the system to handle changing user demand."]
+const U=[
+{
+id:1,
+title:"Introduction to Computer Networks",
+hours:6,
+points:[
+{
+t:"Uses of Computer Networks",
+d:"A computer network is a collection of interconnected computing devices that communicate and share resources. Networks are used for communication, resource sharing, centralized services, collaboration, remote access and distributed applications.",
+details:[
+"Communication: e-mail, messaging, voice calls and video conferencing.",
+"Resource sharing: printers, storage, databases and software can be shared.",
+"Information sharing: users can access files and services from different machines.",
+"Remote access: a user can access services from another location through a network.",
+"Reliability: important data and services can use multiple machines or paths.",
+"Scalability: additional devices can be connected as the organization grows.",
+"Distributed processing: a task can be divided among multiple computers."
+],
+example:"A college network connects laboratories, faculty offices, library systems, servers and Wi-Fi users so they can share internet, files and academic services."
+},
+{
+t:"Types of Computer Networks",
+d:"Networks can be classified according to geographical coverage and purpose.",
+details:[
+"PAN — Personal Area Network: very small range, such as devices connected around one person.",
+"LAN — Local Area Network: covers a room, laboratory, building or campus area.",
+"MAN — Metropolitan Area Network: connects networks across a city or metropolitan region.",
+"WAN — Wide Area Network: covers large geographical areas and can connect countries and continents.",
+"Internet — a global interconnection of networks using common communication protocols."
+],
+diagram:["PAN","LAN","MAN","WAN","GLOBAL NETWORK"]
+},
+{
+t:"Network Technology: Local to Global",
+d:"Network technology has evolved from small local networks to large interconnected global systems.",
+details:[
+"Local Ethernet and Wi-Fi networks provide connectivity inside homes, offices and campuses.",
+"Routers connect different networks and select paths for packets.",
+"Internet service providers connect customer networks to larger regional and global networks.",
+"Backbone networks provide high-capacity connectivity between major locations.",
+"Cloud data centers provide globally accessible computing and storage services."
+],
+diagram:["Device","LAN / Wi-Fi","Router","ISP","Internet","Cloud"]
+},
+{
+t:"Examples of Networks",
+d:"Examples include home networks, college LANs, enterprise networks, mobile networks, data-center networks, cloud networks and the Internet.",
+details:[
+"Home Wi-Fi network",
+"College or university campus network",
+"Corporate enterprise network",
+"Mobile cellular network",
+"Data-center network",
+"Cloud provider network",
+"Internet"
+]
+},
+{
+t:"Network Protocols",
+d:"A protocol is a defined set of rules used by communicating devices. Protocols specify how data is formatted, addressed, transmitted, received and interpreted.",
+details:[
+"TCP — reliable transport service.",
+"UDP — lightweight connectionless transport service.",
+"IP — addressing and packet forwarding.",
+"DNS — converts domain names into IP addresses.",
+"HTTP/HTTPS — web communication.",
+"SMTP/POP/IMAP — e-mail related communication.",
+"Ethernet and Wi-Fi — common link-layer technologies."
+],
+diagram:["Application","Transport","Internet","Link","Physical"]
+},
+{
+t:"Reference Models: OSI and TCP/IP",
+d:"Reference models divide networking responsibilities into layers. Layering makes network design, implementation, troubleshooting and standardization easier.",
+details:[
+"OSI has seven conceptual layers: Physical, Data Link, Network, Transport, Session, Presentation and Application.",
+"TCP/IP is the practical protocol architecture used by the Internet.",
+"OSI is useful for learning and analysis, while TCP/IP maps closely to real Internet protocols.",
+"Each layer provides services to the layer above it and uses services of the layer below it."
+],
+diagram:["Application","Presentation","Session","Transport","Network","Data Link","Physical"]
+},
+{
+t:"Standardization",
+d:"Standardization creates common technical rules so equipment and software from different vendors can interoperate.",
+details:[
+"Standards define protocols, formats, interfaces and communication behavior.",
+"International and industry organizations develop or maintain networking standards.",
+"Open standards improve interoperability and reduce vendor dependency.",
+"Standards are important for global Internet compatibility."
+]
+},
+{
+t:"Policy, Legal and Social Issues",
+d:"Computer networks create technical, legal and social responsibilities.",
+details:[
+"Privacy: personal information must be protected.",
+"Security: unauthorized access and attacks must be prevented.",
+"Intellectual property: copyrighted material must be used lawfully.",
+"Acceptable use: institutions can define rules for network usage.",
+"Cybercrime: misuse of networks can have legal consequences.",
+"Digital divide: access to technology is not equally available to everyone.",
+"Ethics: users should respect privacy, safety and other people's digital rights."
+]
+}
+]
+},
+{
+id:2,
+title:"Data Link Layer and Network Layer",
+hours:7,
+points:[
+{
+t:"Data Link Layer Design Issues",
+d:"The data link layer provides reliable communication between directly connected nodes. It takes packets from the network layer and organizes them into frames.",
+details:[
+"Framing: divides a stream of bits into identifiable frames.",
+"Error control: detects and may correct transmission errors.",
+"Flow control: prevents a fast sender from overwhelming a slower receiver.",
+"Medium access control: coordinates access to a shared communication medium.",
+"Physical addressing: link-layer addresses can identify interfaces on a local network."
+],
+diagram:["Network Layer Packet","Framing","Frame","Transmission","Frame"]
+},
+{
+t:"Services Provided to Network Layer",
+d:"The data link layer offers a service interface to the network layer.",
+details:[
+"Unacknowledged connectionless service sends frames without confirmation.",
+"Acknowledged connectionless service confirms individual frames.",
+"Acknowledged connection-oriented service establishes a logical connection and provides ordered delivery.",
+"The exact service depends on the technology and requirements."
+]
+},
+{
+t:"Framing",
+d:"Framing identifies the beginning and end of data-link-layer frames.",
+details:[
+"Character count can use a field containing the frame length.",
+"Byte stuffing adds special escape information when control bytes appear in data.",
+"Bit stuffing inserts a zero after a specified sequence of ones.",
+"Physical-layer coding violations can sometimes be used for frame boundaries."
+],
+diagram:["Header","Payload / Data","Trailer"]
+},
+{
+t:"Error Control: Detection and Correction",
+d:"Transmission can introduce bit errors. Error-control techniques detect or correct such errors.",
+details:[
+"Parity adds a parity bit to detect certain bit errors.",
+"Checksum computes a value from data and checks it at the receiver.",
+"CRC uses polynomial division and is powerful for detecting burst errors.",
+"Forward error correction adds redundant information so some errors can be corrected without retransmission.",
+"Retransmission-based schemes ask the sender to send damaged or lost data again."
+],
+diagram:["Data","Redundancy","Transmit","Check","Accept / Retransmit"]
+},
+{
+t:"Network Layer Design Issues",
+d:"The network layer is responsible for delivering packets across multiple interconnected networks.",
+details:[
+"Logical addressing identifies network interfaces across interconnected networks.",
+"Routing determines a path from source to destination.",
+"Forwarding sends packets toward the selected next hop.",
+"Internetworking connects different networks.",
+"Traffic management helps handle congestion and resource utilization."
+]
+},
+{
+t:"Routing Algorithms in a Single Network",
+d:"Routing algorithms determine suitable paths for packets.",
+details:[
+"Shortest-path routing selects a path based on a cost metric.",
+"Distance-vector routing exchanges distance information with neighbors.",
+"Link-state routing distributes link-state information and computes paths.",
+"Flooding forwards information broadly and can be controlled using sequence numbers and hop limits.",
+"Routing metrics can include hop count, delay, bandwidth or administrative cost."
+],
+diagram:["Source","Router A","Router B","Router C","Destination"]
+},
+{
+t:"Traffic Management at the Network Layer",
+d:"Traffic management deals with congestion and efficient use of network capacity.",
+details:[
+"Congestion occurs when offered traffic exceeds available network capacity.",
+"Queue management controls packets waiting for transmission.",
+"Traffic shaping regulates the rate at which traffic enters a network.",
+"Congestion-control strategies try to avoid packet loss and excessive delay.",
+"Quality of Service can prioritize traffic according to application requirements."
+]
+},
+{
+t:"Internetworking",
+d:"Internetworking connects independent networks using routers and common network-layer mechanisms.",
+details:[
+"Routers connect different IP networks.",
+"Packets can travel through multiple networks before reaching their destination.",
+"Encapsulation and addressing allow packets to cross different link technologies.",
+"Internet Protocol provides a common network-layer framework."
+],
+diagram:["LAN A","Router","WAN / Internet","Router","LAN B"]
+},
+{
+t:"IP Addresses",
+d:"An IP address is a logical network-layer address used to identify an interface in an IP network.",
+details:[
+"IPv4 uses 32-bit addresses written as four decimal octets.",
+"An IPv4 address contains network and host portions according to its subnet configuration.",
+"Subnet masks or prefix lengths define the network portion.",
+"IPv6 uses 128-bit addresses and provides a much larger address space.",
+"Private IPv4 addresses are commonly used inside local networks with address translation when required."
+],
+diagram:["IPv4: 32 bits","Network Prefix","Host Portion"]
+},
+{
+t:"Port Addresses",
+d:"A port number identifies a transport-layer endpoint associated with an application or service.",
+details:[
+"IP address identifies the host/interface at the network layer.",
+"Port number identifies a transport endpoint on that host.",
+"TCP and UDP use port numbers.",
+"Common examples include HTTP 80, HTTPS 443, DNS 53 and SSH 22."
+],
+diagram:["IP Address"," + ","Port Number"," = ","Socket Endpoint"]
+}
+]
+},
+{
+id:3,
+title:"Transport and Application Layer",
+hours:6,
+points:[
+{
+t:"Transport Service",
+d:"The transport layer provides communication services between application processes running on different hosts.",
+details:[
+"Process-to-process delivery",
+"Segmentation and reassembly",
+"Multiplexing using port numbers",
+"Reliability when provided by the transport protocol",
+"Flow control",
+"Congestion control in protocols such as TCP"
+]
+},
+{
+t:"Elements of Transport Protocols",
+d:"Transport protocols need mechanisms to establish communication, transfer data and manage failures.",
+details:[
+"Addressing through port numbers",
+"Connection establishment and termination",
+"Sequence numbers and acknowledgements",
+"Flow control",
+"Error detection and retransmission",
+"Timers",
+"Multiplexing and demultiplexing"
+]
+},
+{
+t:"UDP",
+d:"UDP is a connectionless transport protocol with low protocol overhead. It does not provide TCP-style reliable, ordered delivery.",
+details:[
+"Connectionless",
+"Low overhead",
+"Uses port numbers",
+"Datagrams can be lost, duplicated or reordered",
+"Useful when speed and simplicity are important",
+"Commonly used for DNS queries and real-time applications"
+],
+diagram:["Application Data","UDP Header","UDP Datagram","IP"]
+},
+{
+t:"TCP",
+d:"TCP provides a reliable, ordered byte-stream service between applications.",
+details:[
+"Connection-oriented",
+"Reliable delivery using acknowledgements and retransmissions",
+"Sequence numbers provide ordering",
+"Flow control protects the receiver",
+"Congestion control adapts sending behavior",
+"Connection establishment commonly uses a three-way handshake"
+],
+diagram:["SYN","→","SYN + ACK","→","ACK","→","Connection"]
+},
+{
+t:"Domain Name System (DNS)",
+d:"DNS maps human-readable domain names to network addresses and other records.",
+details:[
+"Users prefer names such as example.com rather than numerical IP addresses.",
+"Resolvers query DNS infrastructure to obtain records.",
+"DNS can return A records for IPv4 and AAAA records for IPv6.",
+"MX records identify mail servers.",
+"DNS uses caching to reduce repeated queries and improve performance."
+],
+diagram:["User","DNS Resolver","Root","TLD","Authoritative DNS"]
+},
+{
+t:"Electronic Mail",
+d:"Electronic mail uses multiple protocols for sending and retrieving messages.",
+details:[
+"SMTP is commonly used to send and relay e-mail.",
+"IMAP allows clients to access and synchronize mail stored on a server.",
+"POP is designed primarily for retrieving mail, traditionally with local download behavior.",
+"Mail servers use DNS MX records to locate mail infrastructure."
+],
+diagram:["Sender","SMTP","Mail Server","SMTP","Receiver Server","IMAP/POP","Receiver"]
+},
+{
+t:"World Wide Web",
+d:"The World Wide Web is a distributed information system built using web technologies.",
+details:[
+"Browsers act as clients.",
+"Web servers provide resources.",
+"HTTP/HTTPS are commonly used for communication.",
+"URLs identify resources.",
+"HTML structures web documents.",
+"CSS controls presentation and JavaScript adds behavior."
+]
+},
+{
+t:"Streaming Audio and Video",
+d:"Streaming delivers media progressively so playback can begin without downloading the entire file first.",
+details:[
+"Media is divided into segments or a continuous stream.",
+"Buffering helps handle network variation.",
+"Adaptive streaming can select different quality levels according to network conditions.",
+"Latency, bandwidth, packet loss and device capability affect playback quality."
+]
+},
+{
+t:"Content Delivery",
+d:"Content delivery systems distribute content closer to users to reduce latency and improve scalability.",
+details:[
+"CDNs use geographically distributed edge servers.",
+"Frequently requested content can be cached.",
+"Requests may be routed to an appropriate nearby or less-loaded location.",
+"CDNs are useful for web assets, video, software downloads and APIs."
+],
+diagram:["User","Nearest Edge","Cache","Origin Server"]
+}
+]
+},
+{
+id:4,
+title:"Cloud Computing and Virtualization",
+hours:7,
+points:[
+{
+t:"Introduction to Cloud Computing",
+d:"Cloud computing provides computing resources such as servers, storage, networking and software services over a network, commonly with on-demand provisioning.",
+details:[
+"On-demand access",
+"Resource pooling",
+"Elastic scaling",
+"Measured usage",
+"Network accessibility",
+"Automation and self-service"
+]
+},
+{
+t:"Evolution of Computing Model",
+d:"Computing evolved from centralized systems toward personal computing, distributed systems, virtualization, cloud computing and modern service-oriented platforms.",
+details:[
+"Mainframe computing",
+"Personal computers",
+"Client-server computing",
+"Distributed computing",
+"Cluster computing",
+"Grid computing",
+"Utility computing",
+"Cloud computing"
+],
+diagram:["Mainframe","PC","Client-Server","Distributed","Virtualized","Cloud"]
+},
+{
+t:"Cloud Service Providers",
+d:"Cloud service providers offer infrastructure, platforms and software services through cloud environments.",
+details:[
+"Providers operate data centers and networking infrastructure.",
+"Users provision resources through consoles, APIs or automation tools.",
+"Services can include compute, storage, databases, networking, security and application platforms."
+]
+},
+{
+t:"Pros and Cons of Cloud Computing",
+d:"Cloud computing can reduce infrastructure-management effort but introduces dependencies and risks.",
+details:[
+"Advantages: elasticity, pay-for-use models, rapid provisioning, global reach and managed services.",
+"Challenges: vendor lock-in, internet dependency, security configuration, compliance concerns and possible unpredictable costs."
+]
+},
+{
+t:"Cluster Computing",
+d:"Cluster computing combines multiple interconnected computers to work together as a coordinated system.",
+details:[
+"Nodes cooperate on a workload.",
+"Clusters can improve performance or availability.",
+"Tasks can be distributed among nodes.",
+"Failure handling depends on cluster architecture."
+]
+},
+{
+t:"Grid Computing",
+d:"Grid computing coordinates geographically distributed and heterogeneous resources for large workloads.",
+details:[
+"Resources may belong to different administrative domains.",
+"Large computational jobs can be divided among available resources.",
+"Grid computing is useful for scientific and high-performance workloads."
+]
+},
+{
+t:"Utility Computing",
+d:"Utility computing treats computing resources similarly to utilities: users consume resources and are charged according to usage or service level.",
+details:[
+"Metered usage",
+"Elastic resource consumption",
+"Reduced need for owning all infrastructure",
+"Cloud computing adopts many utility-computing principles."
+]
+},
+{
+t:"Virtualization: Introduction",
+d:"Virtualization creates an abstraction layer that allows multiple virtual environments to share physical computing resources.",
+details:[
+"A hypervisor manages virtual machines.",
+"Each virtual machine can run an operating system independently.",
+"Virtualization improves resource utilization and isolation.",
+"Virtual machines can be created, cloned, migrated or removed according to the platform."
+],
+diagram:["Physical Hardware","Hypervisor","VM 1","VM 2","VM 3"]
+},
+{
+t:"Characteristics of Virtualized Environment",
+d:"Virtualized environments provide abstraction, isolation and flexible allocation of physical resources.",
+details:[
+"Isolation between virtual machines",
+"Resource sharing",
+"Encapsulation",
+"Hardware abstraction",
+"Rapid provisioning",
+"Migration possibilities"
+]
+},
+{
+t:"Virtualization Types",
+d:"Virtualization can be implemented at different levels.",
+details:[
+"Server virtualization: multiple virtual servers share one physical server.",
+"Storage virtualization: multiple storage resources appear as a unified storage system.",
+"Network virtualization: logical networks are created over physical infrastructure.",
+"Desktop virtualization: user desktop environments are centrally hosted or managed.",
+"Application virtualization: applications operate in an abstracted execution environment."
+]
+},
+{
+t:"Virtualization and Cloud Computing",
+d:"Virtualization is an enabling technology for many cloud infrastructures because it helps providers pool physical resources and provision isolated virtual resources.",
+details:[
+"Cloud orchestration can create virtual machines on demand.",
+"Resource pooling improves utilization.",
+"Virtual networks and virtual storage support cloud environments.",
+"Cloud services can combine virtualization with containers and managed services."
+]
+},
+{
+t:"Pros and Cons of Virtualization",
+d:"Virtualization improves flexibility and utilization but adds management and performance considerations.",
+details:[
+"Pros: consolidation, isolation, portability, rapid provisioning and better utilization.",
+"Cons: hypervisor overhead, management complexity, licensing considerations and possible shared-resource contention."
+]
+}
+]
+},
+{
+id:5,
+title:"Cloud Computing Architecture",
+hours:7,
+points:[
+{
+t:"NIST Cloud Computing Architecture",
+d:"A cloud architecture can be understood through essential characteristics, service models, deployment models and roles. NIST terminology is widely used for describing cloud computing.",
+details:[
+"Essential characteristics include on-demand self-service, broad network access, resource pooling, rapid elasticity and measured service.",
+"Service models describe the level at which a provider offers capabilities.",
+"Deployment models describe how cloud infrastructure is organized and made available.",
+"Cloud roles can include providers, consumers and supporting actors."
+],
+diagram:["User / Consumer","Cloud Services","Cloud Provider","Physical + Virtual Infrastructure"]
+},
+{
+t:"Services Provided at Various Levels",
+d:"Cloud services can be offered at infrastructure, platform or software levels.",
+details:[
+"IaaS provides virtualized infrastructure such as compute, storage and networking.",
+"PaaS provides a platform for application development and deployment.",
+"SaaS provides complete software applications to end users.",
+"More managed layers reduce infrastructure-management responsibility for the customer."
+],
+diagram:["SaaS","PaaS","IaaS","Virtualization","Hardware"]
+},
+{
+t:"Role of Networks in Cloud Computing",
+d:"Networks connect users, cloud services, data centers and storage systems.",
+details:[
+"Users need network access to cloud services.",
+"Data centers use high-speed internal networks.",
+"Virtual networks isolate and connect cloud resources.",
+"Network latency and bandwidth affect cloud application performance.",
+"Secure connectivity can use encryption, private links or VPN technologies."
+]
+},
+{
+t:"Role of Web Services",
+d:"Web services and APIs provide programmatic interfaces through which applications communicate with cloud resources.",
+details:[
+"Applications can request cloud resources through APIs.",
+"REST-style APIs commonly use HTTP methods.",
+"Authentication and authorization control access.",
+"APIs enable automation, integration and infrastructure management."
+]
+},
+{
+t:"Infrastructure as a Service (IaaS)",
+d:"IaaS provides configurable computing infrastructure while the customer manages operating systems, applications and much of the software stack.",
+details:[
+"Virtual machines",
+"Virtual networks",
+"Storage",
+"Load balancing",
+"Security controls",
+"Flexible resource provisioning"
+],
+diagram:["Application","OS","VM","Virtual Network","Cloud Infrastructure"]
+},
+{
+t:"Platform as a Service (PaaS)",
+d:"PaaS provides a managed application platform so developers can focus on application code rather than managing most underlying infrastructure.",
+details:[
+"Application runtime",
+"Managed deployment",
+"Scaling support",
+"Developer tools",
+"Managed platform components"
+]
+},
+{
+t:"Software as a Service (SaaS)",
+d:"SaaS delivers a complete application to end users over a network. The provider manages most of the application and underlying infrastructure.",
+details:[
+"Users generally access the application through a browser or client.",
+"Provider manages infrastructure and application updates.",
+"Subscription or usage-based pricing is common.",
+"Examples include online collaboration and productivity applications."
+]
+},
+{
+t:"Deployment Models",
+d:"Cloud deployment models describe how infrastructure is organized and who can access it.",
+details:[
+"Public cloud: infrastructure is offered for use by multiple customers.",
+"Private cloud: cloud infrastructure is dedicated to one organization.",
+"Hybrid cloud: combines private and public cloud environments.",
+"Community cloud: infrastructure is shared by organizations with common requirements."
+],
+diagram:["Public","Private","Hybrid","Community"]
+}
+]
+},
+{
+id:6,
+title:"Cloud Applications",
+hours:7,
+points:[
+{
+t:"Media Applications",
+d:"Cloud platforms can support large-scale media storage, processing, transcoding and delivery.",
+details:[
+"Media files can be stored in scalable cloud storage.",
+"Compute resources can process and transcode video.",
+"CDN and edge services can deliver content closer to viewers.",
+"Elastic infrastructure can handle changes in demand."
+],
+diagram:["Upload","Cloud Storage","Processing","CDN","Viewer"]
+},
+{
+t:"Multiplayer Online Gaming",
+d:"Cloud computing can provide scalable infrastructure for multiplayer games, including servers, storage, communication and matchmaking.",
+details:[
+"Game servers maintain shared game state.",
+"Low latency is important for player experience.",
+"Cloud resources can scale with player demand.",
+"Databases and storage can maintain player profiles and game data.",
+"Network services support communication between clients and servers."
+],
+diagram:["Player A","Game Server","Game State","Player B"]
+},
+{
+t:"Amazon Web Services: Compute Services",
+d:"AWS provides cloud computing services for running applications and workloads.",
+details:[
+"Compute services provide virtual or managed execution environments.",
+"Resources can be provisioned on demand.",
+"Scaling mechanisms can respond to workload changes.",
+"Applications can combine compute with storage, databases and networking."
+]
+},
+{
+t:"Amazon Web Services: Storage Services",
+d:"Cloud storage services provide scalable ways to store files, objects, blocks or other application data.",
+details:[
+"Object storage is useful for media, backups and web assets.",
+"Block storage can be attached to compute instances.",
+"Storage services provide durability and scalable capacity.",
+"Access control and encryption help protect stored data."
+]
+},
+{
+t:"Amazon Web Services: Communication Services",
+d:"Cloud communication services help applications communicate through networks, APIs, messaging and notification systems.",
+details:[
+"Applications can communicate between services.",
+"Messaging can decouple application components.",
+"Notification systems can distribute events.",
+"Network services connect cloud resources securely."
+]
+},
+{
+t:"Google App Engine: Architecture and Core Concepts",
+d:"Google App Engine is a managed application platform designed to deploy applications without requiring users to manage traditional server infrastructure directly.",
+details:[
+"Applications are deployed to a managed platform.",
+"Platform services handle infrastructure management.",
+"Applications can scale according to demand depending on configuration and service capabilities.",
+"Application components can use platform-provided services and cloud resources."
+],
+diagram:["Developer","Deploy","App Engine","Managed Runtime","Users"]
+},
+{
+t:"Google App Engine: Lifecycle",
+d:"An application lifecycle commonly includes development, testing, deployment, monitoring, scaling and updates.",
+details:[
+"Develop the application.",
+"Test locally or in a suitable environment.",
+"Deploy the application.",
+"Monitor application behavior.",
+"Update versions when required.",
+"Scale resources according to demand."
+]
+},
+{
+t:"Google App Engine: Cost Model",
+d:"Cloud application cost generally depends on consumed resources and selected services.",
+details:[
+"Compute usage",
+"Storage usage",
+"Network/data transfer",
+"Managed service usage",
+"Traffic and request volume",
+"Configuration and quotas can influence cost."
+]
+},
+{
+t:"Microsoft Azure: Core Concepts",
+d:"Microsoft Azure is a cloud platform offering compute, storage, networking, databases, analytics and application services.",
+details:[
+"Azure resources are organized into resource groups and subscriptions.",
+"Compute services run applications and workloads.",
+"Storage services provide persistent data storage.",
+"Networking services connect and secure cloud resources.",
+"Identity and access services control users and permissions."
+]
+},
+{
+t:"SQL Azure",
+d:"Azure SQL services provide managed relational database capabilities for cloud applications.",
+details:[
+"Applications can use relational databases without managing all underlying database infrastructure.",
+"SQL-based querying and relational data models are supported.",
+"Managed database services provide operational features such as backups and scaling options depending on the service.",
+"Applications can connect to databases through secure network and authentication mechanisms."
+]
+}
+]
+}
 ];
 
-const mcqs=[
-["Which OSI layer performs routing?",["Physical","Data Link","Network","Application"],2],
-["Which protocol is connection-oriented?",["UDP","TCP","IP","DNS"],1],
-["DNS commonly uses which port?",["21","25","53","80"],2],
-["IPv4 address size is:",["16 bits","32 bits","64 bits","128 bits"],1],
-["Which service model provides complete software?",["IaaS","PaaS","SaaS","DaaS"],2],
-["Which device primarily forwards packets between networks?",["Hub","Router","Repeater","Keyboard"],1],
-["Which layer creates frames?",["Application","Transport","Data Link","Session"],2],
-["Which protocol is lightweight and connectionless?",["TCP","UDP","HTTP","SSH"],1],
-["Virtual machines are managed by:",["Compiler","Hypervisor","Browser","DNS"],1],
-["Which deployment model combines multiple cloud environments?",["Public","Private","Hybrid","PAN"],2],
-["Which technology reduces content delivery latency?",["CDN","BIOS","RAM","ALU"],0],
-["Which is an error detection technique?",["CRC","HTML","CSS","DNS"],0]
-];
+const state={
+theme:localStorage.getItem("theme")||"dark",
+role:localStorage.getItem("role")||"",
+progress:JSON.parse(localStorage.getItem("progress")||"{}"),
+bookmarks:JSON.parse(localStorage.getItem("bookmarks")||"[]")
+};
 
-let selectedRating=0;
-let quizIndex=0;
-let score=0;
+document.body.classList.toggle("light",state.theme==="light");
 
-function showPage(id){
-  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-  const page=document.getElementById(id);
-  if(page) page.classList.add("active");
-  window.scrollTo({top:0,behavior:"smooth"});
-  document.querySelector("nav").classList.remove("open");
-
-  if(id==="syllabus") renderUnits();
-  if(id==="questions") renderQuestions();
-  if(id==="practice") startQuiz();
+function esc(s){
+return String(s).replace(/[&<>"']/g,m=>({
+"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+}[m]));
 }
 
-function toggleMenu(){
-  document.querySelector("nav").classList.toggle("open");
+function save(){
+localStorage.setItem("progress",JSON.stringify(state.progress));
+localStorage.setItem("bookmarks",JSON.stringify(state.bookmarks));
+localStorage.setItem("theme",state.theme);
+localStorage.setItem("role",state.role);
 }
 
-function toggleTheme(){
-  const current=document.documentElement.getAttribute("data-theme");
-  const next=current==="light"?"dark":"light";
-  document.documentElement.setAttribute("data-theme",next);
-  localStorage.setItem("theme",next);
+function allTopics(){
+return U.flatMap(u=>u.points.map(p=>({...p,unit:u})));
 }
 
-function showUnit(n){
-  showPage("unitPage");
-  const u=units[n];
+function totalTopics(){return allTopics().length}
 
-  let html=`
-  <div class="unit-detail">
-    <button class="back-btn" onclick="showPage('syllabus')">← Back to Syllabus</button>
-
-    <div class="unit-hero">
-      <span>UNIT ${n} • ${u.hours}</span>
-      <h1>${u.title}</h1>
-      <p>${u.summary}</p>
-    </div>
-  `;
-
-  u.topics.forEach((t,i)=>{
-    html+=`
-    <article class="topic-section">
-      <h2>${t.title}</h2>
-      <p>${t.explain}</p>
-    `;
-
-    if(t.diagram){
-      html+=diagramHTML(t.diagram,t.title);
-    }
-
-    if(t.points){
-      html+=`
-      <div class="exam-points">
-        <strong>⭐ Exam Key Points</strong>
-        <ul>
-          ${t.points.map(x=>`<li>${x}</li>`).join("")}
-        </ul>
-      </div>`;
-    }
-
-    html+=`
-      <a class="google-diagram"
-         href="https://www.google.com/search?tbm=isch&q=${encodeURIComponent(t.title+" computer network diagram")}"
-         target="_blank">
-         🔎 Search Diagram on Google
-      </a>
-    </article>`;
-  });
-
-  html+=`
-    <div class="section-title">
-      <span>UNIT ${n}</span>
-      <h2>Important Question Bank</h2>
-    </div>
-
-    <div id="unitQuestions${n}">
-      ${questions.filter(q=>q[0]===n).map(questionHTML).join("")}
-    </div>
-  </div>`;
-
-  document.getElementById("unitContent").innerHTML=html;
+function doneCount(){
+return Object.values(state.progress).filter(v=>v===100).length
 }
 
-function renderUnits(){
+function overall(){
+return Math.round(doneCount()/totalTopics()*100)||0
+}
 
-  const box=document.getElementById("unitCards");
+function toast(msg){
+const t=document.getElementById("toast");
+t.textContent=msg;
+t.style.display="block";
+setTimeout(()=>t.style.display="none",1800)
+}
 
-  box.innerHTML=Object.entries(units).map(([n,u])=>`
-    <article class="unit-card" onclick="showUnit(${n})">
+function searchURL(topic,type){
+const q=encodeURIComponent(topic);
+return type==="google"
+?`https://www.google.com/search?tbm=isch&q=${q}+computer+networking+diagram`
+:`https://www.youtube.com/results?search_query=${q}+computer+networking`;
+}
 
-      <div class="unit-top">
-        <div class="unit-number">${String(n).padStart(2,"0")}</div>
+function diagramHTML(arr){
+if(!arr)return "";
+return `<div class="diagram">
+<div class="flow">
+${arr.map((x,i)=>`
+<div class="box">${esc(x)}</div>
+${i<arr.length-1?'<div class="arrow">→</div>':''}
+`).join("")}
+</div>
+</div>`
+}
 
-        <div>
-          <h2>${u.title}</h2>
-          <p>${u.hours}</p>
-        </div>
-      </div>
+function links(topic){
+return `<div class="links">
+<a class="linkbtn" target="_blank" rel="noopener" href="${searchURL(topic,"google")}">🖼️ Google Diagram</a>
+<a class="linkbtn" target="_blank" rel="noopener" href="${searchURL(topic,"yt")}">▶️ YouTube</a>
+<a class="linkbtn" target="_blank" rel="noopener" href="https://www.google.com/search?q=${encodeURIComponent(topic+" computer networks cloud computing")}">🔎 Web Research</a>
+</div>`
+}
 
-      <div class="topic-tags">
-        ${u.topics.map(t=>`<span class="tag">${t.title.replace(/^\d+\.\s*/,"")}</span>`).join("")}
-      </div>
+function layout(){
+document.getElementById("app").innerHTML=`
+<header class="topbar">
+<div class="brand">
+<div class="logo">CN</div>
+<div>
+<div>CSD StudyHub</div>
+<small style="color:var(--muted)">CNCC • ${SUBJECT.code}</small>
+</div>
+</div>
+<div class="nav-actions">
+<button class="iconbtn hide-mobile" onclick="openRole()">🎓 Panel</button>
+<button class="iconbtn" onclick="openBookmarks()">🔖</button>
+<button class="iconbtn" onclick="toggleTheme()">☀︎</button>
+</div>
+</header>
 
-    </article>
-  `).join("");
+<section class="hero">
+<div class="eyebrow">FINAL YEAR • SEMESTER VII • CSD</div>
+<h1>Computer Networks<br><span>& Cloud Computing</span></h1>
+<p>
+A paperless, student-friendly learning portal built directly from your
+college syllabus. Read every syllabus point, revise with marks-wise answers,
+practice MCQs and generate examination papers.
+</p>
+<div class="hero-row">
+<button class="btn primary" onclick="openUnit(1)">Start Unit I</button>
+<button class="btn" onclick="openRole()">Open Panel</button>
+<button class="btn" onclick="openQuestions()">Question Bank</button>
+</div>
+</section>
+
+<main class="container">
+
+<div class="stats">
+<div class="stat"><b>${U.length}</b><small>Units</small></div>
+<div class="stat"><b>${totalTopics()}</b><small>Syllabus Topics</small></div>
+<div class="stat"><b>${overall()}%</b><small>Your Progress</small></div>
+<div class="stat"><b>∞</b><small>Revision</small></div>
+</div>
+
+<div class="section-title">
+<div><h2>📚 Complete Syllabus</h2><p>Unit-wise • point-wise • deep explanation</p></div>
+</div>
+
+<input class="search" id="search" placeholder="Search any topic — OSI, TCP, DNS, IaaS, Azure..." oninput="searchTopics(this.value)">
+
+<div id="results" class="grid" style="margin-top:15px"></div>
+
+<div class="section-title">
+<div><h2>Units I — VI</h2><p>Exact structure from your provided syllabus</p></div>
+</div>
+
+<div class="grid">
+${U.map(u=>`
+<div class="card unit-card">
+<div>
+<div class="unit-num">UNIT ${toRoman(u.id)} • ${u.hours} HRS</div>
+<h3>${esc(u.title)}</h3>
+<p>${u.points.length} syllabus points with detailed notes, diagrams and learning links.</p>
+</div>
+<button class="btn primary" onclick="openUnit(${u.id})">Open Unit →</button>
+</div>
+`).join("")}
+</div>
+
+<div class="section-title">
+<div><h2>🎯 Exam Preparation</h2><p>Marks-wise preparation</p></div>
+</div>
+
+<div class="grid">
+<div class="card"><h3>2 Marks</h3><p>Definitions, short concepts and direct answers.</p><button class="btn" onclick="openQuestions(2)">Practice</button></div>
+<div class="card"><h3>5 Marks</h3><p>Explain, compare, working and short descriptive answers.</p><button class="btn" onclick="openQuestions(5)">Practice</button></div>
+<div class="card"><h3>10 Marks</h3><p>Long answers with diagrams and structured explanation.</p><button class="btn" onclick="openQuestions(10)">Practice</button></div>
+<div class="card"><h3>🎲 Random Paper</h3><p>Fresh unit-wise examination-style paper.</p><button class="btn" onclick="randomPaper()">Generate</button></div>
+</div>
+
+<div class="teacher-banner" style="margin-top:35px">
+<b>👨‍🏫 Subject Teacher</b><br>
+<span style="color:var(--muted)">${SUBJECT.teacher} • ${SUBJECT.name}</span>
+<br><small style="color:var(--muted)">Website created by ${SUBJECT.creator}</small>
+</div>
+
+<div class="footer">
+CSD StudyHub • Paperless Learning • ${SUBJECT.creator}<br>
+Computer Networks & Cloud Computing • ${SUBJECT.code}
+</div>
+
+</main>
+
+<div id="drawer" class="drawer"></div>
+<div id="modal" class="modal"></div>
+<div id="toast" class="toast"></div>
+`;
+}
+
+function toRoman(n){
+return ["","I","II","III","IV","V","VI"][n]
+}
+
+function openUnit(id){
+const u=U.find(x=>x.id===id);
+if(!u)return;
+
+document.getElementById("drawer").innerHTML=`
+<div class="drawer-head">
+<div><b>UNIT ${toRoman(u.id)}</b> • ${esc(u.title)}</div>
+<button class="iconbtn" onclick="closeDrawer()">✕</button>
+</div>
+<div class="notes-wrap">
+
+<div class="teacher-banner">
+<b>📘 ${esc(u.title)}</b><br>
+<small>${u.hours} teaching hours • ${u.points.length} syllabus points</small>
+</div>
+
+${u.points.map((p,i)=>topicHTML(u,p,i)).join("")}
+
+<div class="section-title"><div><h2>📝 Unit ${toRoman(u.id)} Question Bank</h2><p>Important examination practice</p></div></div>
+
+${questionsForUnit(u).map(q=>questionHTML(q)).join("")}
+
+<div class="card">
+<h3>🎲 Generate another Unit ${toRoman(u.id)} paper</h3>
+<p>Questions are selected from this unit's topic bank.</p>
+<button class="btn primary" onclick="randomUnitPaper(${u.id})">Generate Paper</button>
+</div>
+
+</div>`;
+document.getElementById("drawer").classList.add("open");
+}
+
+function topicHTML(u,p,i){
+const key=`u${u.id}p${i}`;
+const checked=state.progress[key]===100;
+const bookmarked=state.bookmarks.includes(key);
+
+return `
+<article class="topic" id="${key}">
+<div class="unit-num">UNIT ${toRoman(u.id)} • TOPIC ${i+1}</div>
+<h2>${esc(p.t)}</h2>
+<p>${esc(p.d)}</p>
+
+<h3>📌 Point-wise Explanation</h3>
+<ul>${p.details.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>
+
+${p.example?`<div class="key"><b>💡 Example:</b><br>${esc(p.example)}</div>`:""}
+
+${p.diagram?`
+<h3>🖼️ Concept Diagram</h3>
+${diagramHTML(p.diagram)}
+`:""}
+
+${p.t==="Reference Models: OSI and TCP/IP"?`
+<div class="key"><b>Exam Tip:</b> For a 5/10 mark answer, draw the layers vertically and explain the function of each layer in one or two points.</div>
+`:""}
+
+${links(p.t)}
+
+<div class="links">
+<button class="btn" onclick="markTopic('${key}')">${checked?"✓ Completed":"Mark Complete"}</button>
+<button class="btn" onclick="bookmark('${key}')">${bookmarked?"★ Saved":"☆ Save"}</button>
+</div>
+</article>`
+}
+
+function markTopic(key){
+state.progress[key]=state.progress[key]===100?0:100;
+save();
+toast(state.progress[key]?"Topic completed ✓":"Topic reopened");
+const open=document.querySelector(".drawer.open");
+if(open){
+const id=parseInt(key.match(/u(\d+)/)[1]);
+openUnit(id)
+}
+}
+
+function bookmark(key){
+if(state.bookmarks.includes(key)){
+state.bookmarks=state.bookmarks.filter(x=>x!==key)
+}else state.bookmarks.push(key);
+save();
+toast("Bookmark updated");
+}
+
+function questionsForUnit(u){
+const out=[];
+u.points.forEach((p,i)=>{
+out.push({marks:2,q:`Define / explain ${p.t}.`,a:`${p.d} Key points: ${p.details.slice(0,3).join(" ")}`,unit:u.id});
+out.push({marks:5,q:`Explain ${p.t} with suitable points and example.`,a:`Start with the definition. Explain the major concepts: ${p.details.join(" ")} ${p.example||""}`,unit:u.id});
+if(i%2===0){
+out.push({marks:10,q:`Discuss ${p.t} in detail with a neat diagram wherever applicable.`,a:`A complete answer should include introduction, definition, working or classification, important points, advantages/limitations where applicable, real-world example and a labelled diagram. ${p.d} ${p.details.join(" ")}`,unit:u.id})
+}
+});
+return out;
 }
 
 function questionHTML(q){
-
-  return `
-  <article class="question-card">
-
-    <span class="marks">${q[1]} MARKS</span>
-
-    <h3>${q[2]}</h3>
-
-    <div class="paper-meta">
-      <div><b>${q[1]}</b><span>Marks</span></div>
-      <div><b>CO${q[0]}</b><span>CO</span></div>
-      <div><b>${q[1]>=10?3:2}</b><span>BL</span></div>
-      <div><b>1,2</b><span>PO</span></div>
-      <div><b>2.1.1</b><span>PI</span></div>
-    </div>
-
-    <div class="answer">
-      <strong>Answer:</strong><br>
-      ${q[3]}
-    </div>
-
-  </article>`;
+return `<div class="question">
+<b>${q.marks} Marks — ${esc(q.q)}</b>
+<div class="answer">${esc(q.a)}</div>
+</div>`
 }
 
-function renderQuestions(){
+function openQuestions(filter){
+const qs=allTopics().flatMap(x=>questionsForUnit(x.unit)).filter((q,i,a)=>a.indexOf(q)===i);
+const final=filter?qs.filter(q=>q.marks===filter):qs.slice(0,30);
 
-  const unit=document.getElementById("questionUnit").value;
-  const marks=document.getElementById("questionMarks").value;
-
-  let data=questions.filter(q=>
-    (unit==="all"||String(q[0])===unit) &&
-    (marks==="all"||String(q[1])===marks)
-  );
-
-  document.getElementById("questionContainer").innerHTML=
-    data.map(questionHTML).join("") ||
-    `<div class="topic-section"><h2>No questions found</h2><p>Try another filter.</p></div>`;
+document.getElementById("drawer").innerHTML=`
+<div class="drawer-head">
+<div><b>📝 Question Bank</b></div>
+<button class="iconbtn" onclick="closeDrawer()">✕</button>
+</div>
+<div class="notes-wrap">
+<div class="section-title">
+<div><h2>${filter||"All"} Marks Questions</h2><p>Unit-wise CNCC preparation</p></div>
+</div>
+<div class="links">
+<button class="btn" onclick="openQuestions(2)">2 Marks</button>
+<button class="btn" onclick="openQuestions(5)">5 Marks</button>
+<button class="btn" onclick="openQuestions(10)">10 Marks</button>
+<button class="btn primary" onclick="randomPaper()">Random Paper</button>
+</div>
+${final.map(questionHTML).join("")}
+</div>`;
+document.getElementById("drawer").classList.add("open")
 }
 
-function generateRandomQuestions(){
+function randomPaper(){
+const all=U.flatMap(u=>questionsForUnit(u));
+const shuffled=[...all].sort(()=>Math.random()-.5);
+const qs=[
+...shuffled.filter(x=>x.marks===2).slice(0,4),
+...shuffled.filter(x=>x.marks===5).slice(0,4),
+...shuffled.filter(x=>x.marks===10).slice(0,2)
+];
 
-  const unit=document.getElementById("questionUnit").value;
-  const marks=document.getElementById("questionMarks").value;
-
-  let data=questions.filter(q=>
-    (unit==="all"||String(q[0])===unit) &&
-    (marks==="all"||String(q[1])===marks)
-  );
-
-  data=data.sort(()=>Math.random()-.5).slice(0,Math.min(12,data.length));
-
-  document.getElementById("questionContainer").innerHTML=`
-    <div class="topic-section">
-      <span class="mini-label">RANDOMIZED SET</span>
-      <h2>Fresh Question Paper</h2>
-      <p>Questions are shuffled every time you generate a new set.</p>
-    </div>
-    ${data.map(questionHTML).join("")}
-  `;
+document.getElementById("drawer").innerHTML=`
+<div class="drawer-head">
+<div><b>🎲 CNCC Random Question Paper</b></div>
+<button class="iconbtn" onclick="closeDrawer()">✕</button>
+</div>
+<div class="notes-wrap">
+<div class="card">
+<h2>Computer Networks & Cloud Computing</h2>
+<p>Final Year B.Tech CSD • ${new Date().toLocaleDateString()}</p>
+</div>
+${qs.map((q,i)=>`
+<div class="question">
+<b>Q${i+1}. ${q.marks} Marks</b>
+${esc(q.q)}
+</div>`).join("")}
+<button class="btn primary" onclick="randomPaper()">🔄 Generate New Paper</button>
+</div>`;
+document.getElementById("drawer").classList.add("open")
 }
 
-function diagramHTML(type,title){
-
-  const diagrams={
-
-    "network-types":`
-    <div class="diagram">
-      <div class="diagram-title">Computer Network Types</div>
-      <div class="flow">
-        <div class="flow-box">PAN<br><small>Personal</small></div>
-        <div class="arrow">→</div>
-        <div class="flow-box">LAN<br><small>Building</small></div>
-        <div class="arrow">→</div>
-        <div class="flow-box">MAN<br><small>City</small></div>
-        <div class="arrow">→</div>
-        <div class="flow-box">WAN<br><small>Global</small></div>
-      </div>
-    </div>`,
-
-    "osi":`
-    <div class="diagram">
-      <div class="diagram-title">OSI Seven Layer Model</div>
-      <div class="flow">
-        ${["Application","Presentation","Session","Transport","Network","Data Link","Physical"].map(x=>`<div class="flow-box">${x}</div>`).join('<div class="arrow">↓</div>')}
-      </div>
-    </div>`,
-
-    "tcpip":`
-    <div class="diagram">
-      <div class="diagram-title">TCP/IP Model</div>
-      <div class="flow">
-        ${["Application","Transport","Internet","Network Access"].map(x=>`<div class="flow-box">${x}</div>`).join('<div class="arrow">↓</div>')}
-      </div>
-    </div>`,
-
-    "datalink":`
-    <div class="diagram">
-      <div class="diagram-title">Data Link Communication</div>
-      <div class="flow">
-        <div class="flow-box">Network Layer<br>Packet</div>
-        <div class="arrow">↓</div>
-        <div class="flow-box">Data Link<br>Frame</div>
-        <div class="arrow">↓</div>
-        <div class="flow-box">Physical<br>Bits</div>
-      </div>
-    </div>`,
-
-    "frame":`
-    <div class="diagram">
-      <div class="diagram-title">General Frame Structure</div>
-      <div class="flow">
-        <div class="flow-box">Header</div>
-        <div class="flow-box">Source / Destination</div>
-        <div class="flow-box">Data</div>
-        <div class="flow-box">FCS / Trailer</div>
-      </div>
-    </div>`,
-
-    "routing":`
-    <div class="diagram">
-      <div class="diagram-title">Basic Routing</div>
-      <div class="flow">
-        <div class="flow-box">Source</div>
-        <div class="arrow">→</div>
-        <div class="flow-box">Router A</div>
-        <div class="arrow">→</div>
-        <div class="flow-box">Router B</div>
-        <div class="arrow">→</div>
-        <div class="flow-box">Destination</div>
-      </div>
-    </div>`,
-
-    "ip":`
-    <div class="diagram">
-      <div class="diagram-title">IP + Port Concept</div>
-      <div class="flow">
-        <div class="flow-box">IP Address<br>192.168.1.10</div>
-        <div class="arrow">:</div>
-        <div class="flow-box">Port<br>443</div>
-        <div class="arrow">→</div>
-        <div class="flow-box">HTTPS Service</div>
-      </div>
-    </div>`,
-
-    "transport":`
-    <div class="diagram">
-      <div class="diagram-title">Process-to-Process Communication</div>
-      <div class="flow">
-        <div class="flow-box">Application A</div>
-        <div class="arrow">→</div>
-        <div class="flow-box">Transport Layer<br>TCP / UDP</div>
-        <div class="arrow">→</div>
-        <div class="flow-box">Application B</div>
-      </div>
-    </div>`,
-
-    "tcp":`
-    <div class="diagram">
-      <div class="diagram-title">TCP Communication</div>
-      <div class="flow">
-        <div class="flow-box">Client</div>
-        <div class="arrow">↔</div>
-        <div class="flow-box">Connection</div>
-        <div class="arrow">↔</div>
-        <div class="flow-box">Server</div>
-      </div>
-    </div>`,
-
-    "dns":`
-    <div class="diagram">
-      <div class="diagram-title">DNS Resolution</div>
-      <div class="flow">
-        <div class="flow-box">Browser</div>
-        <div class="arrow">→</div>
-        <div class="flow-box">DNS Resolver</div>
-        <div class="arrow">→</div>
-        <div class="flow-box">DNS Server</div>
-        <div class="arrow">→</div>
-        <div class="flow-box">IP Address</div>
-      </div>
-    </div>`,
-
-    "web":`
-    <div class="diagram">
-      <div class="diagram-title">Basic Web Architecture</div>
-      <div class="flow">
-        <div class="flow-box">Browser<br>Client</div>
-        <div class="arrow">HTTP/HTTPS →</div>
-        <div class="flow-box">Web Server</div>
-        <div class="arrow">→</div>
-        <div class="flow-box">Database / API</div>
-      </div>
-    </div>`,
-
-    "cloud":`
-    <div class="diagram">
-      <div class="diagram-title">Cloud Computing Concept</div>
-      <div class="flow">
-        <div class="flow-box">User</div>
-        <div class="arrow">→</div>
-        <div class="flow-box">Internet</div>
-        <div class="arrow">→</div>
-        <div class="flow-box">Cloud</div>
-        <div class="arrow">→</div>
-        <div class="flow-box">Compute / Storage / Apps</div>
-      </div>
-    </div>`,
-
-    "cluster":`
-    <div class="diagram">
-      <div class="diagram-title">Cluster Computing</div>
-      <div class="flow">
-        <div class="flow-box">Node 1</div>
-        <div class="flow-box">Node 2</div>
-        <div class="flow-box">Node 3</div>
-        <div class="flow-box">Node 4</div>
-      </div>
-      <p style="text-align:center;margin-top:15px">All nodes cooperate as a coordinated system.</p>
-    </div>`,
-
-    "virtualization":`
-    <div class="diagram">
-      <div class="diagram-title">Virtualization Architecture</div>
-      <div class="flow">
-        <div class="flow-box">VM 1</div>
-        <div class="flow-box">VM 2</div>
-        <div class="flow-box">VM 3</div>
-      </div>
-      <div style="text-align:center;padding:12px">↓ Hypervisor ↓</div>
-      <div class="flow">
-        <div class="flow-box">Physical Hardware</div>
-      </div>
-    </div>`,
-
-    "cloudlayers":`
-    <div class="diagram">
-      <div class="diagram-title">Cloud Service Layers</div>
-      <div class="flow">
-        <div class="flow-box">SaaS<br>Application</div>
-        <div class="arrow">↑</div>
-        <div class="flow-box">PaaS<br>Platform</div>
-        <div class="arrow">↑</div>
-        <div class="flow-box">IaaS<br>Infrastructure</div>
-      </div>
-    </div>`,
-
-    "service-models":`
-    <div class="diagram">
-      <div class="diagram-title">IaaS → PaaS → SaaS</div>
-      <div class="flow">
-        <div class="flow-box">IaaS<br>Infrastructure</div>
-        <div class="arrow">→</div>
-        <div class="flow-box">PaaS<br>Development Platform</div>
-        <div class="arrow">→</div>
-        <div class="flow-box">SaaS<br>Complete Software</div>
-      </div>
-    </div>`,
-
-    "deployment":`
-    <div class="diagram">
-      <div class="diagram-title">Cloud Deployment Models</div>
-      <div class="flow">
-        <div class="flow-box">Public</div>
-        <div class="flow-box">Private</div>
-        <div class="flow-box">Community</div>
-        <div class="flow-box">Hybrid</div>
-      </div>
-    </div>`
-  };
-
-  return diagrams[type] || "";
+function randomUnitPaper(id){
+const u=U.find(x=>x.id===id);
+const qs=questionsForUnit(u).sort(()=>Math.random()-.5).slice(0,10);
+document.getElementById("drawer").innerHTML=`
+<div class="drawer-head">
+<div><b>UNIT ${toRoman(id)} Random Paper</b></div>
+<button class="iconbtn" onclick="closeDrawer()">✕</button>
+</div>
+<div class="notes-wrap">
+${qs.map((q,i)=>`<div class="question"><b>Q${i+1}. ${q.marks} Marks</b>${esc(q.q)}</div>`).join("")}
+<button class="btn primary" onclick="randomUnitPaper(${id})">🔄 Generate Again</button>
+</div>`;
+document.getElementById("drawer").classList.add("open")
 }
 
-function startQuiz(){
-  quizIndex=0;
-  score=0;
-  document.getElementById("quizScore").textContent="Score: 0";
-  showQuizQuestion();
+function searchTopics(value){
+const v=value.trim().toLowerCase();
+const r=document.getElementById("results");
+if(!v){r.innerHTML="";return}
+const found=allTopics().filter(x=>
+x.t.toLowerCase().includes(v)||
+x.d.toLowerCase().includes(v)||
+x.unit.title.toLowerCase().includes(v)
+).slice(0,12);
+
+r.innerHTML=found.map(x=>`
+<div class="card">
+<div class="unit-num">UNIT ${toRoman(x.unit.id)}</div>
+<h3>${esc(x.t)}</h3>
+<p>${esc(x.d.slice(0,150))}...</p>
+<button class="btn" onclick="openUnit(${x.unit.id})">Open Topic →</button>
+</div>`).join("")||`<div class="card">No topic found.</div>`
 }
 
-function showQuizQuestion(){
+function openRole(){
+document.getElementById("modal").innerHTML=`
+<div class="modal-box">
+<div style="display:flex;justify-content:space-between">
+<div><div class="unit-num">CSD STUDYHUB</div><h2>Choose your panel</h2></div>
+<button class="iconbtn" onclick="closeModal()">✕</button>
+</div>
 
-  if(quizIndex>=mcqs.length){
-    document.getElementById("quizQuestion").innerHTML=`
-      <h2>🎉 Quiz Complete!</h2>
-      <p>Your final score is <strong>${score}/${mcqs.length}</strong>.</p>`;
-    document.getElementById("quizOptions").innerHTML="";
-    document.getElementById("nextQuiz").textContent="Restart Quiz";
-    document.getElementById("nextQuiz").onclick=startQuiz;
-    return;
-  }
+<div class="role-grid">
+<div class="role" onclick="selectRole('student')">
+<div class="role-icon">🎓</div>
+<h3>Student Panel</h3>
+<p style="color:var(--muted)">Notes, questions, MCQs, random papers, bookmarks and progress.</p>
+<button class="btn primary">Enter Student</button>
+</div>
 
-  const q=mcqs[quizIndex];
-
-  document.getElementById("quizProgress").textContent=
-    `Question ${quizIndex+1} / ${mcqs.length}`;
-
-  document.getElementById("quizQuestion").innerHTML=
-    `<h2>${q[0]}</h2>`;
-
-  document.getElementById("quizOptions").innerHTML=
-    q[1].map((option,i)=>
-      `<button class="quiz-option" onclick="answerQuiz(${i},this)">${String.fromCharCode(65+i)}. ${option}</button>`
-    ).join("");
-
-  document.getElementById("nextQuiz").disabled=true;
+<div class="role" onclick="selectRole('teacher')">
+<div class="role-icon">👨‍🏫</div>
+<h3>Teacher Panel</h3>
+<p style="color:var(--muted)">Subject-wise teaching view for Professor Kiran Chaudhari.</p>
+<button class="btn primary">Enter Teacher</button>
+</div>
+</div>
+</div>`;
+document.getElementById("modal").classList.add("show")
 }
 
-function answerQuiz(choice,button){
-
-  const q=mcqs[quizIndex];
-  const buttons=document.querySelectorAll(".quiz-option");
-
-  buttons.forEach(b=>b.disabled=true);
-
-  if(choice===q[2]){
-    button.classList.add("correct");
-    score++;
-  }else{
-    button.classList.add("wrong");
-    buttons[q[2]].classList.add("correct");
-  }
-
-  document.getElementById("quizScore").textContent=`Score: ${score}`;
-  document.getElementById("nextQuiz").disabled=false;
+function selectRole(role){
+state.role=role;
+save();
+closeModal();
+openRoleDashboard()
 }
 
-function nextQuestion(){
-  quizIndex++;
-  showQuizQuestion();
+function openRoleDashboard(){
+const teacher=state.role==="teacher";
+document.getElementById("modal").innerHTML=`
+<div class="modal-box">
+<div style="display:flex;justify-content:space-between">
+<div>
+<div class="unit-num">${teacher?"TEACHER PANEL":"STUDENT PANEL"}</div>
+<h2>${teacher?"👨‍🏫 Professor Kiran Chaudhari":"🎓 Student Dashboard"}</h2>
+</div>
+<button class="iconbtn" onclick="closeModal()">✕</button>
+</div>
+
+<div class="teacher-banner">
+<b>${SUBJECT.name}</b><br>
+<span style="color:var(--muted)">${SUBJECT.code} • ${SUBJECT.year}</span>
+</div>
+
+<div class="stats">
+<div class="stat"><b>${U.length}</b><small>Units</small></div>
+<div class="stat"><b>${totalTopics()}</b><small>Topics</small></div>
+<div class="stat"><b>${overall()}%</b><small>Progress</small></div>
+<div class="stat"><b>${state.bookmarks.length}</b><small>Bookmarks</small></div>
+</div>
+
+<div class="grid" style="margin-top:15px">
+<div class="card"><h3>📚 Notes</h3><p>Complete Unit I–VI notes.</p><button class="btn" onclick="closeModal();openUnit(1)">Open</button></div>
+<div class="card"><h3>📝 Questions</h3><p>2 / 5 / 10 marks.</p><button class="btn" onclick="closeModal();openQuestions()">Open</button></div>
+<div class="card"><h3>🎲 Paper</h3><p>Random exam paper.</p><button class="btn" onclick="closeModal();randomPaper()">Generate</button></div>
+<div class="card"><h3>📊 Progress</h3><p>${overall()}% completed.</p><div class="progress"><span style="width:${overall()}%"></span></div></div>
+<div class="card"><h3>👨‍🏫 Faculty</h3><p>${SUBJECT.teacher}</p></div>
+<div class="card"><h3>🌱 Eco Study</h3><p>Digital notes reduce unnecessary paper printing.</p></div>
+</div>
+
+${teacher?`
+<div class="teacher-banner" style="margin-top:20px">
+<b>Teacher Subject Mapping</b>
+<p style="color:var(--muted)">${SUBJECT.code} → ${SUBJECT.name}</p>
+<p style="color:var(--muted)">Future subjects can be added with their respective faculty members without changing the student interface.</p>
+</div>`:""}
+
+</div>`;
+document.getElementById("modal").classList.add("show")
 }
 
-function setRating(n){
+function openBookmarks(){
+const items=state.bookmarks.map(k=>{
+const m=k.match(/u(\d+)p(\d+)/);
+if(!m)return null;
+const u=U.find(x=>x.id==m[1]);
+return u?u.points[m[2]]?{u,p:u.points[m[2]],i:m[2]}:null:null
+}).filter(Boolean);
 
-  selectedRating=n;
-
-  document.querySelectorAll("#rating button").forEach((b,i)=>{
-    b.classList.toggle("active",i<n);
-  });
+document.getElementById("modal").innerHTML=`
+<div class="modal-box">
+<div style="display:flex;justify-content:space-between">
+<h2>🔖 Saved Topics</h2>
+<button class="iconbtn" onclick="closeModal()">✕</button>
+</div>
+${items.length?items.map(x=>`
+<div class="question">
+<b>Unit ${toRoman(x.u.id)} • ${esc(x.p.t)}</b>
+<p style="color:var(--muted)">${esc(x.p.d)}</p>
+<button class="btn" onclick="closeModal();openUnit(${x.u.id})">Open</button>
+</div>`).join(""):`<p style="color:var(--muted)">No saved topics yet.</p>`}
+</div>`;
+document.getElementById("modal").classList.add("show")
 }
 
-function submitFeedback(){
-
-  const text=document.getElementById("feedbackText").value.trim();
-
-  if(!selectedRating){
-    alert("Please select a rating.");
-    return;
-  }
-
-  const subject=encodeURIComponent("CNCC StudyHub Feedback - "+selectedRating+"/5");
-  const body=encodeURIComponent(
-    `Rating: ${selectedRating}/5\n\nFeedback:\n${text||"No written feedback."}`
-  );
-
-  document.getElementById("feedbackStatus").innerHTML=
-    `Thank you! Your email client will open to send the feedback.`;
-
-  window.location.href=
-    `mailto:mayuuuuuur@gmail.com?subject=${subject}&body=${body}`;
+function toggleTheme(){
+state.theme=state.theme==="dark"?"light":"dark";
+document.body.classList.toggle("light",state.theme==="light");
+save()
 }
 
-window.addEventListener("DOMContentLoaded",()=>{
+function closeDrawer(){
+document.getElementById("drawer").classList.remove("open")
+}
+function closeModal(){
+document.getElementById("modal").classList.remove("show")
+}
 
-  const saved=localStorage.getItem("theme");
-
-  if(saved){
-    document.documentElement.setAttribute("data-theme",saved);
-  }
-
-  setTimeout(()=>{
-    document.getElementById("loader").style.display="none";
-  },700);
-
-  renderUnits();
-  renderQuestions();
-  startQuiz();
-
+document.addEventListener("keydown",e=>{
+if(e.key==="Escape"){closeDrawer();closeModal()}
 });
+
+layout();
